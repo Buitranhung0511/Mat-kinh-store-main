@@ -195,6 +195,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         </li>
                         {{-- End --}}
 
+                        {{-- Comment Dashboard --}}
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-book"></i>
+                                <span>Comment</span>
+                            </a>
+                            <ul class="sub">
+                                <li><a href="{{ URL::to('/all-comment/') }}">Show commnet list</a></li>
+                            </ul>
+                        </li>
+                        {{-- End --}}
+
 
                     </ul>
                 </div>

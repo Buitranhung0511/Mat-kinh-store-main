@@ -12,6 +12,8 @@ use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\CheckOutController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\DiscountController;
+use App\Http\Controllers\CommentController;
+
 
 
 /*
@@ -26,13 +28,13 @@ use App\Http\Controllers\DiscountController;
 */
 
 // FRONT-END
-Route::get('/', [
-    HomeController::class, 'index'
-])->name('home');
+// Route::get('/', [
+//     HomeController::class, 'index'
+// ])->name('home');
 
-Route::get('/trang-chu', [
-    HomeController::class, 'index'
-])->name('home');
+// Route::get('/trang-chu', [
+//     HomeController::class, 'index'
+// ])->name('home');
 
 
 // BACK-END..
@@ -256,10 +258,34 @@ Route::get('/search-slider', [
 
 
 // MANAGE ORDER
-// Route::get('/view-order', [
-//     OrderController::class, 'view_order'
-// ])->name('view-order');
+Route::get('/view-order', [
+    OrderController::class, 'view_order'
+])->name('view-order');
 
 // Route::get('/delete-order/{id}', [
 //     OrderController::class, 'delete_order'
 // ])->name('delete-order');
+
+
+//============================================================================================================
+
+// MANAGE COMMENT
+Route::get('all-comment', [
+    CommentController::class, 'all_comment'
+])->name('all-comment');
+
+Route::get('search-comment', [
+    CommentController::class, 'search_comment'
+])->name('search-comment');
+
+Route::get('unactive-comment/{comment_id}', [
+    CommentController::class, 'unactive_comment'
+])->name('unactive-comment');
+
+Route::get('active-comment/{comment_id}', [
+    CommentController::class, 'active_comment'
+])->name('active-comment');
+
+Route::get('delete-comment/{comment_id}', [
+    CommentController::class, 'delete_comment'
+])->name('delete-comment');
