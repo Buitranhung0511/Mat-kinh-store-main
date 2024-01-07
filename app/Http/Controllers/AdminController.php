@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Order;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Session;
@@ -32,7 +33,8 @@ class AdminController extends Controller
     public function show_dashboard()
     {
         $this->AuthLogin();           // Nếu login thì trả về trang showDashboard
-        return view('admin.dashboard');
+        $orders = DB::table('orders')->get();
+        return view('admin.dashboard',compact('orders'));
     }
 
     public function dashboard(Request $request)
@@ -46,13 +48,15 @@ class AdminController extends Controller
         // echo '</pre>';
         // return view('admin.dashboard');
 
-
+             
         // KIỂM TẢ DỮ LIỆU CÓ ĐÚNG VỚI DATABASE
         if ($result) {
             Session::put('admin_name', $result->admin_name);
             Session::put('admin_id', $result->admin_id);
-
-            return Redirect::to('/dashboard');
+          
+            
+          
+             return view('/dashboard');
         } else {
             Session::put('message', 'Invalid Email or Password ! Try again.');
             return Redirect::to('/admin_login');
@@ -67,5 +71,24 @@ class AdminController extends Controller
         Session::put('admin_id', null);
 
         return Redirect::to('/admin_login');
+    }
+    // /cap  nhat trang thai order 
+    public function updateOrderStatus(Request $request)
+    {
+        $orderId = $request->input('orderId');
+        $status = $request->input('status');
+
+        // Retrieve the order
+        $order = Order::find($orderId);
+       
+        if (!$order) {
+            return response()->json(['error' => 'Order not found'], 404);
+        }
+
+        // Update the order status
+        $order->order_status = $status;
+        $order->save();
+
+        return response()->json(['success' => true]);
     }
 }

@@ -56,7 +56,7 @@ class HistoryController extends Controller
                 'expected_delivery_date' => $expectedDeliveryDate, // Cập nhật từ thông tin vận chuyển
                 'payment_method' => $data['orderType'], // Cập nhật từ thông tin thanh toán
                 'payment_status' =>  $data['orderInfo'], // Cập nhật từ quy trình thanh toán
-                'order_status' => 'comfiml', // Cập nhật từ trạng thái mặc định hoặc quy trình xử lý
+                'order_status' => 'Pending', // Cập nhật từ trạng thái mặc định hoặc quy trình xử lý
                 'additional_notes' => 'Ghi chú thêm', // Nếu có
                 'discount_code' => '10', // Nếu áp dụng
                 'total_discount' => '10', // Nếu áp dụng

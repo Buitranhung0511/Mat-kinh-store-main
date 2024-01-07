@@ -73,7 +73,10 @@ Route::post('/admin-dashboard', [
     AdminController::class, 'dashboard'
 ])->name('/admin-dashboard');
 
-
+// ordersatus
+Route::get('/update-order-status', [
+    AdminController::class, 'updateOrderStatus' 
+])->name('/update-order-status');
 // XỬ LÝ CATEGORY-PRODUCT (DASHBOARD)
 
 Route::get('/add-category-product', [

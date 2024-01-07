@@ -159,7 +159,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <section class="wrapper">
 
                 @yield('admin_content')
-                @yield('admin-content')
             </section>
             <!-- Phan Body -->
 
@@ -174,6 +173,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         </section>
         <!--main content end-->
     </section>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="{{ asset('backend/js/bootstrap.js') }}"></script>
     <script src="{{ asset('backend/js/jquery.dcjqaccordion.2.7.js') }}"></script>
     <script src="{{ asset('backend/js/scripts.js') }}"></script>
@@ -181,6 +181,38 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <script src="{{ asset('backend/js/jquery.nicescroll.js') }}"></script>
     {{-- <script src="{{ asset('backend/ckeditor5-build-classic/ckeditor.js') }}"></script> --}}
     <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
+   {{-- luongth functions order --}}
+   <script>
+    function updateOrderStatus(orderId, status) {
+            $.ajax({
+                type: 'GET',
+                url: '/update-order-status',
+                data: {
+                    orderId: orderId,
+                    status: status
+                },
+                success: function (data) {
+                    console.log('Order status updated successfully.');
+                },
+                error: function (error) {
+                    console.error('Error updating order status.');
+                }
+            });
+        }
+    $(document).ready(function () {
+//         $('.wrapper').on('click', '.order_shipped', function() {
+//     var orderId = $(this).data('order-id');
+//     updateOrderStatus(orderId, 'Shipped');
+// });
+
+//         $('.order_cancel').click(function () {
+//             var orderId = $(this).data('order-id');
+//             updateOrderStatus(orderId, 'Cancelled');
+//         });
+
+        
+    });
+</script>
     <!-- Khởi tạo CKEditor cho textarea có id là 'editor' -->
     <script>
         ClassicEditor
