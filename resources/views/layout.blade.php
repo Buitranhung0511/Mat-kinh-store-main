@@ -369,8 +369,87 @@
     
     
        $(document).ready(function () {
+        // render country
+        // 1. what is API
+// 2. How do I call API
+// 3. Explain code
+const host = "https://provinces.open-api.vn/api/";
+var callAPI = (api) => {
+    $.ajax({
+        url: api,
+        type: 'GET',
+        success: function(response) {
+
+            renderData(response, "province");
+        },
+        error: function(error) {
+            console.log("Error:", error);
+        }
+    });
+};
+callAPI('https://provinces.open-api.vn/api/?depth=1');
+var callApiDistrict = (api) => {
+    $.ajax({
+        url: api,
+        type: 'GET',
+        success: function(response) {
+            console.log(response)
+            renderData(response.districts, "district");
+        },
+        error: function(error) {
+            console.log("Error:", error);
+        }
+    });
+};
+
+var callApiWard = (api) => {
+    $.ajax({
+        url: api,
+        type: 'GET',
+        success: function(response) {
+            console.log(response)
+            renderData(response.wards, "ward");
+        },
+        error: function(error) {
+            console.log("Error:", error);
+        }
+    });
+};
+
+
+var renderData = (array, select) => {
+    let row = ' <option disable value="">chọn</option>';
+    array.forEach(element => {
+        row += `<option value="${element.code}">${element.name}</option>`
+    });
+    $("#" + select).html(row);
+
+}
+
+$("#province").change(() => {
+    callApiDistrict(host + "p/" + $("#province").val() + "?depth=2");
+    printResult();
+});
+$("#district").change(() => {
+    callApiWard(host + "d/" + $("#district").val() + "?depth=2");
+    printResult();
+});
+$("#ward").change(() => {
+    printResult();
+})
+
+var printResult = () => {
+    if ($("#district").val() != "" && $("#province").val() != "" &&
+        $("#ward").val() != "") {
+        let result = $("#province option:selected").text() +
+            " | " + $("#district option:selected").text() + " | " +
+            $("#ward option:selected").text();
+        $("#result").text(result)
+    }
+
+}
         
-    
+    // update cart
          function addToCard(event){
         event.preventDefault();
         let urlProduct = $(this).data('url');
@@ -475,10 +554,10 @@
             phone: $("#inputPhone").val(),
             email: $("#inputEmail").val(),
             address: $("#inputAddress").val(),
-            city: $("#citySelect").val(),
-            house: $("#inputHause").val(),
-            postalCode: $("#postalCodeInput").val(),
-            zip: $("#zipInput").val(),
+            city:$("#province option:selected").text(),
+            district: $("#district option:selected").text(),
+            ward:$("#ward option:selected").text(),
+
             checkbox1: $("#flexCheckDefault").prop("checked"),
             checkbox2: $("#flexCheckDefault1").prop("checked")
         };
@@ -516,23 +595,20 @@
             return false;
         }
     
-        // Validate House
-        if ($.trim(values.house) === '') {
+        // Validate district
+        if ($.trim(values.district) === '') {
             alert("Please fill in the House field");
             return false;
         }
     
-        // Validate Postal Code
-        if ($.trim(values.postalCode) === '') {
+        // Validate ward
+        if ($.trim(values.ward) === '') {
             alert("Please fill in the Postal Code field");
             return false;
         }
     
-        // Validate Zip
-        if ($.trim(values.zip) === '') {
-            alert("Please fill in the Zip field");
-            return false;
-        }
+     
+        
     
         // Validate Checkbox 1
         if (!values.checkbox1) {
@@ -549,7 +625,9 @@
         // You can add more validation rules as needed
     
         return true;
-    }function setModalFields(nameProduct, quantity, subtotal, nameUser,email,phone, address,house,postalCode,zip) {
+    };
+    
+    function setModalFields(nameProduct, quantity, subtotal, nameUser,email,phone, address,city,district,ward) {
         $('#nameProduct').val(nameProduct);
         $('#quantity').val(quantity);
        
@@ -558,23 +636,25 @@
         $('#nameUser').val(nameUser);
         $('#phoneUser').val(phone);
         $('#emailUser').val(email);
-        $('#address').val(address + ', ' + house + ', ' + postalCode + ', ' + zip);
+        $('#address').val(address + ', ' + city + ', ' + district + ', ' + ward);
     
       }
       function openModal(data) {
         // Set modal fields with the provided data
-        setModalFields(data.product, data.quantity, data.subtotal, data.fullname,data.email,data.phone, data.address,data.house,data.postalCode,data.zip);
+        setModalFields(data.product, data.quantity, data.subtotal, data.fullname,data.email,data.phone, data.address,data.city,data.district,data.ward);
     
         // Show the modal
         $('#myModal').modal('show');
       }
       $('#showModalButton').on('click', function () {
         let data = getValueInput();
+        console.log(data);
        if(validateForm(data)){
        let url = 'http://127.0.0.1:8000/data_user'
         $.ajax({
             type: 'GET',
             dataType: 'json',
+            contentType: 'application/json; charset=utf-8', 
             url: url,
             data: data,
             success: function(response) {

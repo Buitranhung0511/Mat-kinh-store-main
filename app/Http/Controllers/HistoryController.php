@@ -46,12 +46,12 @@ class HistoryController extends Controller
              
                 'total_amount' =>$data['amount'], // Tính toán từ giỏ hàng
                 'shipping_address' => json_encode([
-                    'house' => $address['house'],
+                    'address' => $address['address'],
                     'city' => $address['city'],
-                    'postalCode' => $address['postalCode'],
-                    'zip' => $address['zip'],
-                    // Các trường khác có thể cần thiết
-                ]), // Đã lấy từ session
+                    'district' => $address['district'],
+                    'ward' => $address['ward'],
+                    // Other necessary fields
+                ], JSON_UNESCAPED_UNICODE),
                 'shipping_method' => 'Grad', // Cập nhật từ thông tin vận chuyển
                 'expected_delivery_date' => $expectedDeliveryDate, // Cập nhật từ thông tin vận chuyển
                 'payment_method' => $data['orderType'], // Cập nhật từ thông tin thanh toán
@@ -167,25 +167,27 @@ public function insertPaymentVNpay(Request $request){
             
             'city' => 'required',
             'email' => 'required|email',
+            'phone'=>'required',
             'fullname' => 'required',
-            'house' => 'required',
-            'phone' => 'required',
-            'postalCode' => 'required',
-            'zip' => 'required',
+            'address' => 'required',
+            'district' => 'required',
+            'city' => 'required',
+            'ward' => 'required',
         ]);
         session()->put('address', [
                       
             'city' => $validatedData['city'],
             'email' => $validatedData['email'],
             'fullname' => $validatedData['fullname'],
-            'house' => $validatedData['house'],
+            'address' => $validatedData['address'],
             'phone' => $validatedData['phone'],
-            'postalCode' => $validatedData['postalCode'],
-            'zip' => $validatedData['zip'],
+            'district' => $validatedData['district'],
+            'ward' => $validatedData['ward'],
         ]);
     
         // Perform database operations, validation, etc.
         $address = session()->get('address');
+      
         return response()->json(['message' => 'Request processed successfully','code'=>200,compact('address')],200);
      }
 

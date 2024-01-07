@@ -98,42 +98,35 @@
                 </div>
     
                 <div class="row">
-                  <div class="col-sm-8 mb-3">
+                  <div class="col-sm-4 mb-3">
                     <p class="mb-0">Address</p>
-                    <div class="form-outline">
                       <input type="text" id="inputAddress" placeholder="Type here" class="form-control" />
-                    </div>
                   </div>
     
                   <div class="col-sm-4 mb-3">
                     <p class="mb-0">City</p>
-                    <select class="form-select" id="citySelect">
-                      <option value="1">New York</option>
-                      <option value="2">Moscow</option>
-                      <option value="3">Samarqand</option>
+                    <select  id="province">
+
                     </select>
+                  
                   </div>
     
                   <div class="col-sm-4 mb-3">
-                    <p class="mb-0">House</p>
-                    <div class="form-outline">
-                      <input type="text" id="inputHause" placeholder="Type here" class="form-control" />
-                    </div>
+                    <p class="mb-0">District</p>
+                      <select name="" id="district">
+                        <option  value="">chọn quận</option>
+                    </select>
+                     
                   </div>
     
-                  <div class="col-sm-4 col-6 mb-3">
-                    <p class="mb-0">Postal code</p>
-                    <div class="form-outline">
-                      <input type="text" id="postalCodeInput" class="form-control" />
-                    </div>
+                  <div class="col-sm-4  mb-3">
+                    <p class="mb-0">Ward</p>
+                    <select  id="ward">
+                      <option   value="">chọn phường</option>
+                  </select>
                   </div>
     
-                  <div class="col-sm-4 col-6 mb-3">
-                    <p class="mb-0">Zip</p>
-                    <div class="form-outline">
-                      <input type="text" id="zipInput" class="form-control" />
-                    </div>
-                  </div>
+                
                 </div>
     
                 <div class="form-check mb-3">
