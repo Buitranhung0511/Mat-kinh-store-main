@@ -107,10 +107,7 @@ class CategoryProductController extends Controller
         return Redirect::to('all-category-product');
     }
 
-    //============== END FUNCTION ADMIN PAGES ==================
-
-
-
+    //============== END FUNCTION ADMIN PAGES ================
     public function show_category_home($category_id){
         $cate_product = DB::table('category_product')->where('category_status','0')->orderby('category_id','desc')->get();
 
