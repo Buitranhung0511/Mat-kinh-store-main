@@ -39,6 +39,7 @@
                   </thead>
                   <tbody>
 
+
                    @foreach($orders as $order)
                    
             <tr>
@@ -56,21 +57,20 @@
                 <td class="table">
                     @if($order->order_status == 'Pending')
                         <button
-                         class="btn btn-primary order_shipter" onclick="updateOrderStatus({{ $order->id }}, 'comfiml')"
-                         data-order-id="{{ $order->id }}"
+                         class="btn btn-primary order_shipter"
+                         
                             
                             >Mark Shipped</button>
                         
-                            <button class="btn btn-danger order_cancel" onclick="updateOrderStatus({{ $order->id }}, 'Cancelled')">Cancel Order</button>
+                            <button class="btn btn-danger order_cancel">Cancel Order</button>
                        @elseif($order->order_status == 'comfiml')
-                        <!-- Additional buttons or actions for 'Shipped' status -->
+                       
                         <button class="btn btn-success">Confirm Delivery</button>
                         @elseif($order->order_status == 'Cancelled')
-                        <!-- Button for 'Cancelled' status -->
+                      
                         <button class="btn btn-secondary">Cancelled</button>
                     @else
-                        <!-- Additional buttons or actions for other statuses -->
-                        <!-- You can add more conditions based on your needs -->
+                       
                     @endif
                 </td>
                 <td>{{ $order->additional_notes }}</td>
@@ -90,8 +90,8 @@
             </div>
           
 @endsection
-@push('scripts')
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<!-- @push('scripts') -->
+<!-- <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
     $(document).ready(function () {
         $('.order_shipped').click(function () {
@@ -124,4 +124,4 @@
         }
     });
 </script>
-@endpush
+@endpush -->

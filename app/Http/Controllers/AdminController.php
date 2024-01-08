@@ -33,8 +33,9 @@ class AdminController extends Controller
     public function show_dashboard()
     {
         $this->AuthLogin();           // Nếu login thì trả về trang showDashboard
-        $orders = DB::table('orders')->get();
-        return view('admin.dashboard',compact('orders'));
+         $orders = DB::table('orders')->get();
+         
+        return view('admin.dashboard',['orders'=>$orders]);
     }
 
     public function dashboard(Request $request)
@@ -48,7 +49,7 @@ class AdminController extends Controller
         // echo '</pre>';
         // return view('admin.dashboard');
 
-             
+            
         // KIỂM TẢ DỮ LIỆU CÓ ĐÚNG VỚI DATABASE
         if ($result) {
             Session::put('admin_name', $result->admin_name);
@@ -56,7 +57,7 @@ class AdminController extends Controller
           
             
           
-             return view('/dashboard');
+             return view('admin_layout');
         } else {
             Session::put('message', 'Invalid Email or Password ! Try again.');
             return Redirect::to('/admin_login');

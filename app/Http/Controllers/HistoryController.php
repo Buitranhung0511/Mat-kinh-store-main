@@ -37,6 +37,7 @@ class HistoryController extends Controller
             }
             $today = Carbon::now(); // Lấy ngày hiện tại
         $expectedDeliveryDate = $today->addDays(3)->format('Y-m-d'); // Cộng thêm 3 ngày
+      
             $order = new Order([
                 'customer_name' =>$address['fullname'], // Cập nhật từ thông tin khách hàng
                 'email' => $address['email'], // Cập nhật từ thông tin khách hàng
@@ -79,7 +80,7 @@ class HistoryController extends Controller
                 ]);
                 $product = Product::find($id);
                 if ($product) {
-                    $product->product_status -= $cart['quantity'];
+                    $product->product_quantity -= $cart['quantity'];
                     $product->save();
                 } else {
                     dd('không tìm tháy product');
@@ -87,7 +88,7 @@ class HistoryController extends Controller
                 }
                 $orderDetail->save();
             }
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
         //get  address
@@ -124,7 +125,7 @@ class HistoryController extends Controller
         }
     } catch (\Exception $e) {
         // Handle the exception (e.g., log an error)
-        \Log::error($e->getMessage());
+      
         return response()->json(['message' => 'Error processing payment'], 400);
     }
 }
@@ -148,14 +149,16 @@ public function insertPaymentVNpay(Request $request){
         // Check if errorCode is set and equal to 0
         if (isset($data['vnp_TransactionStatus']) && $data['vnp_TransactionStatus'] == 0) {
             Payment::create($data_vnpay);
-
             $this->saveOrder($data_vnpay);
+
+
+            ;
 
              return redirect()->route('thank');
         }
     } catch (\Exception $e) {
         // Handle the exception (e.g., log an error)
-        \Log::error($e->getMessage());
+      
         return response()->json(['message' => 'Error processing payment'], 400);
     }
 }
