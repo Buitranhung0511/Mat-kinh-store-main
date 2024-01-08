@@ -44,6 +44,9 @@ Route::post('/insert_rating', [
     ProductController::class,'Rating'
 ])->name('/insert_rating');
 
+Route::get('/load-comment', [
+    ProductController::class,'load_comment'
+])->name('/load_comment');
 //Danh mục sản phẩm - Trang Chủ "Hung"============
 
 

@@ -10,8 +10,9 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Log;
 
-use App\Models\Rating;
 
+use App\Models\Rating;
+use App\Models\Comment;
 
 use file;
 
@@ -200,6 +201,26 @@ class ProductController extends Controller
         $rating->rating = $data['index'];
         $rating->save();
         echo'done';
+    }
+
+    public function load_comment(Request $request){
+        $product_id = $request->product_id;
+        $comment  = Comment::where('comment_product_id',$product_id)->get();
+        $output=''; 
+        foreach($comment as $key => $comm){
+            $output.='<div class="row style_comment">
+            <div class="col-md-2">
+                <img width="70%" src="/frontend/images/batman_icon.png" class="img img-responsive img-thumbnail">
+            </div>
+            <div class="col-md-10">
+                <p style="color: blue;">@'.$comm->comment_name.'</p>
+                <p>'.$comm->comment.'</p>
+            </div>
+            
+        </div>
+        <p></p>';
+        }
+        echo $output;
     }
      //PHAN CUA HƯNG
 

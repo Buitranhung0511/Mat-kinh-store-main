@@ -23,6 +23,7 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head><!--/head-->
 
 <body>
@@ -223,7 +224,8 @@
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
-                                        <a href="{{URL::to('/danh-muc-san-pham/'.$cate->category_id)}}">{{$cate->category_name}}</a></h4>
+                                        <a href="{{URL::to('/danh-muc-san-pham/'.$cate->category_id)}}">{{$cate->category_name}}</a>
+                                    </h4>
                                 </div>
                             </div>
                             @endforeach
@@ -441,55 +443,80 @@
 </body>
 
 <script type="text/javascript">
-    function remove_background(product_id){
-        for(var count = 1; count <=5; count++){
-            $('#'+product_id+'-'+count).css('color','#ccc');
+    function remove_background(product_id) {
+        for (var count = 1; count <= 5; count++) {
+            $('#' + product_id + '-' + count).css('color', '#ccc');
         }
     }
 
-  // hover chuột đánh giá sao
-  $(document).on('mouseenter','.rating',function() {
-    var index =$(this).data("index");
-    var product_id = $(this).data('product_id');
+    // hover chuột đánh giá sao
+    $(document).on('mouseenter', '.rating', function() {
+        var index = $(this).data("index");
+        var product_id = $(this).data('product_id');
 
-    remove_background(product_id);
+        remove_background(product_id);
 
-    for(var count =1; cpunt<=index;count++){
-        $('#'+product_id+'-'+count).css('color','#ffcc00');
-    }
-  }); 
-
-  //nhả chuột không đánh giá sao
-  $(document).on('mouseleave','.rating', function(){
-    var index = $(this).data("index");
-    var product_id = $(this).data('product_id');
-    var rating = $(this).data("rating");
-    remove_background(product_id);
-    for (var count = 1; count <=rating; count++) {
-        $('#'+product_id+'-'+count).css('color','#ffcc00');
-    }
-  });
-
-  //click đánh giá sao
-  $(document).on('click','.rating',function(){
-    var index =$(this).data("index");
-    var product_id = $(this).data('product_id');
-    var _token = $('input[name="_token"]').val();
-    $.ajax({
-        url:"{{url('insert-rating')}}",
-        method:"POST",
-        data:{index:index, product_id:product_id,_token:_token},
-        success:function(data){
-            if(data== 'done'){
-                alert("Bạn Đã Đánh Giá"+index+"trên 5 ");
-            }else{
-                alert("LỖI: Không thể đánh giá");
-            }
+        for (var count = 1; cpunt <= index; count++) {
+            $('#' + product_id + '-' + count).css('color', '#ffcc00');
         }
     });
-  });
 
+    //nhả chuột không đánh giá sao
+    $(document).on('mouseleave', '.rating', function() {
+        var index = $(this).data("index");
+        var product_id = $(this).data('product_id');
+        var rating = $(this).data("rating");
+        remove_background(product_id);
+        for (var count = 1; count <= rating; count++) {
+            $('#' + product_id + '-' + count).css('color', '#ffcc00');
+        }
+    });
+
+    //click đánh giá sao
+    $(document).on('click', '.rating', function() {
+        var index = $(this).data("index");
+        var product_id = $(this).data('product_id');
+        var _token = $('input[name="_token"]').val();
+        $.ajax({
+            url: "{{url('insert-rating')}}",
+            method: "POST",
+            data: {
+                index: index,
+                product_id: product_id,
+                _token: _token
+            },
+            success: function(data) {
+                if (data == 'done') {
+                    alert("Bạn Đã Đánh Giá" + index + "trên 5 ");
+                } else {
+                    alert("LỖI: Không thể đánh giá");
+                }
+            }
+        });
+    });
 </script>
 
+<!-- Phan Script cho Comment -->
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        load_comment();
+
+        function load_comment() {
+            var product_id = $('.comment_product_id').val();
+            var _token = $('input[name="_token"]').val();
+
+            $.ajax({
+                url: "{{url('/load-comment')}}",
+                method: "GET",
+                data: {product_id: product_id,_token: _token},
+                success: function(data) {
+                    $('#comment_show').html(data);
+
+                }
+            });
+        }
+    });
+</script>
 
 </html>
