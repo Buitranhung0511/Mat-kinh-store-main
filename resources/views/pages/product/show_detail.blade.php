@@ -33,21 +33,19 @@
 	<div class="col-sm-7">
 		<div class="product-information"><!--/product-information-->
 			<img src="images/product-details/new.jpg" class="newarrival" alt="" />
-			<h2>{{$value->product_name}}</h2>
-			<p>ID: {{$value->product_id}}</p>
+			<h2>{{$value->product_content}}</h2>
 			<img src="images/product-details/rating.png" alt="" />
 			<span>
 				<span>{{number_format($value->product_price).'$'}}</span>
 				<label>Quantity:</label>
 				<input type="number" min="1" value="1" />
-				<button type="button" class="btn btn-fefault cart">
-					<i class="fa fa-shopping-cart"></i>
-					Them Gio Hang
-				</button>
+				<a data-url="{{ route('addToCard', ['id' => $value->product_id]) }}" class="btn btn-default add_to_card">
+					<i class="fa fa-shopping-cart"></i>Add to cart
+				</a>
 			</span>
 			<p><b>Tinh Trang:</b> Con Hang</p>
 			<p><b>Condition:</b> New</p>
-			<p><b>Danh Muc:</b> {{$value->category_name}}</p>
+			<p><b>Danh Muc:</b> {{$value->product_desc}}</p>
 			<a href=""><img src="images/product-details/share.png" class="share img-responsive" alt="" /></a>
 		</div><!--/product-information-->
 	</div>
@@ -84,10 +82,10 @@
 				<p><b>Write Your Review</b></p>
 					 
 				 
-				<ul class="list-inline" title="Average Rating">
+				{{-- <ul class="list-inline" title="Average Rating">
 					@for($count=1; $count<=5; $count++) 
 						<?php
-						if($count<=$rating){
+						if($count<= $rating){
 							$color = 'color:#ffcc00;';
 						}else{
 							$color = 'color:#ccc;';
@@ -105,7 +103,7 @@
 						&#9733;
 					</li>
 					@endfor
-				</ul>
+				</ul> --}}
 
 				<form action="#">
 					<span>
@@ -129,7 +127,7 @@
 <div class="recommended_items"><!--recommended_items-->
 	<h2 class="title text-center">Sản Phẩm Liên Quan</h2>
 
-	<div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
+	{{-- <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
 		<div class="carousel-inner">
 			<div class="item active">
 				@foreach($relate  as $ket => $lienquan)
@@ -156,5 +154,5 @@
 				<i class="fa fa-angle-right"></i>
 			</a>
 		</div>
-	</div><!--/recommended_items-->
+	</div><!--/recommended_items--> --}}
 	@endsection
