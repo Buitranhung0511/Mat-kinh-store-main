@@ -24,6 +24,7 @@ class Product extends Model
         'product_content',
         'product_price',
         'product_image',
+        'product_quantity',
         'product_status'
     ];
 }

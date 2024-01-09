@@ -8,8 +8,8 @@ use Illuminate\Support\Facades\Session;
     <title>DashBoard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="keywords" content="Visitors Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+    />
+    
     <script type="application/x-javascript">
         addEventListener("load", function() {
             setTimeout(hideURLbar, 0);
@@ -27,6 +27,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <link href="{{ asset('backend/css/style-responsive.css') }}" rel="stylesheet" />
     <!-- font CSS -->
     <link href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+    <!-- Custom CSS.. -->
+    <link href="{{ asset('backend/css/style.css') }}" rel='stylesheet' type='text/css' />
+    <link href="{{ asset('backend/css/style-responsive.css') }}" rel="stylesheet" />
+    <!-- font CSS -->
+    <link
+        href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic'
+        rel='stylesheet' type='text/css'>
     <!-- font-awesome icons -->
     <link rel="stylesheet" href="{{ asset('backend/css/font.css') }}" type="text/css" />
     <link href="{{ asset('backend/css/font-awesome.css') }}" rel="stylesheet">
@@ -119,11 +126,24 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             </a>
                         </li>
 
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-book"></i>
+                                <span>Banner</span>
+                            </a>
+                            <ul class="sub">
+                                <li><a href="{{ URL::to('/add-slider/') }}">Add slider</a></li>
+                                <li><a href="{{ URL::to('/manage-slider/') }}">Show slider list</a></li>
+                            </ul>
+                        </li>
+
+
                         {{-- Category product Dashboard --}}
                         <li class="sub-menu">
                             <a href="javascript:;">
                                 <i class="fa fa-book"></i>
                                 <span>Category products list</span>
+                                <span>Category products</span>
                             </a>
                             <ul class="sub">
                                 <li><a href="{{ URL::to('/add-category-product/') }}">Add Category product</a></li>
@@ -137,6 +157,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             <a href="javascript:;">
                                 <i class="fa fa-book"></i>
                                 <span>Products list</span>
+                                <span>Products</span>
                             </a>
                             <ul class="sub">
                                 <li><a href="{{ URL::to('/add-product/') }}">Add product</a></li>
@@ -144,6 +165,58 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             </ul>
                         </li>
                         {{-- End --}}
+
+                        {{-- Member Dashboard --}}
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-book"></i>
+                                <span>Member</span>
+                            </a>
+                            <ul class="sub">
+                                <li><a href="{{ URL::to('/register-member/') }}">Register Member</a></li>
+                                <li><a href="{{ URL::to('/all-member/') }}">Show member list</a></li>
+                            </ul>
+                        </li>
+                        {{-- End --}}
+
+                        {{-- Order Dashboard --}}
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-book"></i>
+                                <span>Order</span>
+                            </a>
+                            <ul class="sub">
+                                <li><a href="{{ URL::to('/view-order/') }}">Manage Order</a></li>
+
+                            </ul>
+                        </li>
+                        {{-- End --}}
+
+                        {{-- Discount Dashboard --}}
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-book"></i>
+                                <span>Discount</span>
+                            </a>
+                            <ul class="sub">
+                                <li><a href="{{ URL::to('/add-discount/') }}">Add discount</a></li>
+                                <li><a href="{{ URL::to('/all-discount/') }}">Show discount list</a></li>
+                            </ul>
+                        </li>
+                        {{-- End --}}
+
+                        {{-- Comment Dashboard --}}
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-book"></i>
+                                <span>Comment</span>
+                            </a>
+                            <ul class="sub">
+                                <li><a href="{{ URL::to('/all-comment/') }}">Show commnet list</a></li>
+                            </ul>
+                        </li>
+                        {{-- End --}}
+
 
                     </ul>
                 </div>
@@ -159,6 +232,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <section class="wrapper">
 
                 @yield('admin_content')
+                @yield('admin-content')
             </section>
             <!-- Phan Body -->
 
@@ -181,6 +255,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <script src="{{ asset('backend/js/jquery.nicescroll.js') }}"></script>
     {{-- <script src="{{ asset('backend/ckeditor5-build-classic/ckeditor.js') }}"></script> --}}
     <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
+
    {{-- luongth functions order --}}
    <script>
     function updateOrderStatus(orderId, status) {
@@ -213,6 +288,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         
     });
 </script>
+
+    {{-- script tìm kiếm sản phẩm --}}
+
+    {{-- <script src="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+
+    <script>
+        new DataTable('#example', {
+            search: {
+                return: true
+            }
+        });
+    </script> --}}
+
     <!-- Khởi tạo CKEditor cho textarea có id là 'editor' -->
     <script>
         ClassicEditor
@@ -243,11 +333,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             });
     </script>
 
+    {{-- Đoạn script check validate --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/validator/13.6.0/validator.min.js"></script>
     <script>
         function validateForm(formName) {
             var form = document.forms[formName];
-            
             var inputs = form.getElementsByTagName('input');
 
             for (var i = 0; i < inputs.length; i++) {
@@ -264,15 +354,31 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
                 //    console.log('input name ', label);
                 //    console.log('input value ', value);
+                // Ghi thông tin ra console
+                console.log("Tên trường input:", label);
+                console.log("Giá trị của trường input:", value);
+
+                // Kiểm tra xem trường input có thuộc tính name hợp lệ không
+                if (!label || label === "null") {
+                    console.error("Trường input không hợp lệ: ", input);
+                    continue; // Bỏ qua và chuyển sang trường input tiếp theo
+                }
+
+                // Kiểm tra xem trường input có giá trị không
                 if (validator.isEmpty(value)) {
                     alert("Vui lòng nhập " + label);
                     return false;
                 }
+
+
+                // Thêm các điều kiện kiểm tra khác tại đây
             }
 
             return true;
         }
     </script>
+
+
 
 
     <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/flot-chart/excanvas.min.js"></script><![endif]-->
@@ -413,5 +519,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     </script>
     <!-- //calendar -->
 </body>
+
 
 </html>
