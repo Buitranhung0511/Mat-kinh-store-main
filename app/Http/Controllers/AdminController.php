@@ -6,6 +6,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Order;
+use App\Models\StatirticModel;
+
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
@@ -135,4 +137,28 @@ class AdminController extends Controller
 
         return response()->json(['success' => true]);
     }
+    public function filterBydate(Request $request)
+    {
+        $data = $request->all();
+        $from_date = $data['from_date'];
+        $to_date = $data['to_date'];
+    
+        $statistics = StatirticModel::whereBetween('order_date', [$from_date, $to_date])
+            ->orderBy('order_date', 'ASC')
+            ->get();
+    
+        $chart_data = [];
+        foreach ($statistics as $value) {
+            $chart_data[] = array(
+                'perifod' => $value->order_date,
+                'order' => $value->total_order,
+                'sales' => $value->sales,
+                'quantity' => $value->quantity,
+            );
+        }
+    
+        // Explicitly setting the HTTP status code to 200
+        return response()->json($chart_data, 200);
+    }
+    
 }

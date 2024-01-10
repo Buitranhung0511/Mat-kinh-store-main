@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Session;
     <title>DashBoard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    />
+
     
     <script type="application/x-javascript">
         addEventListener("load", function() {
@@ -24,6 +24,8 @@ use Illuminate\Support\Facades\Session;
     <!-- //bootstrap-css -->
     <!-- Custom CSS -->
     <link href="{{ asset('backend/css/style.css') }}" rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
     <link href="{{ asset('backend/css/style-responsive.css') }}" rel="stylesheet" />
     <!-- font CSS -->
     <link href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
@@ -232,7 +234,7 @@ use Illuminate\Support\Facades\Session;
             <section class="wrapper">
 
                 @yield('admin_content')
-                @yield('admin-content')
+              
             </section>
             <!-- Phan Body -->
 
@@ -255,37 +257,74 @@ use Illuminate\Support\Facades\Session;
     <script src="{{ asset('backend/js/jquery.nicescroll.js') }}"></script>
     {{-- <script src="{{ asset('backend/ckeditor5-build-classic/ckeditor.js') }}"></script> --}}
     <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
-
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    4 <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
    {{-- luongth functions order --}}
-   <script>
-    function updateOrderStatus(orderId, status) {
+
+   <script  type="application/x-javascript">
+    $( function() {
+        
+      $( "#datepicker" ).datepicker({
+
+
+        dateFormat:"yy-mm-dd"
+      });
+      $( "#datepicker2" ).datepicker({
+
+
+dateFormat:"yy-mm-dd"
+});
+    } );
+    </script>
+
+<script>
+    $(document).ready(function () {
+
+ var chart = new Morris.Bar({
+  // ID of the element in which to draw the chart.
+  element: 'myfirstchart',
+  barColors: ['#00a65a', '#32c5d2', '#5cb85c', '#8cc152'],
+ parseTime:false,
+ hideHover:'auto',
+  // Chart data records -- each entry in this array corresponds to a point on
+  // the chart.
+  
+  // The name of the data record attribute that contains x-values.
+  xkey: 'perifod',
+  // A list of names of data record attributes that contain y-values.
+  ykeys: ['order','sales','profit','quantity'],
+  // Labels for the ykeys -- will be displayed when you hover over the
+  labels:['đơn hàng','doanh số','lợi nhuận','số lượng']
+  // chart.
+});
+
+        $('#filterForm').submit(function (event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            // Your AJAX request code goes here
+            var _token = $('input[name="_token"]').val();
+            var from_date = $('#datepicker').val();
+            var to_date = $('#datepicker2').val();
+
             $.ajax({
                 type: 'GET',
-                url: '/update-order-status',
+                url: '/filter_by_date', // Replace with the actual endpoint URL
                 data: {
-                    orderId: orderId,
-                    status: status
+                    // _token: _token,
+                    from_date: from_date,
+                    to_date: to_date
                 },
-                success: function (data) {
-                    console.log('Order status updated successfully.');
+                success: function (response) {
+                    console.log(response);
+                   chart.setData(response);
                 },
                 error: function (error) {
-                    console.error('Error updating order status.');
+                    console.error(error);
+                    // Handle the error or show a message to the user
                 }
             });
-        }
-    $(document).ready(function () {
-//         $('.wrapper').on('click', '.order_shipped', function() {
-//     var orderId = $(this).data('order-id');
-//     updateOrderStatus(orderId, 'Shipped');
-// });
-
-//         $('.order_cancel').click(function () {
-//             var orderId = $(this).data('order-id');
-//             updateOrderStatus(orderId, 'Cancelled');
-//         });
-
-        
+        });
     });
 </script>
 
@@ -308,28 +347,28 @@ use Illuminate\Support\Facades\Session;
         ClassicEditor
             .create(document.querySelector('#editor'))
             .then(editor => {
-                console.log('Editor was initialized', editor);
+                // console.log('Editor was initialized', editor);
             })
             .catch(error => {
-                console.error('There was an error initializing the editor:', error);
+                // console.error('There was an error initializing the editor:', error);
             });
 
         ClassicEditor
             .create(document.querySelector('#editor2'))
             .then(editor2 => {
-                console.log('Editor was initialized', editor);
+                // console.log('Editor was initialized', editor);
             })
             .catch(error => {
-                console.error('There was an error initializing the editor:', error);
+                // console.error('There was an error initializing the editor:', error);
             });
 
         ClassicEditor
             .create(document.querySelector('#editor3'))
             .then(editor3 => {
-                console.log('Editor was initialized', editor);
+                // console.log('Editor was initialized', editor);
             })
             .catch(error => {
-                console.error('There was an error initializing the editor:', error);
+                // console.error('There was an error initializing the editor:', error);
             });
     </script>
 
@@ -404,92 +443,93 @@ use Illuminate\Support\Facades\Session;
             function gd(year, day, month) {
                 return new Date(year, month - 1, day).getTime();
             }
+            
+           
+            // graphArea2 = Morris.Area({
+            //     element: 'hero-area',
+            //     padding: 10,
+            //     behaveLikeLine: true,
+            //     gridEnabled: false,
+            //     gridLineColor: '#dddddd',
+            //     axes: true,
+            //     resize: true,
+            //     smooth: true,
+            //     pointSize: 0,
+            //     lineWidth: 0,
+            //     fillOpacity: 0.85,
+            //     data: [{
+            //             period: '2015 Q1',
+            //             iphone: 2668,
+            //             ipad: null,
+            //             itouch: 2649
+            //         },
+            //         {
+            //             period: '2015 Q2',
+            //             iphone: 15780,
+            //             ipad: 13799,
+            //             itouch: 12051
+            //         },
+            //         {
+            //             period: '2015 Q3',
+            //             iphone: 12920,
+            //             ipad: 10975,
+            //             itouch: 9910
+            //         },
+            //         {
+            //             period: '2015 Q4',
+            //             iphone: 8770,
+            //             ipad: 6600,
+            //             itouch: 6695
+            //         },
+            //         {
+            //             period: '2016 Q1',
+            //             iphone: 10820,
+            //             ipad: 10924,
+            //             itouch: 12300
+            //         },
+            //         {
+            //             period: '2016 Q2',
+            //             iphone: 9680,
+            //             ipad: 9010,
+            //             itouch: 7891
+            //         },
+            //         {
+            //             period: '2016 Q3',
+            //             iphone: 4830,
+            //             ipad: 3805,
+            //             itouch: 1598
+            //         },
+            //         {
+            //             period: '2016 Q4',
+            //             iphone: 15083,
+            //             ipad: 8977,
+            //             itouch: 5185
+            //         },
+            //         {
+            //             period: '2017 Q1',
+            //             iphone: 10697,
+            //             ipad: 4470,
+            //             itouch: 2038
+            //         },
 
-            graphArea2 = Morris.Area({
-                element: 'hero-area',
-                padding: 10,
-                behaveLikeLine: true,
-                gridEnabled: false,
-                gridLineColor: '#dddddd',
-                axes: true,
-                resize: true,
-                smooth: true,
-                pointSize: 0,
-                lineWidth: 0,
-                fillOpacity: 0.85,
-                data: [{
-                        period: '2015 Q1',
-                        iphone: 2668,
-                        ipad: null,
-                        itouch: 2649
-                    },
-                    {
-                        period: '2015 Q2',
-                        iphone: 15780,
-                        ipad: 13799,
-                        itouch: 12051
-                    },
-                    {
-                        period: '2015 Q3',
-                        iphone: 12920,
-                        ipad: 10975,
-                        itouch: 9910
-                    },
-                    {
-                        period: '2015 Q4',
-                        iphone: 8770,
-                        ipad: 6600,
-                        itouch: 6695
-                    },
-                    {
-                        period: '2016 Q1',
-                        iphone: 10820,
-                        ipad: 10924,
-                        itouch: 12300
-                    },
-                    {
-                        period: '2016 Q2',
-                        iphone: 9680,
-                        ipad: 9010,
-                        itouch: 7891
-                    },
-                    {
-                        period: '2016 Q3',
-                        iphone: 4830,
-                        ipad: 3805,
-                        itouch: 1598
-                    },
-                    {
-                        period: '2016 Q4',
-                        iphone: 15083,
-                        ipad: 8977,
-                        itouch: 5185
-                    },
-                    {
-                        period: '2017 Q1',
-                        iphone: 10697,
-                        ipad: 4470,
-                        itouch: 2038
-                    },
+            //     ],
+            //     lineColors: ['#eb6f6f', '#926383', '#eb6f6f'],
+            //     xkey: 'period',
+            //     redraw: true,
+            //     ykeys: ['iphone', 'ipad', 'itouch'],
+            //     labels: ['All Visitors', 'Returning Visitors', 'Unique Visitors'],
+            //     pointSize: 2,
+            //     hideHover: 'auto',
+            //     resize: true
+            // });
+        
 
-                ],
-                lineColors: ['#eb6f6f', '#926383', '#eb6f6f'],
-                xkey: 'period',
-                redraw: true,
-                ykeys: ['iphone', 'ipad', 'itouch'],
-                labels: ['All Visitors', 'Returning Visitors', 'Unique Visitors'],
-                pointSize: 2,
-                hideHover: 'auto',
-                resize: true
-            });
-
-
-        });
+    });
     </script>
     <!-- calendar -->
-    <script type="text/javascript" src="{{ asset('public/backend/js/monthly.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/backend/js/monthly.js') }}"></script>
     <script type="text/javascript">
-        $(window).load(function() {
+        $(window).on(function() {
 
             $('#mycalendar').monthly({
                 mode: 'event',
