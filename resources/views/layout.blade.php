@@ -516,6 +516,25 @@
                 }
             });
         }
+
+        $('.send-comment').click(function(){
+            var product_id = $('.comment_product_id').val();
+            var _token = $('input[name="_token"]').val();
+            var comment_name = $ ('.comment_name').val();
+            var comment_content = $ ('.comment_content').val();
+            $.ajax({
+                url: "{{url('/send-comment')}}",
+                method: "GET",
+                data: {product_id: product_id,comment_name:comment_name,comment_content:comment_content,_token: _token},
+                success: function(data) {
+                    $('#notify_comment').html('<span class="text text-success">Them Binh Luan Thanh Cong</span>');
+                    load_comment(); 
+                    $('#notify_comment').fadeOut(5000);
+                    $ ('.comment_name').val('');
+                    $ ('.comment_content').val('');
+                }
+            });
+        })
     });
 </script>
 

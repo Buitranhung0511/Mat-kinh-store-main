@@ -47,6 +47,7 @@ class CategoryProductController extends Controller
         $data['category_name'] = $request->category_product_name;
         $data['category_desc'] = $request->category_product_desc;
         $data['category_status'] = $request->category_product_status;
+        // $data['product_quantity'] = $request->category_product_quantity;
 
         // echo '<pre>';
         // print_r($data);

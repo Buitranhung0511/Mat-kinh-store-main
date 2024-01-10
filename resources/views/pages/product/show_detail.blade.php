@@ -94,32 +94,36 @@
 					<div id="comment_show"></div>
 
 				</form>
+				<!-- Phần Bình Luận -->
 
 				<ul class="list-inline" title="Average Rating">
 					@for($count=1; $count<=5; $count++) <?php
-														if ($count <= $rating) {
-															$color = 'color:#ffcc00;';
-														} else {
-															$color = 'color:#ccc;';
-														}
-														?> <li title="Đánh Giá Sao" id="{{$value->product_id}}-{{$count}}" data-index="{{$count}}" data-product_id="{{$value->product_id}}" data-rating="{{$rating}}" class="rating" style="cursor:pointer; {{$color}} font-size:30px;">
+						if ($count <= $rating) {
+						$color = 'color:#ffcc00;';
+						} else {
+								$color = 'color:#ccc;';
+					    }
+						?> <li title="Đánh Giá Sao" id="{{$value->product_id}}-{{$count}}" data-index="{{$count}}" data-product_id="{{$value->product_id}}" data-rating="{{$rating}}" class="rating" style="cursor:pointer; {{$color}} font-size:30px;">
 						&#9733;
 						</li>
 						@endfor
 
 
 				</ul>
+				 <!-- Phần Đánh Giá Sao -->
 
 				<form action="#">
-					<span>
-						<input type="text" placeholder="Your Name" />
-						<input type="email" placeholder="Email Address" />
+					<span >
+						<input style="width: 100%; margin-left: 0;" type="text" placeholder="Tên Bình Luận" class="comment_name" />
+						
 					</span>
-					<textarea name=""></textarea>
+					<textarea name="comment" class="comment_content" placeholder="Nội Dung Bình Luận"></textarea>
+					<div id="notify_comment"></div>
 					<b>Rating: </b> <img src="images/product-details/rating.png" alt="" />
-					<button type="button" class="btn btn-default pull-right">
-						Submit
+					<button type="button" class="btn btn-default pull-right  send-comment">
+						Gui Bình Luận
 					</button>
+					
 				</form>
 			</div>
 		</div>

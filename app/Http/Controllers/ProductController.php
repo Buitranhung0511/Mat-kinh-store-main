@@ -205,7 +205,7 @@ class ProductController extends Controller
 
     public function load_comment(Request $request){
         $product_id = $request->product_id;
-        $comment  = Comment::where('comment_product_id',$product_id)->get();
+        $comment  = Comment::where('comment_product_id',$product_id)->where('comment_status',0)->get();
         $output=''; 
         foreach($comment as $key => $comm){
             $output.='<div class="row style_comment">
@@ -221,6 +221,18 @@ class ProductController extends Controller
         <p></p>';
         }
         echo $output;
+    }
+
+    public function send_comment(Request $request){
+        $product_id = $request->product_id;
+        $comment_name = $request->comment_name;
+        $comment_content = $request->comment_content;
+        $comment = new Comment();
+        $comment->comment = $comment_content;
+        $comment->comment_name = $comment_name;
+        $comment->comment_product_id = $product_id;
+        $comment->comment_status = 0;
+        $comment->save();
     }
      //PHAN CUA HƯNG
 
