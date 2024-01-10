@@ -194,7 +194,7 @@ class ProductController extends Controller
         return view('pages.product.show_detail')->with('category',$cate_product)->with('product_detail',$detail_product)->with('relate',$related_product)->with('rating',$rating);
     }
 
-    public function insert_rating(Request $request){
+    public function Rating(Request $request){
         $data = $request->all();
         $rating = new Rating();
         $rating->product_id = $data['product_id'];
@@ -224,7 +224,7 @@ class ProductController extends Controller
     }
 
     public function send_comment(Request $request){
-        $product_id = $request->product_id;
+        $product_id = $request->product_id; 
         $comment_name = $request->comment_name;
         $comment_content = $request->comment_content;
         $comment = new Comment();

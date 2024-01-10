@@ -40,9 +40,9 @@ Route::get('/chi-tiet-san-pham/{product_id}', [
 ])->name('home'); 
 
 //Đánh giá sao
-Route::post('/insert_rating', [
+Route::post('/insert-rating', [
     ProductController::class,'Rating'
-])->name('/insert_rating');
+])->name('/insert-rating');
 
 Route::get('/load-comment', [
     ProductController::class,'load_comment'
