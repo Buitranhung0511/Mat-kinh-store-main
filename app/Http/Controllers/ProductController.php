@@ -48,8 +48,8 @@ class ProductController extends Controller
 
         $all_product = DB::table('product')
             ->join('category_product', 'category_product.category_id', '=', 'product.category_id')
-           
-            ->orderBy('product.product_id', 'desc')->paginate(10);
+             ->orderBy('product.product_id', 'desc')->paginate(10);
+            dd($all_product);
 
         $manage_product = view('admin.all_product')->with('all_product', $all_product);  // Hiển thị dữ liệu lên trang 'all_product'
         return view('admin_layout')->with('admin.all_product', $manage_product);

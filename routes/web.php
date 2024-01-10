@@ -76,6 +76,11 @@ Route::get('/admin_login', [
     AdminController::class, 'index'
 ])->name('admin_login');
 
+Route::get('/filter_by_date', [
+    AdminController::class, 'filterBydate'
+])->name('filter_by_date');
+
+
 Route::get('/dashboard', [
     AdminController::class, 'show_dashboard'
 ])->name('dashboard');
