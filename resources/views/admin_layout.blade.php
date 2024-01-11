@@ -233,8 +233,8 @@ use Illuminate\Support\Facades\Session;
             <!-- Phan Body -->
             <section class="wrapper">
 
-                @yield('admin_content')
-              
+                @yield('admin-content')
+          
             </section>
             <!-- Phan Body -->
 
