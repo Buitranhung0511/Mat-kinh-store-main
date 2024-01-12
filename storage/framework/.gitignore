@@ -1,6 +1,7 @@
 *
 !data/
 !.gitignore
+<<<<<<< HEAD
 compiled.php
 config.php
 down
@@ -10,3 +11,5 @@ routes.php
 routes.scanned.php
 schedule-*
 services.json
+=======
+>>>>>>> 3db0a293d06497b86bc7c4beb214aee5705f01b4

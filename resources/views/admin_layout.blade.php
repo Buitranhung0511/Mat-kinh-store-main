@@ -8,8 +8,8 @@ use Illuminate\Support\Facades\Session;
     <title>DashBoard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
-    
+    <meta name="keywords" content="Visitors Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
     <script type="application/x-javascript">
         addEventListener("load", function() {
             setTimeout(hideURLbar, 0);
@@ -24,18 +24,9 @@ use Illuminate\Support\Facades\Session;
     <!-- //bootstrap-css -->
     <!-- Custom CSS -->
     <link href="{{ asset('backend/css/style.css') }}" rel='stylesheet' type='text/css' />
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
     <link href="{{ asset('backend/css/style-responsive.css') }}" rel="stylesheet" />
     <!-- font CSS -->
     <link href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
-    <!-- Custom CSS.. -->
-    <link href="{{ asset('backend/css/style.css') }}" rel='stylesheet' type='text/css' />
-    <link href="{{ asset('backend/css/style-responsive.css') }}" rel="stylesheet" />
-    <!-- font CSS -->
-    <link
-        href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic'
-        rel='stylesheet' type='text/css'>
     <!-- font-awesome icons -->
     <link rel="stylesheet" href="{{ asset('backend/css/font.css') }}" type="text/css" />
     <link href="{{ asset('backend/css/font-awesome.css') }}" rel="stylesheet">
@@ -128,24 +119,11 @@ use Illuminate\Support\Facades\Session;
                             </a>
                         </li>
 
-                        <li class="sub-menu">
-                            <a href="javascript:;">
-                                <i class="fa fa-book"></i>
-                                <span>Banner</span>
-                            </a>
-                            <ul class="sub">
-                                <li><a href="{{ URL::to('/add-slider/') }}">Add slider</a></li>
-                                <li><a href="{{ URL::to('/manage-slider/') }}">Show slider list</a></li>
-                            </ul>
-                        </li>
-
-
                         {{-- Category product Dashboard --}}
                         <li class="sub-menu">
                             <a href="javascript:;">
                                 <i class="fa fa-book"></i>
                                 <span>Category products list</span>
-                                <span>Category products</span>
                             </a>
                             <ul class="sub">
                                 <li><a href="{{ URL::to('/add-category-product/') }}">Add Category product</a></li>
@@ -159,7 +137,6 @@ use Illuminate\Support\Facades\Session;
                             <a href="javascript:;">
                                 <i class="fa fa-book"></i>
                                 <span>Products list</span>
-                                <span>Products</span>
                             </a>
                             <ul class="sub">
                                 <li><a href="{{ URL::to('/add-product/') }}">Add product</a></li>
@@ -167,58 +144,6 @@ use Illuminate\Support\Facades\Session;
                             </ul>
                         </li>
                         {{-- End --}}
-
-                        {{-- Member Dashboard --}}
-                        <li class="sub-menu">
-                            <a href="javascript:;">
-                                <i class="fa fa-book"></i>
-                                <span>Member</span>
-                            </a>
-                            <ul class="sub">
-                                <li><a href="{{ URL::to('/register-member/') }}">Register Member</a></li>
-                                <li><a href="{{ URL::to('/all-member/') }}">Show member list</a></li>
-                            </ul>
-                        </li>
-                        {{-- End --}}
-
-                        {{-- Order Dashboard --}}
-                        <li class="sub-menu">
-                            <a href="javascript:;">
-                                <i class="fa fa-book"></i>
-                                <span>Order</span>
-                            </a>
-                            <ul class="sub">
-                                <li><a href="{{ URL::to('/view-order/') }}">Manage Order</a></li>
-
-                            </ul>
-                        </li>
-                        {{-- End --}}
-
-                        {{-- Discount Dashboard --}}
-                        <li class="sub-menu">
-                            <a href="javascript:;">
-                                <i class="fa fa-book"></i>
-                                <span>Discount</span>
-                            </a>
-                            <ul class="sub">
-                                <li><a href="{{ URL::to('/add-discount/') }}">Add discount</a></li>
-                                <li><a href="{{ URL::to('/all-discount/') }}">Show discount list</a></li>
-                            </ul>
-                        </li>
-                        {{-- End --}}
-
-                        {{-- Comment Dashboard --}}
-                        <li class="sub-menu">
-                            <a href="javascript:;">
-                                <i class="fa fa-book"></i>
-                                <span>Comment</span>
-                            </a>
-                            <ul class="sub">
-                                <li><a href="{{ URL::to('/all-comment/') }}">Show commnet list</a></li>
-                            </ul>
-                        </li>
-                        {{-- End --}}
-
 
                     </ul>
                 </div>
@@ -249,7 +174,6 @@ use Illuminate\Support\Facades\Session;
         </section>
         <!--main content end-->
     </section>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="{{ asset('backend/js/bootstrap.js') }}"></script>
     <script src="{{ asset('backend/js/jquery.dcjqaccordion.2.7.js') }}"></script>
     <script src="{{ asset('backend/js/scripts.js') }}"></script>
@@ -259,7 +183,8 @@ use Illuminate\Support\Facades\Session;
     <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-    4 <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+
    {{-- luongth functions order --}}
 
    <script  type="application/x-javascript">
@@ -299,6 +224,8 @@ dateFormat:"yy-mm-dd"
   // chart.
 });
 
+
+    // filter submit
         $('#filterForm').submit(function (event) {
             event.preventDefault(); // Prevent the default form submission
 

@@ -7,6 +7,8 @@ use App\Models\Payment;
 use App\Models\OrderDetail;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\StatirticModel;
+
 
 
 use Illuminate\Support\Facades\DB;
@@ -17,6 +19,40 @@ class HistoryController extends Controller
     public function index(){
         return view('Checkout.Thank');
     }
+
+
+
+    public function updateStatistics()
+{
+    $orders = Order::all(); // Lấy tất cả đơn hàng, bạn có thể thêm điều kiện lọc theo ngày
+    $totalSales = 0;
+    $totalProfit = 0;
+    $totalOrders = count($orders); // Đếm tổng số đơn hàng
+
+    foreach ($orders as $order) {
+        $totalSales += $order->total_amount;
+        $totalProfit += ($order->total_amount - 0); // Giả sử bạn có trường 'cost' trong bảng đơn hàng
+    }
+
+    $statisticalRecord = StatirticModel::where('order_date', $todayDate)->first();
+    if ($statisticalRecord) {
+        // Cập nhật bản ghi nếu nó tồn tại
+        $statisticalRecord->update([
+            'sales' => $totalSales,
+            'profit' => $totalProfit,
+            'total_order' => $totalOrders
+        ]);
+    } else {
+        // Tạo bản ghi mới nếu chưa tồn tại
+        StatirticModel::create([
+            'order_date' => $todayDate,
+            'sales' => $totalSales,
+            'profit' => $totalProfit,
+            'total_order' => $totalOrders
+        ]);
+    }
+}
+
     public function saveOrder($data){
 
 
@@ -114,14 +150,21 @@ class HistoryController extends Controller
         'payType'       => $data['payType'],
         'signature'     => $data['signature'],
     ];
-
     try {
         // Check if errorCode is set and equal to 0
         if (isset($data['errorCode']) && $data['errorCode'] == 0) {
             Payment::create($data_momo);
-            $this->saveOrder($data_momo);
-
-             return redirect()->route('thank');
+            if ($this->saveOrder($data_vnpay)) {
+                // Nếu order được tạo thành công, gọi updateStatistics
+              ;
+    $this->updateStatistics();
+        
+                return redirect()->route('thank');
+            } else {
+                // Xử lý trường hợp tạo order không thành công
+                // Ví dụ: Ghi log, hiển thị thông báo lỗi, v.v.
+                // return redirect()->route('error'); // Chuyển hướng đến trang lỗi hoặc một hành động phù hợp
+            }
         }
     } catch (\Exception $e) {
         // Handle the exception (e.g., log an error)
@@ -149,12 +192,16 @@ public function insertPaymentVNpay(Request $request){
         // Check if errorCode is set and equal to 0
         if (isset($data['vnp_TransactionStatus']) && $data['vnp_TransactionStatus'] == 0) {
             Payment::create($data_vnpay);
-            $this->saveOrder($data_vnpay);
-
-
-            ;
-
-             return redirect()->route('thank');
+            if ($this->saveOrder($data_vnpay)) {
+                // Nếu order được tạo thành công, gọi updateStatistics
+                $this->updateStatistics();
+        
+                return redirect()->route('thank');
+            } else {
+                // Xử lý trường hợp tạo order không thành công
+                // Ví dụ: Ghi log, hiển thị thông báo lỗi, v.v.
+                //return redirect()->route('error'); // Chuyển hướng đến trang lỗi hoặc một hành động phù hợp
+            }
         }
     } catch (\Exception $e) {
         // Handle the exception (e.g., log an error)

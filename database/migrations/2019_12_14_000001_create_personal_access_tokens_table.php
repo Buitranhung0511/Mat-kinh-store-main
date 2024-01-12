@@ -24,6 +24,9 @@ return new class extends Migration
     }
 
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
         Schema::dropIfExists('personal_access_tokens');

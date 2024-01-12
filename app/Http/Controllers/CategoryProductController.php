@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Http\Requests;
 use App\Models\CategoryProduct;
 
 use Illuminate\Support\Facades\Session;
@@ -40,6 +39,8 @@ class CategoryProductController extends Controller
 
         $all_category_product = DB::table('category_product')->paginate(10); // Lấy dữ liệu bảng category_product
 
+        $all_category_product = DB::table('category_product')->get(); // Lấy dữ liệu bảng category_product
+
         $manage_category_product = view('admin.all_category_product')->with('all_category_product', $all_category_product);  // Hiển thị dữ liệu lên trang 'all_category_product'
         return view('admin_layout')->with('admin.all_category_product', $manage_category_product);
     }
@@ -52,6 +53,7 @@ class CategoryProductController extends Controller
         $data['category_name'] = $request->category_product_name;
         $data['category_desc'] = $request->category_product_desc;
         $data['category_status'] = $request->category_product_status;
+        // $data['product_quantity'] = $request->category_product_quantity;
 
         // echo '<pre>';
         // print_r($data);
@@ -61,7 +63,6 @@ class CategoryProductController extends Controller
         Session::put('message', 'Add category successfully');
         return Redirect::to('add-category-product');
 
-        return Redirect::to('all-category-product');
     }
 
     // Hàm xử lý Show/Hiden
@@ -123,15 +124,18 @@ class CategoryProductController extends Controller
 
 
     // Hàm xử lý Delete product ..
-    public function delete_category_product($categoryt_id)
+  
+
+    // Hàm xử lý Delete product ,
+    public function delete_category_product($category_product_id)
     {
         $this->AuthLogin();
-        DB::table('category_product')->where('category_id', $categoryt_id)->delete();
+        DB::table('category_product')->where('category_id', $category_product_id)->delete();
         Session::put('message', 'Delete category successfully');
         return Redirect::to('all-category-product');
     }
 
-    //============== END FUNCTION ADMIN PAGES ================
+
     public function show_category_home($category_id){
         $cate_product = DB::table('category_product')->where('category_status','0')->orderby('category_id','desc')->get();
 

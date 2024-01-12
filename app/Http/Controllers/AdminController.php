@@ -12,23 +12,25 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 use ConsoleTVs\Charts\Facades\Charts;
-use App\Http\Requests;
+
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 
 //  session_start();
 
-class AdminController extends Controller
-{
 
     // Hàm check login
    
 
-    // Hàm check login..
-    public function AuthLogin()
-    {
+  
         // dd(Auth::user());  // xuất ra array
 
+
+class AdminController extends Controller
+{
+    // Hàm check login
+    public function AuthLogin()
+    {
         $admin_id = Session::get('admin_id');
         if ($admin_id == true) {
             return Redirect::to('dashboard');
@@ -76,6 +78,7 @@ class AdminController extends Controller
     
 
         return view('admin.dashboard',compact('bestSellingProduct', 'stockProducts'));
+        return view('admin.dashboard');
     }
 
     public function dashboard(Request $request)
@@ -89,7 +92,8 @@ class AdminController extends Controller
         // echo '</pre>';
         // return view('admin.dashboard');
 
-       
+
+
         // KIỂM TẢ DỮ LIỆU CÓ ĐÚNG VỚI DATABASE
         if ($result) {
             Session::put('admin_name', $result->admin_name);
@@ -99,6 +103,7 @@ class AdminController extends Controller
           
           
             //  return view('admin.dashboard');
+
 
 
             return Redirect::to('/dashboard');

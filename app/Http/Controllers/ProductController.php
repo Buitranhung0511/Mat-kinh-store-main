@@ -17,6 +17,10 @@ use App\Models\Rating;
 use file;
 
 
+
+use App\Models\Comment;
+
+
 session_start();
 
 class ProductController extends Controller
@@ -49,7 +53,6 @@ class ProductController extends Controller
         $all_product = DB::table('product')
             ->join('category_product', 'category_product.category_id', '=', 'product.category_id')
              ->orderBy('product.product_id', 'desc')->paginate(10);
-            dd($all_product);
 
         $manage_product = view('admin.all_product')->with('all_product', $all_product);  // Hiển thị dữ liệu lên trang 'all_product'
         return view('admin_layout')->with('admin.all_product', $manage_product);
@@ -58,6 +61,7 @@ class ProductController extends Controller
     public function save_product(Request $request)
     {
         $this->AuthLogin();
+
         // Lấy CSDL
        // Lấy CSDL
        $data = array();
@@ -211,6 +215,7 @@ class ProductController extends Controller
         }
 
         $data['product_quantity'] = $request->product_quantity;
+        $data['product_name'] = $request->product_name;
         $data['product_price'] = $request->product_price;
         $data['product_desc'] = $request->product_desc;
         $data['product_content'] = $request->product_content;
@@ -275,6 +280,29 @@ class ProductController extends Controller
     }
 
     public function insert_rating(Request $request){
+        $cate_product = DB::table('category_product')->where('category_status','0')->orderby('category_id','desc')->get();
+
+        $detail_product = DB::table('product')
+        ->join('category_product', 'category_product.category_id', '=', 'product.category_id')
+        ->where('product.product_id',$product_id)->get();
+
+        foreach ($detail_product as $key => $value){
+            $category_id = $value->category_id;
+            $product_id = $value->product_id;
+        }
+
+        $related_product = DB::table('product')
+        ->join('category_product', 'category_product.category_id', '=', 'product.category_id')
+        ->where('product.category_id',$category_id)->whereNotIn('product.product_id',[$product_id])->get();
+
+        $rating = Rating::where('product_id',$product_id)->avg('rating');
+        $rating = round($rating);
+
+
+        return view('pages.product.show_detail')->with('category',$cate_product)->with('product_detail',$detail_product)->with('relate',$related_product)->with('rating',$rating);
+    }
+
+    public function Rating(Request $request){
         $data = $request->all();
         $rating = new Rating();
         $rating->product_id = $data['product_id'];
@@ -292,5 +320,36 @@ class ProductController extends Controller
 
         // Trả về view hiển thị sau khi lọc
         return view('admin.all_product', ['all_product' => $all_product->isEmpty() ? null : $all_product]);
+    }
+    public function load_comment(Request $request){
+        $product_id = $request->product_id;
+        $comment  = Comment::where('comment_product_id',$product_id)->where('comment_status',0)->get();
+        $output=''; 
+        foreach($comment as $key => $comm){
+            $output.='<div class="row style_comment">
+            <div class="col-md-2">
+                <img width="70%" src="/frontend/images/batman_icon.png" class="img img-responsive img-thumbnail">
+            </div>
+            <div class="col-md-10">
+                <p style="color: blue;">@'.$comm->comment_name.'</p>
+                <p>'.$comm->comment.'</p>
+            </div>
+            
+        </div>
+        <p></p>';
+        }
+        echo $output;
+    }
+    
+    public function send_comment(Request $request){
+        $product_id = $request->product_id; 
+        $comment_name = $request->comment_name;
+        $comment_content = $request->comment_content;
+        $comment = new Comment();
+        $comment->comment = $comment_content;
+        $comment->comment_name = $comment_name;
+        $comment->comment_product_id = $product_id;
+        $comment->comment_status = 0;
+        $comment->save();
     }
 }

@@ -174,6 +174,7 @@
             "time": "2023-12-10T15:33:53+00:00"
         },
         {
+<<<<<<< HEAD
             "name": "consoletvs/charts",
             "version": "6.6.0",
             "source": {
@@ -230,6 +231,8 @@
             "time": "2023-02-01T06:52:41+00:00"
         },
         {
+=======
+>>>>>>> 3db0a293d06497b86bc7c4beb214aee5705f01b4
             "name": "dflydev/dot-access-data",
             "version": "v3.0.2",
             "source": {

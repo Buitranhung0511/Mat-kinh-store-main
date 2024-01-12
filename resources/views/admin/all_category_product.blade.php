@@ -17,9 +17,7 @@ use Illuminate\Support\Facades\Session;
                         <option value="3">Export</option>
                     </select>
                     <button class="btn btn-sm btn-default">Apply</button>
-=======
 
->>>>>>> c52f7ec1d73536fa7e98a34d00f8b155808be6bf
                 </div>
                 <div class="col-sm-4">
                 </div>
@@ -34,7 +32,6 @@ use Illuminate\Support\Facades\Session;
             </div>
             <div class="table-responsive">
                 {{-- Message hiển thị thông báo active --}}
-=======
                     <form class="input-group" role="form" method="GET" name="myForm1"
                         action="{{ route('search-category-product') }}">
                         <input type="text" name="search_category_product" class="input-sm form-control"
@@ -47,7 +44,7 @@ use Illuminate\Support\Facades\Session;
             </div>
             <div class="table-responsive">
                 {{-- Message hiển thị thông báo active.. --}}
->>>>>>> c52f7ec1d73536fa7e98a34d00f8b155808be6bf
+
                 <?php
                 $message = Session::get('message');
                 if ($message) {
@@ -183,6 +180,7 @@ use Illuminate\Support\Facades\Session;
                                 </li>
                             </ul>
                         @endif
+
                     </div>
                 </div>
             </footer>

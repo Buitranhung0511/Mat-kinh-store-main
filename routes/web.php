@@ -171,7 +171,6 @@ Route::get('/active-product/{product_id}', [
 
 // End
 
-
 // Xử lý trang UPDATE Product
 Route::get('/edit-product/{product_id}', [
     ProductController::class, 'edit_product'

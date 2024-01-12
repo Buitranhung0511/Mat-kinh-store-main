@@ -26,6 +26,9 @@
       <div class="container">
         <div id="myfirstchart" style="height: 250px"></div>
       </div> 
+      <canvas id="doughnutChart"></canvas>
+
           
 @endsection
+
 

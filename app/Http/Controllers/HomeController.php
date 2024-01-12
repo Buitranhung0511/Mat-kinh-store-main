@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Log;
-use App\Http\Requests;
 
 
 
@@ -44,5 +43,9 @@ class HomeController extends Controller
         $all_product = DB::table('product')->where('product_status', '0')->orderBy('product_id', 'desc')->limit(3)->get();
 
         return view('pages.home')->with('category', $cate_product)->with('all_product', $all_product)->with('slider', $slider);
+    
+
+        $all_product = DB::table('product')->where('product_status','0')->orderby('product_id', 'desc')->limit(4)->get();
+        return view('pages.home')->with('category',$cate_product)->with('all_product',$all_product);
     }
 }
