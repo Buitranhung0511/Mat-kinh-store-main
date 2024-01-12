@@ -38,6 +38,10 @@ Route::get('/trang-chu', [
     HomeController::class, 'index'
 ])->name('home');
 
+Route::get('/san-pham', [
+    HomeController::class, 'product'
+])->name('product');
+
 
 
 

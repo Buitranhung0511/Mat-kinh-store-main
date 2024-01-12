@@ -122,7 +122,11 @@
                         <div class="mainmenu pull-left">
                             <ul class="nav navbar-nav collapse navbar-collapse">
                                 <li><a href="{{ URL::to('/trang-chu') }} " class="active">Trang Chu</a></li>
+<<<<<<< HEAD
                                 <li class="dropdown"><a href="#">Sản phẩm<i class="fa fa-angle-down"></i></a>
+=======
+                                <li class="dropdown"><a href="{{ URL::to('/san-pham') }}">Product<i class="fa fa-angle-down"></i></a>
+>>>>>>> origin/main
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="shop.html">Products</a></li>
                                         <li><a href="product-details.html">Product Details</a></li>
@@ -157,6 +161,18 @@
             @yield('content')
 
         </div>
+<<<<<<< HEAD
+=======
+    </section><!--/slider-->
+
+
+    <section>
+        
+                    @yield('content')
+
+    </section>
+
+>>>>>>> origin/main
     <footer id="footer"><!--Footer-->
         <div class="footer-top ">
             <div class="container">
