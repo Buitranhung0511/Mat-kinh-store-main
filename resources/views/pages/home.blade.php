@@ -1,5 +1,6 @@
 @extends('layout')
 @section('content')
+<div class="container">
 <!--features_items-->
 <div class="features_items">
     <h2 class="title text-center">Sản Phảm Mới Nhất</h2>
@@ -31,5 +32,5 @@
     </a>
     @endforeach
 </div><!--features_items-->
-
+</div>
 @endsection

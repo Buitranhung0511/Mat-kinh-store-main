@@ -16,11 +16,15 @@ class HomeController extends Controller
     {
         $cate_product = DB::table('category_product')->where('category_status','0')->orderby('category_id', 'desc')->get();
 
-        // $all_product = DB::table('product')
-        // ->join('category_product', 'category_product.category_id', '=', 'product.category_id')
-        // ->orderBy('product.product_id', 'desc')->get();
-//123
         $all_product = DB::table('product')->where('product_status','0')->orderby('product_id', 'desc')->limit(4)->get();
         return view('pages.home')->with('category',$cate_product)->with('all_product',$all_product);
+    }
+
+    public function product(){
+        $cate_product = DB::table('category_product')->where('category_status','0')->orderby('category_id', 'desc')->get();
+
+        $all_product = DB::table('product')->where('product_status','0')->orderby('product_id', 'desc')->limit(4)->get();
+        return view('pages.product')->with('category',$cate_product)->with('all_product',$all_product);
+        
     }
 }
