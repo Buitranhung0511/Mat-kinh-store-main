@@ -12,7 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('product', function (Blueprint $table) {
+
             $table->increments('product_id');
+            $table->string('product_name')->unique();
+            $table->string('product_quantity');
             $table->integer('category_id');
             $table->text('product_desc');
             $table->text('product_content');
@@ -24,9 +27,6 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('product');

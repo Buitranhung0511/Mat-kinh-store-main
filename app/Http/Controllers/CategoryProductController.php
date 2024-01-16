@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests;
+use App\Models\CategoryProduct;
+
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Log;
@@ -47,7 +49,9 @@ class CategoryProductController extends Controller
         $data['category_name'] = $request->category_product_name;
         $data['category_desc'] = $request->category_product_desc;
         $data['category_status'] = $request->category_product_status;
+
         // $data['product_quantity'] = $request->category_product_quantity;
+
 
         // echo '<pre>';
         // print_r($data);
@@ -56,6 +60,7 @@ class CategoryProductController extends Controller
         DB::table('category_product')->insert($data);
         Session::put('message', 'Add category successfully');
         return Redirect::to('add-category-product');
+
     }
 
     // Hàm xử lý Show/Hiden

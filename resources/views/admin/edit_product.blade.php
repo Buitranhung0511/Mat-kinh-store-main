@@ -1,4 +1,10 @@
-@extends('admin_layout')
+   
+   
+   <?php
+
+use Illuminate\Support\Facades\Session;
+?>
+   @extends('admin_layout')
 @section('admin-content')
     <div class="row">
         <div class="col-lg-12">
@@ -11,6 +17,7 @@
                     <div class="position-center">
                         @foreach ($edit_product as $key => $pro)
                             {{-- Message hiển thị thông báo thêm thành công hay thất bại --}}
+                            {{-- Message hiển thị thông báo thêm thành công hay thất bại.. --}}
                             <?php
                             $message = Session::get('message');
                             if ($message) {
@@ -34,12 +41,28 @@
                                     <input type="file" class="form-control" name="product_image" id="exampleInputEmail1">
                                     <img src="{{ URL::to('public/uploads/product/' . $pro->product_image) }} "
                                         height="100" width="100">
+                                        value="{{ $pro->product_name }}" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Product quantity :</label>
+                                    <input type="text" class="form-control" name="product_quantity"
+                                        id="exampleInputEmail1" value="{{ $pro->product_quantity }}" required>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Product image :</label>
+                                    <input type="file" class="form-control" name="product_image" id="exampleInputEmail1">
+                                    <img src="{{ URL::to('public/uploads/product/' . $pro->product_image) }} "
+                                        height="100" width="100" required>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Product price :</label>
                                     <input type="text" class="form-control" name="product_price" id="exampleInputEmail1"
                                         value="{{ $pro->product_price }}">
+                                        value="{{ $pro->product_price }}" required>
                                 </div>
 
                                 <div class="form-group">
@@ -59,6 +82,7 @@
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Category : </label>
                                     <select name="product_cate" class="form-control input-sm m-bot15 ">
+                                    <select name="product_cate" class="form-control input-sm m-bot15 " required>
                                         {{-- Sử dụng foreach để lấy tên category --}}
                                         @foreach ($cate_product as $key => $cate)
                                             @if (is_object($cate) && property_exists($cate, 'category_name'))
@@ -88,6 +112,7 @@
 
 
                                 <button type="submit" name="add-product" class="btn btn-info ">Update</button>
+                                <button type="cancel" name="cancel-product" class="btn btn-warning ">Cancel</button>
                             </form>
                         @endforeach
                     </div>

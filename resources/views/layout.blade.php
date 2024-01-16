@@ -14,6 +14,12 @@
     <link href="{{ asset('frontend/css/animate.css') }}" rel="stylesheet">
     <link href="{{ asset('frontend/css/main.css') }}" rel="stylesheet">
     <link href="{{ asset('frontend/css/responsive.css') }}" rel="stylesheet">
+    <link href="{{ asset('frontend/css/sb-admin-2.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('frontend/css/animate.css') }}" rel="stylesheet">
+    <link href="{{ asset('frontend/css/bootstrap.min copy.css') }}" rel="stylesheet">
+    {{-- <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet"> --}}
+
+
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
@@ -152,7 +158,7 @@
                             <li data-target="#slider-carousel" data-slide-to="2"></li>
                         </ol>
 
-                        <div class="carousel-inner">
+                        <!-- <div class="carousel-inner">
                             <div class="item active">
                                 <div class="col-sm-6">
                                     <h1><span>E</span>-SHOPPER</h1>
@@ -194,7 +200,7 @@
                                 </div>
                             </div>
 
-                        </div>
+                        </div> -->
 
                         <a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
                             <i class="fa fa-angle-left"></i>
@@ -211,8 +217,8 @@
 
 
     <section>
-        
-                    @yield('content')
+
+        @yield('content')
 
     </section>
 
@@ -382,21 +388,24 @@
     <script src="{{ asset('frontend/js/price-range.js') }}"></script>
     <script src="{{ asset('frontend/js/jquery.prettyPhoto.js') }}"></script>
     <script src="{{ asset('frontend/js/main.js') }}"></script>
+
 </body>
 
 <script type="text/javascript">
     function remove_background(product_id) {
+        
         for (var count = 1; count <= 5; count++) {
             $('#' + product_id + '-' + count).css('color', '#ccc');
         }
+        console.log(product_id);
     }
 
     // hover chuột đánh giá sao
     $(document).on('mouseenter', '.rating', function() {
         var index = $(this).data("index");
-        var product_id = $(this).data('product_id');
-
-        remove_background(product_id);  
+        // var product_id = $(this).data('product_id');
+        var product_id = $('.product_id').val();
+        remove_background(product_id);
 
         for (var count = 1; count <= index; count++) {
             $('#' + product_id + '-' + count).css('color', '#ffcc00');
@@ -417,18 +426,19 @@
     //click đánh giá sao
     $(document).on('click', '.rating', function() {
         var index = $(this).data("index");
-        var product_id = $(this).data('product_id');
+        var product_id = $('.product_id').val();
+        console.log(product_id);
         var _token = $('input[name="_token"]').val();
-        
+
         $.ajax({
             url: "{{url('insert-rating')}}",
-            method: "POST",
+            method: "GET",
             data: {
                 index: index,
                 product_id: product_id,
                 _token: _token
             },
-            
+
             success: function(data) {
                 if (data == 'done') {
                     alert("Bạn Đã Đánh Giá" + index + "trên 5 ");
@@ -447,39 +457,441 @@
         load_comment();
 
         function load_comment() {
-            var product_id = $('.comment_product_id').val();
+            var product_id = $('.product_id').val();
             var _token = $('input[name="_token"]').val();
-
             $.ajax({
                 url: "{{url('/load-comment')}}",
                 method: "GET",
-                data: {product_id: product_id,_token: _token},
+                data: {
+                    product_id: product_id,
+                    _token: _token
+                },
                 success: function(data) {
                     $('#comment_show').html(data);
-
                 }
             });
         }
 
-        $('.send-comment').click(function(){
-            var product_id = $('.comment_product_id').val();
+        $('.send-comment').click(function() {
+            var product_id = $('.product_id').val();     
             var _token = $('input[name="_token"]').val();
-            var comment_name = $ ('.comment_name').val();
-            var comment_content = $ ('.comment_content').val();
+            var comment_name = $('.comment_name').val();
+            var comment_email = $('.comment_email').val();
+            var comment_content = $('.comment_content').val();        
             $.ajax({
                 url: "{{url('/send-comment')}}",
                 method: "GET",
-                data: {product_id: product_id,comment_name:comment_name,comment_content:comment_content,_token: _token},
+                data: {
+                    product_id: product_id,
+                    comment_name: comment_name,
+                    comment_content: comment_content,
+                    comment_email: comment_email,
+                    _token: _token
+                },
                 success: function(data) {
                     $('#notify_comment').html('<span class="text text-success">Them Binh Luan Thanh Cong</span>');
-                    load_comment(); 
+                    load_comment();
                     $('#notify_comment').fadeOut(5000);
-                    $ ('.comment_name').val('');
-                    $ ('.comment_content').val('');
+                    $('.comment_name').val('');
+                    $('.comment_email').val('');
+                    $('.comment_content').val('');
                 }
             });
         })
     });
 </script>
+
+
+<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+<!-- CSS -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+<!-- Default theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
+<!-- Semantic UI theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css" />
+<!-- Bootstrap theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css" />
+
+<!-- 
+      RTL version
+  -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.rtl.min.css" />
+<!-- Default theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.rtl.min.css" />
+<!-- Semantic UI theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.rtl.min.css" />
+<!-- Bootstrap theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.rtl.min.css" />
+<Script>
+    function calculateTotalQuantity(data) {
+        let totalQuantity = 0;
+
+        if (data && Array.isArray(data.items)) {
+            // Trường hợp 1: Nếu data chứa một trường là mảng (ví dụ: items)
+            data.items.forEach(item => {
+                totalQuantity += parseInt(item.quantity);
+            });
+        } else if (typeof data === 'object') {
+            // Trường hợp 2: Nếu cần duyệt qua các giá trị của đối tượng
+            Object.values(data).forEach(item => {
+                totalQuantity += parseInt(item.quantity); // Giả sử mỗi item là một đối tượng có trường 'quantity'
+            });
+        } else {
+            console.log("Dữ liệu không hợp lệ");
+            return;
+        }
+
+        // Cập nhật nội dung HTML
+        $('#total-quantity').html(totalQuantity);
+    }
+
+
+
+    $(document).ready(function() {
+        // render country
+        // 1. what is API
+        // 2. How do I call API
+        // 3. Explain code
+        const host = "https://provinces.open-api.vn/api/";
+        var callAPI = (api) => {
+            $.ajax({
+                url: api,
+                type: 'GET',
+                success: function(response) {
+
+                    renderData(response, "province");
+                },
+                error: function(error) {
+                    console.log("Error:", error);
+                }
+            });
+        };
+        callAPI('https://provinces.open-api.vn/api/?depth=1');
+        var callApiDistrict = (api) => {
+            $.ajax({
+                url: api,
+                type: 'GET',
+                success: function(response) {
+                    console.log(response)
+                    renderData(response.districts, "district");
+                },
+                error: function(error) {
+                    console.log("Error:", error);
+                }
+            });
+        };
+
+        var callApiWard = (api) => {
+            $.ajax({
+                url: api,
+                type: 'GET',
+                success: function(response) {
+                    console.log(response)
+                    renderData(response.wards, "ward");
+                },
+                error: function(error) {
+                    console.log("Error:", error);
+                }
+            });
+        };
+
+
+        var renderData = (array, select) => {
+            let row = ' <option disable value="">chọn</option>';
+            array.forEach(element => {
+                row += `<option value="${element.code}">${element.name}</option>`
+            });
+            $("#" + select).html(row);
+
+        }
+
+        $("#province").change(() => {
+            callApiDistrict(host + "p/" + $("#province").val() + "?depth=2");
+            printResult();
+        });
+        $("#district").change(() => {
+            callApiWard(host + "d/" + $("#district").val() + "?depth=2");
+            printResult();
+        });
+        $("#ward").change(() => {
+            printResult();
+        })
+
+        var printResult = () => {
+            if ($("#district").val() != "" && $("#province").val() != "" &&
+                $("#ward").val() != "") {
+                let result = $("#province option:selected").text() +
+                    " | " + $("#district option:selected").text() + " | " +
+                    $("#ward option:selected").text();
+                $("#result").text(result)
+            }
+
+        }
+
+        // update cart
+        function addToCard(event) {
+            event.preventDefault();
+            let urlProduct = $(this).data('url');
+
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: urlProduct,
+                success: function(response) {
+                    if (response.code === 200) {
+                        // alertify.notify( message, 'success', [wait, callback]);
+                        alertify.success('Success Addcart');
+                        // parse json 
+                        calculateTotalQuantity(response.data);
+
+
+
+                    }
+                },
+                error: function() {
+
+                }
+
+
+            });
+
+        }
+
+        $('.add_to_card').on('click', addToCard);
+
+
+        // Function to update the cart
+        function upDateCart(id, quantity) {
+            let urlUpdateCart = $('.cart_wapper .update_cart_url').data('url');
+
+            // Your AJAX request
+            $.ajax({
+                type: 'GET',
+                dataType: 'json',
+                url: urlUpdateCart,
+                data: {
+                    id: id,
+                    quantity: quantity
+                },
+                success: function(response) {
+                    if (response.code === 200) {
+                        $('.cart_wapper').html(response.cart_Component);
+                        console.log(response.data);
+                        calculateTotalQuantity(response.data);
+
+                    }
+                },
+                error: function() {
+                    // Handle errors here
+                }
+            });
+        }
+
+        function deleteCartById(id) {
+            let urlUpdateCart = $('.cart_wapper .delete_cart_url').data('url');
+
+            // Your AJAX request
+            $.ajax({
+                type: 'GET',
+                dataType: 'json',
+                url: urlUpdateCart,
+                data: {
+                    id: id
+                },
+                success: function(response) {
+                    console.log(response);
+                    if (response.code === 200) {
+                        $('.cart_wapper').html(response.cart_Component);
+                        calculateTotalQuantity(response.data);
+
+                    }
+                },
+                error: function() {
+                    // Handle errors here
+                }
+            });
+        }
+        //update Cart 
+        $('.cart_wapper').on('click', '.cart-edit', function(event) {
+            event.preventDefault();
+
+            // Retrieve id and quantity
+            let id = $(this).data('id');
+            let quantity = $('.cart_wapper #' + id).val();
+
+            // Call the upDateCart function with id and quantity
+            upDateCart(id, quantity);
+        });
+        //delet cart
+        $('.cart_wapper').on('click', '.cart-delete', function(event) {
+            event.preventDefault();
+
+            // Retrieve id and quantity
+            let id = $(this).data('id');
+
+
+            // Call the upDateCart function with id and quantity
+            deleteCartById(id);
+        });
+
+        function getValueInput() {
+            var values = {
+                fullname: $("#inputFullname").val(),
+                phone: $("#inputPhone").val(),
+                email: $("#inputEmail").val(),
+                address: $("#inputAddress").val(),
+                city: $("#province option:selected").text(),
+                district: $("#district option:selected").text(),
+                ward: $("#ward option:selected").text(),
+
+                checkbox1: $("#flexCheckDefault").prop("checked"),
+                checkbox2: $("#flexCheckDefault1").prop("checked")
+            };
+
+            return values;
+        }
+
+        function validateForm(values) {
+            // Validate Fullname
+            if ($.trim(values.fullname) === '') {
+                alert("Please fill in the Fullname field");
+                return false;
+            }
+
+            // Validate Phone
+            if ($.trim(values.phone) === '') {
+                alert("Please fill in the Phone field");
+                return false;
+            }
+
+            // Validate Email
+            if ($.trim(values.email) === '') {
+                alert("Please fill in the Email field");
+                return false;
+            }
+
+            // Validate Address
+            if ($.trim(values.address) === '') {
+                alert("Please fill in the Address field");
+                return false;
+            }
+
+            // Validate City
+            if ($.trim(values.city) === '') {
+                alert("Please select a City");
+                return false;
+            }
+
+            // Validate district
+            if ($.trim(values.district) === '') {
+                alert("Please fill in the House field");
+                return false;
+            }
+
+            // Validate ward
+            if ($.trim(values.ward) === '') {
+                alert("Please fill in the Postal Code field");
+                return false;
+            }
+
+
+
+
+            // Validate Checkbox 1
+            if (!values.checkbox1) {
+                alert("Please check Checkbox 1");
+                return false;
+            }
+
+            // Validate Checkbox 2
+            if (!values.checkbox2) {
+                alert("Please check Checkbox 2");
+                return false;
+            }
+
+            // You can add more validation rules as needed
+
+            return true;
+        };
+
+        function setModalFields(nameProduct, quantity, subtotal, nameUser, email, phone, address, city, district, ward) {
+            $('#nameProduct').val(nameProduct);
+            $('#quantity').val(quantity);
+
+
+            $('#subtotal').val(subtotal);
+            $('#nameUser').val(nameUser);
+            $('#phoneUser').val(phone);
+            $('#emailUser').val(email);
+            $('#address').val(address + ', ' + city + ', ' + district + ', ' + ward);
+
+        }
+
+        function openModal(data) {
+            // Set modal fields with the provided data
+            setModalFields(data.product, data.quantity, data.subtotal, data.fullname, data.email, data.phone, data.address, data.city, data.district, data.ward);
+
+            // Show the modal
+            $('#myModal').modal('show');
+        }
+        $('#showModalButton').on('click', function() {
+            let data = getValueInput();
+            console.log(data);
+            if (validateForm(data)) {
+                let url = 'http://127.0.0.1:8000/data_user'
+                $.ajax({
+                    type: 'GET',
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    url: url,
+                    data: data,
+                    success: function(response) {
+                        if (response.code === 200) {
+                            console.log(response);
+
+                            openModal(data);
+
+                        }
+                    },
+                    error: function() {
+                        // Handle errors here
+                    }
+                });
+
+
+            }
+        });
+
+        //get value checkked
+        $('#submitButton').click(function() {
+            var selectedPaymentMethod = $('input[name="paymentMethod"]:checked').val();
+            if (selectedPaymentMethod !== undefined) {
+
+                switch (selectedPaymentMethod) {
+
+                    case '1':
+                        $('#vn_payment').click();
+
+                        break;
+                    case '2':
+                        $('#vn_momo').click();
+
+                        break;
+
+                    default:
+                        break;
+                }
+            } else {
+                console.log('Please select a payment method');
+            }
+        });
+
+
+
+    });
+</Script>
+</body>
+
+
 
 </html>

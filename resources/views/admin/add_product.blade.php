@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Session;
             <div class="panel-body">
 
                 <div class="position-center">
-                    {{-- Message hiển thị thông báo thêm thành công hay thất bại --}}
+                    <!-- {{-- Message hiển thị thông báo thêm thành công hay thất bại --}} -->
                     <?php
                     $message = Session::get('message');
                     if ($message) {
@@ -75,6 +75,11 @@ use Illuminate\Support\Facades\Session;
                             </select>
                         </div>
 
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Product quantity :</label>
+                            <input type="text" class="form-control" name="product_quantity" id="exampleInputEmail1" data-validation="length" data-validation-length="min3">
+                        </div>
+
 
                         <button type="submit" name="add-product" class="btn btn-info ">Add</button>
                     </form>
@@ -88,3 +93,4 @@ use Illuminate\Support\Facades\Session;
 </div>
 </div>
 @endsection
+

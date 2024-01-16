@@ -8,8 +8,8 @@ use Illuminate\Support\Facades\Session;
     <title>DashBoard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="keywords" content="Visitors Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+
+    
     <script type="application/x-javascript">
         addEventListener("load", function() {
             setTimeout(hideURLbar, 0);
@@ -24,9 +24,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!-- //bootstrap-css -->
     <!-- Custom CSS -->
     <link href="{{ asset('backend/css/style.css') }}" rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
     <link href="{{ asset('backend/css/style-responsive.css') }}" rel="stylesheet" />
     <!-- font CSS -->
     <link href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+    <!-- Custom CSS.. -->
+    <link href="{{ asset('backend/css/style.css') }}" rel='stylesheet' type='text/css' />
+    <link href="{{ asset('backend/css/style-responsive.css') }}" rel="stylesheet" />
+    <!-- font CSS -->
+    <link
+        href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic'
+        rel='stylesheet' type='text/css'>
     <!-- font-awesome icons -->
     <link rel="stylesheet" href="{{ asset('backend/css/font.css') }}" type="text/css" />
     <link href="{{ asset('backend/css/font-awesome.css') }}" rel="stylesheet">
@@ -52,7 +61,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
         i.styling-edit {
             font-size: 25px
-        }
+        } 
     </style>
 </head>
 
@@ -119,11 +128,24 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             </a>
                         </li>
 
-                        {{-- Category product Dashboard --}}
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-book"></i>
+                                <span>Banner</span>
+                            </a>
+                            <ul class="sub">
+                                <li><a href="{{ URL::to('/add-slider/') }}">Add slider</a></li>
+                                <li><a href="{{ URL::to('/manage-slider/') }}">Show slider list</a></li>
+                            </ul>
+                        </li>
+
+
+           
                         <li class="sub-menu">
                             <a href="javascript:;">
                                 <i class="fa fa-book"></i>
                                 <span>Category products list</span>
+                                <span>Category products</span>
                             </a>
                             <ul class="sub">
                                 <li><a href="{{ URL::to('/add-category-product/') }}">Add Category product</a></li>
@@ -137,6 +159,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             <a href="javascript:;">
                                 <i class="fa fa-book"></i>
                                 <span>Products list</span>
+                                <span>Products</span>
                             </a>
                             <ul class="sub">
                                 <li><a href="{{ URL::to('/add-product/') }}">Add product</a></li>
@@ -144,6 +167,58 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             </ul>
                         </li>
                         {{-- End --}}
+
+                        {{-- Member Dashboard --}}
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-book"></i>
+                                <span>Member</span>
+                            </a>
+                            <ul class="sub">
+                                <li><a href="{{ URL::to('/register-member/') }}">Register Member</a></li>
+                                <li><a href="{{ URL::to('/all-member/') }}">Show member list</a></li>
+                            </ul>
+                        </li>
+                        {{-- End --}}
+
+                        {{-- Order Dashboard --}}
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-book"></i>
+                                <span>Order</span>
+                            </a>
+                            <ul class="sub">
+                                <li><a href="{{ URL::to('/view-order/') }}">Manage Order</a></li>
+
+                            </ul>
+                        </li>
+                        {{-- End --}}
+
+                        {{-- Discount Dashboard --}}
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-book"></i>
+                                <span>Discount</span>
+                            </a>
+                            <ul class="sub">
+                                <li><a href="{{ URL::to('/add-discount/') }}">Add discount</a></li>
+                                <li><a href="{{ URL::to('/all-discount/') }}">Show discount list</a></li>
+                            </ul>
+                        </li>
+                        {{-- End --}}
+
+                        {{-- Comment Dashboard --}}
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-book"></i>
+                                <span>Comment</span>
+                            </a>
+                            <ul class="sub">
+                                <li><a href="{{ URL::to('/all-comment/') }}">Show commnet list</a></li>
+                            </ul>
+                        </li>
+                        {{-- End --}}
+
 
                     </ul>
                 </div>
@@ -159,7 +234,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <section class="wrapper">
 
                 @yield('admin_content')
-                @yield('admin-content')
+              
             </section>
             <!-- Phan Body -->
 
@@ -174,6 +249,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         </section>
         <!--main content end-->
     </section>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="{{ asset('backend/js/bootstrap.js') }}"></script>
     <script src="{{ asset('backend/js/jquery.dcjqaccordion.2.7.js') }}"></script>
     <script src="{{ asset('backend/js/scripts.js') }}"></script>
@@ -181,41 +257,126 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <script src="{{ asset('backend/js/jquery.nicescroll.js') }}"></script>
     {{-- <script src="{{ asset('backend/ckeditor5-build-classic/ckeditor.js') }}"></script> --}}
     <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    4 <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+   {{-- luongth functions order --}}
+
+   <script  type="application/x-javascript">
+    $( function() {
+        
+      $( "#datepicker" ).datepicker({
+
+
+        dateFormat:"yy-mm-dd"
+      });
+      $( "#datepicker2" ).datepicker({
+
+
+dateFormat:"yy-mm-dd"
+});
+    } );
+    </script>
+
+<script>
+    $(document).ready(function () {
+
+ var chart = new Morris.Bar({
+  // ID of the element in which to draw the chart.
+  element: 'myfirstchart',
+  barColors: ['#00a65a', '#32c5d2', '#5cb85c', '#8cc152'],
+ parseTime:false,
+ hideHover:'auto',
+  // Chart data records -- each entry in this array corresponds to a point on
+  // the chart.
+  
+  // The name of the data record attribute that contains x-values.
+  xkey: 'perifod',
+  // A list of names of data record attributes that contain y-values.
+  ykeys: ['order','sales','profit','quantity'],
+  // Labels for the ykeys -- will be displayed when you hover over the
+  labels:['đơn hàng','doanh số','lợi nhuận','số lượng']
+  // chart.
+});
+
+        $('#filterForm').submit(function (event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            // Your AJAX request code goes here
+            var _token = $('input[name="_token"]').val();
+            var from_date = $('#datepicker').val();
+            var to_date = $('#datepicker2').val();
+
+            $.ajax({
+                type: 'GET',
+                url: '/filter_by_date', // Replace with the actual endpoint URL
+                data: {
+                    // _token: _token,
+                    from_date: from_date,
+                    to_date: to_date
+                },
+                success: function (response) {
+                    console.log(response);
+                   chart.setData(response);
+                },
+                error: function (error) {
+                    console.error(error);
+                    // Handle the error or show a message to the user
+                }
+            });
+        });
+    });
+</script>
+
+    {{-- script tìm kiếm sản phẩm --}}
+
+    {{-- <script src="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+
+    <script>
+        new DataTable('#example', {
+            search: {
+                return: true
+            }
+        });
+    </script> --}}
+
     <!-- Khởi tạo CKEditor cho textarea có id là 'editor' -->
     <script>
         ClassicEditor
             .create(document.querySelector('#editor'))
             .then(editor => {
-                console.log('Editor was initialized', editor);
+                // console.log('Editor was initialized', editor);
             })
             .catch(error => {
-                console.error('There was an error initializing the editor:', error);
+                // console.error('There was an error initializing the editor:', error);
             });
 
         ClassicEditor
             .create(document.querySelector('#editor2'))
             .then(editor2 => {
-                console.log('Editor was initialized', editor);
+                // console.log('Editor was initialized', editor);
             })
             .catch(error => {
-                console.error('There was an error initializing the editor:', error);
+                // console.error('There was an error initializing the editor:', error);
             });
 
         ClassicEditor
             .create(document.querySelector('#editor3'))
             .then(editor3 => {
-                console.log('Editor was initialized', editor);
+                // console.log('Editor was initialized', editor);
             })
             .catch(error => {
-                console.error('There was an error initializing the editor:', error);
+                // console.error('There was an error initializing the editor:', error);
             });
     </script>
 
+    {{-- Đoạn script check validate --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/validator/13.6.0/validator.min.js"></script>
     <script>
         function validateForm(formName) {
             var form = document.forms[formName];
-            
             var inputs = form.getElementsByTagName('input');
 
             for (var i = 0; i < inputs.length; i++) {
@@ -232,15 +393,31 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
                 //    console.log('input name ', label);
                 //    console.log('input value ', value);
+                // Ghi thông tin ra console
+                console.log("Tên trường input:", label);
+                console.log("Giá trị của trường input:", value);
+
+                // Kiểm tra xem trường input có thuộc tính name hợp lệ không
+                if (!label || label === "null") {
+                    console.error("Trường input không hợp lệ: ", input);
+                    continue; // Bỏ qua và chuyển sang trường input tiếp theo
+                }
+
+                // Kiểm tra xem trường input có giá trị không
                 if (validator.isEmpty(value)) {
                     alert("Vui lòng nhập " + label);
                     return false;
                 }
+
+
+                // Thêm các điều kiện kiểm tra khác tại đây
             }
 
             return true;
         }
     </script>
+
+
 
 
     <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/flot-chart/excanvas.min.js"></script><![endif]-->
@@ -266,92 +443,93 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             function gd(year, day, month) {
                 return new Date(year, month - 1, day).getTime();
             }
+            
+           
+            // graphArea2 = Morris.Area({
+            //     element: 'hero-area',
+            //     padding: 10,
+            //     behaveLikeLine: true,
+            //     gridEnabled: false,
+            //     gridLineColor: '#dddddd',
+            //     axes: true,
+            //     resize: true,
+            //     smooth: true,
+            //     pointSize: 0,
+            //     lineWidth: 0,
+            //     fillOpacity: 0.85,
+            //     data: [{
+            //             period: '2015 Q1',
+            //             iphone: 2668,
+            //             ipad: null,
+            //             itouch: 2649
+            //         },
+            //         {
+            //             period: '2015 Q2',
+            //             iphone: 15780,
+            //             ipad: 13799,
+            //             itouch: 12051
+            //         },
+            //         {
+            //             period: '2015 Q3',
+            //             iphone: 12920,
+            //             ipad: 10975,
+            //             itouch: 9910
+            //         },
+            //         {
+            //             period: '2015 Q4',
+            //             iphone: 8770,
+            //             ipad: 6600,
+            //             itouch: 6695
+            //         },
+            //         {
+            //             period: '2016 Q1',
+            //             iphone: 10820,
+            //             ipad: 10924,
+            //             itouch: 12300
+            //         },
+            //         {
+            //             period: '2016 Q2',
+            //             iphone: 9680,
+            //             ipad: 9010,
+            //             itouch: 7891
+            //         },
+            //         {
+            //             period: '2016 Q3',
+            //             iphone: 4830,
+            //             ipad: 3805,
+            //             itouch: 1598
+            //         },
+            //         {
+            //             period: '2016 Q4',
+            //             iphone: 15083,
+            //             ipad: 8977,
+            //             itouch: 5185
+            //         },
+            //         {
+            //             period: '2017 Q1',
+            //             iphone: 10697,
+            //             ipad: 4470,
+            //             itouch: 2038
+            //         },
 
-            graphArea2 = Morris.Area({
-                element: 'hero-area',
-                padding: 10,
-                behaveLikeLine: true,
-                gridEnabled: false,
-                gridLineColor: '#dddddd',
-                axes: true,
-                resize: true,
-                smooth: true,
-                pointSize: 0,
-                lineWidth: 0,
-                fillOpacity: 0.85,
-                data: [{
-                        period: '2015 Q1',
-                        iphone: 2668,
-                        ipad: null,
-                        itouch: 2649
-                    },
-                    {
-                        period: '2015 Q2',
-                        iphone: 15780,
-                        ipad: 13799,
-                        itouch: 12051
-                    },
-                    {
-                        period: '2015 Q3',
-                        iphone: 12920,
-                        ipad: 10975,
-                        itouch: 9910
-                    },
-                    {
-                        period: '2015 Q4',
-                        iphone: 8770,
-                        ipad: 6600,
-                        itouch: 6695
-                    },
-                    {
-                        period: '2016 Q1',
-                        iphone: 10820,
-                        ipad: 10924,
-                        itouch: 12300
-                    },
-                    {
-                        period: '2016 Q2',
-                        iphone: 9680,
-                        ipad: 9010,
-                        itouch: 7891
-                    },
-                    {
-                        period: '2016 Q3',
-                        iphone: 4830,
-                        ipad: 3805,
-                        itouch: 1598
-                    },
-                    {
-                        period: '2016 Q4',
-                        iphone: 15083,
-                        ipad: 8977,
-                        itouch: 5185
-                    },
-                    {
-                        period: '2017 Q1',
-                        iphone: 10697,
-                        ipad: 4470,
-                        itouch: 2038
-                    },
+            //     ],
+            //     lineColors: ['#eb6f6f', '#926383', '#eb6f6f'],
+            //     xkey: 'period',
+            //     redraw: true,
+            //     ykeys: ['iphone', 'ipad', 'itouch'],
+            //     labels: ['All Visitors', 'Returning Visitors', 'Unique Visitors'],
+            //     pointSize: 2,
+            //     hideHover: 'auto',
+            //     resize: true
+            // });
+        
 
-                ],
-                lineColors: ['#eb6f6f', '#926383', '#eb6f6f'],
-                xkey: 'period',
-                redraw: true,
-                ykeys: ['iphone', 'ipad', 'itouch'],
-                labels: ['All Visitors', 'Returning Visitors', 'Unique Visitors'],
-                pointSize: 2,
-                hideHover: 'auto',
-                resize: true
-            });
-
-
-        });
+    });
     </script>
     <!-- calendar -->
-    <script type="text/javascript" src="{{ asset('public/backend/js/monthly.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/backend/js/monthly.js') }}"></script>
     <script type="text/javascript">
-        $(window).load(function() {
+        $(window).on(function() {
 
             $('#mycalendar').monthly({
                 mode: 'event',
@@ -381,5 +559,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     </script>
     <!-- //calendar -->
 </body>
+
 
 </html>

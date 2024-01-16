@@ -7,11 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
 {
-    public $timestamps = false; // set time to false
-    protected $fillable =[
-        'comment','comment_name','comment_date','comment_status','comment_product_id'
+    // public $timestamps = false; // set time to false
+    protected $fillable = [
+        'comment',
+        'comment_name',
+        'comment_email',
+        'comment_date',
+        'comment_status',
+        'product_id',
     ];
 
-    protected $primaryKey ='comment_id';
-    protected $table ='comment';
+    protected $primaryKey = 'comment_id';
+    protected $table = 'comments';
 }

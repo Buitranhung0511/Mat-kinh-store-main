@@ -25,6 +25,10 @@ class User extends Authenticatable
 
     /**
      * The attributes that should be hidden for serialization.
+<<<<<<< HEAD
+=======
+     * The attributes that should be hidden for serialization...
+>>>>>>> master
      *
      * @var array<int, string>
      */
@@ -42,4 +46,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> master
