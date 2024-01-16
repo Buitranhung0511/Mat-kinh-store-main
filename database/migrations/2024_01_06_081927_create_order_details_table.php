@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('product_name');
             $table->integer('quantity');
             $table->decimal('product_price', 8, 2);
-            $table->decimal('subtotal_amount', 8, 2); // quantity * product_price
+          
             $table->timestamps();
         });
     }

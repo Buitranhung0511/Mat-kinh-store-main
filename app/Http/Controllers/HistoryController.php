@@ -145,14 +145,16 @@ public function insertPaymentVNpay(Request $request){
         'payType'       => $data['vnp_BankCode'],
         'signature'     => $data['vnp_SecureHash']
     ];
+    
     try {
         // Check if errorCode is set and equal to 0
         if (isset($data['vnp_TransactionStatus']) && $data['vnp_TransactionStatus'] == 0) {
             Payment::create($data_vnpay);
+
             $this->saveOrder($data_vnpay);
 
 
-            ;
+            
 
              return redirect()->route('thank');
         }

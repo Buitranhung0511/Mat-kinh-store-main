@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('phone_number');
             $table->string('product_name');
             $table->integer('quantity');
-            $table->decimal('product_price', 10, 2);
+           
             $table->decimal('total_amount', 10, 2);
             $table->text('shipping_address');
             $table->string('shipping_method', 100);
