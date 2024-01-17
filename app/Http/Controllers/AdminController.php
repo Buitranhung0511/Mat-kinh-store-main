@@ -17,6 +17,8 @@ use ConsoleTVs\Charts\Facades\Charts;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 
+
+
 //  session_start();
 
 class AdminController extends Controller
@@ -24,19 +26,20 @@ class AdminController extends Controller
 
     // Hàm check login
    
-
+//=========================HUNG============================
     // Hàm check login..
     public function AuthLogin()
     {
         // dd(Auth::user());  // xuất ra array
 
-        $admin_id = Session::get('admin_id');
+        $admin_id = Auth::id();
         if ($admin_id == true) {
             return Redirect::to('dashboard');
         } else {
             return Redirect::to('admin_login')->send();
         }
     }
+//=========================HUNG============================
 
     public function index()
     {
@@ -112,7 +115,7 @@ class AdminController extends Controller
     // HÀM XỬ LÝ LOG_OUT
     public function logout(Request $request)
     {
-        $this->AuthLogin();           // Nếu login thì trả về trang logout
+        $this->AuthLogin();           // Nếu login thì trả về trang logout CUA HUNG
         Session::put('admin_name', null);
         Session::put('admin_id', null);
 

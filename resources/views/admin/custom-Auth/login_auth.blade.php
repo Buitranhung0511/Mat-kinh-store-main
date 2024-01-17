@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Session;
 <!DOCTYPE html>
 
 <head>
-    <title>Trang quản lý Admin</title>
+    <title>Đăng nhập Auth</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="keywords"
@@ -38,7 +38,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <body>
     <div class="log-w3">
         <div class="w3layouts-main">
-            <h2>Sign In </h2>
+            <h2>Đăng nhập </h2>
 
             <?php
             $message = Session::get('message');
@@ -48,19 +48,20 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             }
             ?>
 
-            <form action="{{ URL::to('/admin-dashboard') }}" method="post">
+            <form action="{{ URL::to('/login') }}" method="post">
                 {{ csrf_field() }}
-                <input type="text" class="ggg" name="admin_email" placeholder="E-MAIL" required="">
-                <input type="password" class="ggg" name="admin_password" placeholder="PASSWORD" required="">
+                <input type="text" class="ggg" name="admin_email" placeholder="E-MAIL" required="InPut,pls">
+                <input type="password" class="ggg" name="admin_password" placeholder="PASSWORD" required="InPut,pls">
                 <span><input type="checkbox" />Remember Me</span>
                 <h6><a href="#">Forgot Password?</a></h6>
                 <div class="clearfix"></div>
-                <input type="submit" value="Sign In" name="login">
+                <input type="submit" value="Đăng Nhập" name="login">
             </form>
 
 
-            <p>Don't Have an Account ?<a href="{{url('/register-auth')}}">Create an Auth</a></p>
+            <p>Don't Have an Account ?<a href="{{url('/register-auth')}}">Create an Auth</a></p>|
             <a href="{{url('/login-auth')}}">Login an Auth</a>
+
             
         </div>
     </div>
