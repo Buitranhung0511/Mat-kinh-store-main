@@ -122,11 +122,7 @@
                         <div class="mainmenu pull-left">
                             <ul class="nav navbar-nav collapse navbar-collapse">
                                 <li><a href="{{ URL::to('/trang-chu') }} " class="active">Trang Chu</a></li>
-<<<<<<< HEAD
                                 <li class="dropdown"><a href="#">Sản phẩm<i class="fa fa-angle-down"></i></a>
-=======
-                                <li class="dropdown"><a href="{{ URL::to('/san-pham') }}">Product<i class="fa fa-angle-down"></i></a>
->>>>>>> origin/main
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="shop.html">Products</a></li>
                                         <li><a href="product-details.html">Product Details</a></li>
@@ -161,18 +157,6 @@
             @yield('content')
 
         </div>
-<<<<<<< HEAD
-=======
-    </section><!--/slider-->
-
-
-    <section>
-        
-                    @yield('content')
-
-    </section>
-
->>>>>>> origin/main
     <footer id="footer"><!--Footer-->
         <div class="footer-top ">
             <div class="container">
@@ -340,6 +324,7 @@
     <script src="{{ asset('frontend/js/jquery.prettyPhoto.js') }}"></script>
     <script src="{{ asset('frontend/js/main.js') }}"></script>
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    <script src="{{ asset('js/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
   <!-- CSS -->
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
   <!-- Default theme -->
@@ -360,28 +345,7 @@
   <!-- Bootstrap theme -->
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.rtl.min.css"/>
   <Script>
-    function calculateTotalQuantity(data) {
-        let totalQuantity = 0;
-    
-        if (data && Array.isArray(data.items)) {
-            // Trường hợp 1: Nếu data chứa một trường là mảng (ví dụ: items)
-            data.items.forEach(item => {
-                totalQuantity +=  parseInt(item.quantity);
-            });
-        } else if (typeof data === 'object') {
-            // Trường hợp 2: Nếu cần duyệt qua các giá trị của đối tượng
-            Object.values(data).forEach(item => {
-                totalQuantity +=  parseInt(item.quantity); // Giả sử mỗi item là một đối tượng có trường 'quantity'
-            });
-        } else {
-            console.log("Dữ liệu không hợp lệ");
-            return;
-        }
-    
-        // Cập nhật nội dung HTML
-        $('#total-quantity').html(totalQuantity);
-    }
-    
+   
     
     
        $(document).ready(function () {
@@ -479,7 +443,7 @@ var printResult = () => {
         // alertify.notify( message, 'success', [wait, callback]);
       alertify.success('Success Addcart');
       // parse json 
-      calculateTotalQuantity(response.data);
+      
       
     
     
@@ -511,7 +475,7 @@ var printResult = () => {
                 if (response.code === 200) {
                     $('.cart_wapper').html(response.cart_Component);
                     console.log(response.data);
-      calculateTotalQuantity(response.data);
+      
     
                 }
             },
@@ -533,7 +497,7 @@ var printResult = () => {
             console.log(response);
             if (response.code === 200) {
                  $('.cart_wapper').html(response.cart_Component);
-      calculateTotalQuantity(response.data);
+     
     
             }
         },
@@ -684,6 +648,7 @@ var printResult = () => {
             error: function() {
                 // Handle errors here
             }
+            
         });
     
     
@@ -772,6 +737,46 @@ var printResult = () => {
   });
 
 </script>
+<!-- Phan Script cho Comment -->
+<script type="text/javascript">
+    $(document).ready(function() {
 
+        load_comment();
+
+        function load_comment() {
+            var product_id = $('.comment_product_id').val();
+            var _token = $('input[name="_token"]').val();
+
+            $.ajax({
+                url: "{{url('/load-comment')}}",
+                method: "GET",
+                data: {product_id: product_id,_token: _token},
+                success: function(data) {
+                    $('#comment_show').html(data);
+
+                }
+            });
+        }
+
+        $('.send-comment').click(function(){
+            var product_id = $('.comment_product_id').val();
+            var _token = $('input[name="_token"]').val();
+            var comment_name = $ ('.comment_name').val();
+            var comment_content = $ ('.comment_content').val();
+            $.ajax({
+                url: "{{url('/send-comment')}}",
+                method: "GET",
+                data: {product_id: product_id,comment_name:comment_name,comment_content:comment_content,_token: _token},
+                success: function(data) {
+                    $('#notify_comment').html('<span class="text text-success">Them Binh Luan Thanh Cong</span>');
+                    load_comment(); 
+                    $('#notify_comment').fadeOut(5000);
+                    $ ('.comment_name').val('');
+                    $ ('.comment_content').val('');
+                }
+            });
+        })
+    });
+</script>
 
 </html>

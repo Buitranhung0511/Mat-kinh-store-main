@@ -19,6 +19,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             window.scrollTo(0, 1);
         }
     </script>
+     <link href="{{ asset('frontend/css/sb-admin-2.min.css') }}" rel="stylesheet">
+     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
+
     <!-- bootstrap-css -->
     <link rel="stylesheet" href="{{ asset('backend/css/bootstrap.min.css') }}">
     <!-- //bootstrap-css -->
@@ -38,7 +41,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <script src="{{ asset('backend/js/jquery2.0.3.min.js') }}"></script>
     <script src="{{ asset('backend/js/raphael-min.js') }}"></script>
     <script src="{{ asset('backend/js/morris.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
+    <!-- Include jQuery UI library -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <style>
         span.fa-thumb-styling.fa.fa-thumbs-down {
             font-size: 25px;
@@ -184,21 +191,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
-
+ <!-- Custom styles for this template-->
+ 
    {{-- luongth functions order --}}
 
    <script  type="application/x-javascript">
     $( function() {
         
       $( "#datepicker" ).datepicker({
-
-
         dateFormat:"yy-mm-dd"
       });
       $( "#datepicker2" ).datepicker({
-
-
-dateFormat:"yy-mm-dd"
+        dateFormat:"yy-mm-dd"
 });
     } );
     </script>

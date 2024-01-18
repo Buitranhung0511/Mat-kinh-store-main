@@ -124,7 +124,7 @@
                                     <div class="productinfo text-center">
                                         <img src="{{URL::to('public/uploads/product/'.$product->product_image) }}" alt="" />
                                         <h2>{{number_format($product->product_price).' '.'$'}}</h2>
-                                        <p>{{($product->product_content)}}</p>
+                                        <p>{{($product->product_name)}}</p>
                                         <a data-url="{{ route('addToCard' , ['id' => $product->product_id]) }}" class="btn btn-default add_to_card"><i class="fa fa-shopping-cart"></i>Add to
                                             cart</a>
                                     </div>

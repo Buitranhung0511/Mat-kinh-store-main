@@ -77,8 +77,8 @@ class AdminController extends Controller
         // total stock product
     
 
-        return view('admin.dashboard',compact('bestSellingProduct', 'stockProducts'));
-        return view('admin.dashboard');
+        return view('admin.showDataOrder',compact('bestSellingProduct', 'stockProducts','totalStock'));
+       
     }
 
     public function dashboard(Request $request)

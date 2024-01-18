@@ -28,7 +28,7 @@ public function addToCard($id){
         
 
         $cart[$id] = [
-            'name' => $product->product_content,
+            'name' => $product->product_name,
             'price' => $product->product_price,
             'img'=>$product->product_image,
             'quantity' =>1

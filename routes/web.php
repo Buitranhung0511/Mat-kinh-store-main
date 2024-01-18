@@ -59,7 +59,13 @@ Route::get('/chi-tiet-san-pham/{product_id}', [
 Route::post('/insert_rating', [
     ProductController::class,'Rating'
 ])->name('/insert_rating');
+Route::get('/load-comment', [
+    ProductController::class,'load_comment'
+])->name('/load_comment');
 
+Route::get('/send-comment', [
+    ProductController::class,'send_comment'
+])->name('/send_omment');
 //Danh mục sản phẩm - Trang Chủ "Hung"============
 
 
@@ -291,7 +297,7 @@ Route::get('/search-discount', [
     DiscountController::class, 'search_discount'
 ])->name('search-discount');
 
-
+Route::post('/check-discount', [ DiscountController::class, 'checkDiscountCode'])->name('check-discount');
 // XỬ LÝ Member (DASHBOARD)
 
 Route::post('/register-member', [

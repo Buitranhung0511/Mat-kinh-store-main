@@ -19,10 +19,24 @@
               </div>
             </div>
           </div>
-  
+          <?php
+          $message = Session::get('message');
+          if ($message) {
+              echo '<p class="text-alert alert-success" style="color:green; ">' . $message . '</p>';
+              Session::put('message', null);
+          }
+          ?>
+           <?php
+           $message = Session::get('error');
+           if ($message) {
+               echo '<p class="text-alert alert-danger" style="color:red; ">' . $message . '</p>';
+               Session::put('error', null);
+           }
+           ?>
           <!-- Checkout -->
           <form id="checkoutForm" action="{{ route('input_data') }}" method="GET" class="">
           
+            
             <div class="card shadow-0 border card-registration card-registration-2">
               <div class="p-4">
                 <h5 class="card-title mb-3">Guest checkout</h5>
@@ -152,8 +166,10 @@
           </form>
           <!-- Checkout -->
         </div>
+        
         @php
         $subTotal = 0  ;
+        $netTotal = 0;
         $allProductNames = [];
         @endphp
     @foreach ($carts as $id=>  $cart)
@@ -177,8 +193,30 @@
               <p class="mb-2">{{ $subTotal }}</p>
             </div>
             <div class="d-flex justify-content-between">
-              <p class="mb-2">Discount:</p>
-              <p class="mb-2 text-danger">- $60.00</p>
+             
+        
+            @php
+            $discount = Session::get("discount");
+            $discountPercent = 0;
+            @endphp 
+
+      @if( $discount)
+      @forEach($discount as  $key =>$cout)
+      @if($cout['counbon_status'] == 0)
+      @php
+      $discountPercent =($subTotal * ($cout['counbon_percent'] / 100)) 
+      
+      @endphp
+      <p class="mb-2">Discount:</p>
+      <p class="mb-2 text-danger">- {{$discountPercent}}</p>
+      @endif
+      @endforeach
+      @endif
+      
+
+
+          
+             
             </div>
             <div class="d-flex justify-content-between">
               <p class="mb-2">Shipping cost:</p>
@@ -187,19 +225,18 @@
             <hr />
             <div class="d-flex justify-content-between">
               <p class="mb-2">Total price:</p>
-              <p class="mb-2 fw-bold">{{ $subTotal }}</p>
+              <p class="mb-2 fw-bold">{{$netTotal = $subTotal - $discountPercent }}</p>
             </div>
   
-            <div class="input-group mt-3 mb-4">
-              <input type="text" class="form-control border" name="" placeholder="Promo code" />
-             
-             <form action="{{ route('vn_onepay') }}" method="POST">
-              @csrf
-              <input type="hidden" name="vn_onepay" value="{{ $subTotal }}">
-             <button type="submit" class="btn btn-light text-primary border" 
-           
-             name="vpcURL">Onepay</button>
-           </form>
+         
+              <form action="{{ route('check-discount') }}" method="POST" id="discountForm">
+                @csrf
+                <!-- Trường input chứa giá trị mã giảm giá -->
+                <input type="text" name="code" id="discountCodeInput" class="form-control border">
+                <input type="hidden" name="timeNow" value="{{ now() }}">
+                <!-- Nút submit -->
+                <button type="submit" class="btn btn-light text-primary border">Discount</button>
+            </form>
             </div>
         </section>
         {{-- modal buill --}}
@@ -227,7 +264,7 @@
                     </div>
                     <div class="d-flex justify-content-between">
                       <p class="mb-2">Discount:</p>
-                      <p class="mb-2 text-danger">- $60.00</p>
+                      <p class="mb-2 text-danger">- {{$discountPercent}}</p>
                     </div>
                     <div class="d-flex justify-content-between">
                       <p class="mb-2">Shipping cost:</p>
@@ -236,7 +273,7 @@
                     <hr />
                     <div class="d-flex justify-content-between">
                       <p class="mb-2">Total price:</p>
-                      <p class="mb-2 fw-bold">{{ $subTotal }}</p>
+                      <p class="mb-2 fw-bold">{{ $netTotal }}</p>
                     </div>
                   </div>
                 </div>
@@ -279,14 +316,14 @@
           <div class="ml-3" >
             <form  action="{{ route('vn_payment') }}" method="POST"  >
               @csrf
-              <input type="hidden" name="vn_payment" value="{{ $subTotal }}">
+              <input type="hidden" name="vn_payment" value="{{ $netTotal }}">
               
               <button type="submit" id="vn_payment" style="display: none;"  name="redirect">
               </button>
            </form>
            <form  action="{{ route('vn_momo') }}" method="POST" >
              @csrf
-             <input type="hidden" name="vn_momo" value="{{ $subTotal}}">
+             <input type="hidden" name="vn_momo" value="{{ $netTotal }}">
 
              <button type="submit" id="vn_momo" style="display: none;" class="btn btn-primary w-90 mx-2" name="payUrl">
               <i class="fas fa-money-bill-wave"></i> Momo

@@ -8,24 +8,33 @@
    
     
     </div>
-    <div class="row g-4">
-        <div class="col-lg-3 col-md-6 wow fadeIn" data-wow-delay="0.1s">
-            <div class="fact-item bg-light rounded text-center h-100 p-5">
-                <i class="fa fa-certificate fa-4x text-primary mb-4"></i>
-                <p class="mb-2">sản phẩm tồn kho</p>
-                <h1 class="display-5 mb-0" data-toggle="counter-up">{{ $stockProducts }}</h1>
-      <div class="row">
-        <form autocomplete="off" id="filterForm">
-            @csrf
-            <p>Từ ngày: <input type="text" id="datepicker"></p>
-            <p>Đến ngày: <input type="text" id="datepicker2"></p>
-        
-            <button class="btn" id="btn_dashboard_filter">Filter</button>
-        </form>
+    <div class="container my-4">
+      <div class="row g-4">
+          <!-- Product Stock Card -->
+          <div class="col-lg-3 col-md-6">
+              <div class="card text-center bg-light">
+                  <div class="card-body">
+                      <i class="fa fa-certificate fa-4x text-primary mb-4"></i>
+                      <p class="card-text mb-2">Sản phẩm tồn kho</p>
+                      <h1 class="display-5 mb-0" data-toggle="counter-up">{{ $totalStock }}</h1>
+                  </div>
+              </div>
+         
+          </div>
+  
       </div>
-      <div class="container">
-        <div id="myfirstchart" style="height: 250px"></div>
-      </div> 
+  
+      <!-- Chart Container -->
+      <div class="row mt-4">
+          <div class="col">
+              <div class="bg-light p-4 rounded">
+                  <div id="myfirstchart" style="height: 250px"></div>
+              </div>
+          </div>
+      </div>
+  </div>
+  
+      
       <canvas id="doughnutChart"></canvas>
 
           
