@@ -15,7 +15,7 @@ class Roles extends Model
     protected $table = 'roles';
 
     public function admin(){
-        return $this->belongsToMany('App\Admin');
+        return $this->belongsToMany('App\Models\Admin');
     }
 }
 //

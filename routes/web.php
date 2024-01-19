@@ -16,7 +16,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\AuthController;
-
+use App\Http\Controllers\UserController;
 
 
 /*
@@ -428,3 +428,13 @@ Route::post ('login', [
     AuthController::class, 'login'
 ])->name('login');
 
+
+// USER
+Route::get('all-user', [
+    UserController::class, 'index'
+])->name('all-user');
+
+
+Route::post ('assign-roles', [
+    AuthController::class, 'assign_roles'
+])->name('assign-roles');

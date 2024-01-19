@@ -1,3 +1,6 @@
+<?php
+use Illuminate\Support\Facades\Session;
+?>
 @extends('admin_layout')
 @section('admin-content')
     <div class="row">

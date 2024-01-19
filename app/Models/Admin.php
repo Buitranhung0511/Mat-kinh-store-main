@@ -18,12 +18,21 @@ class Admin extends Authenticatable
     protected $table = 'admin';
 
     public function roles(){
-        return $this->belongsToMany('App\Roles');
+        return $this->belongsToMany('App\Models\Roles');
     }
 
     public function getAuthPassword()
     {
         return $this->admin_password;
     }
+    
+    public function hasAnyRole($roles){
+        return null !== $this->roles()->whereIn('name',$roles)->first();
+    }
+
+    public function hasRole($roles){
+        return null !== $this->roles()->where('name',$roles)->first();
+    }
+
 }
 //
