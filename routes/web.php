@@ -15,7 +15,8 @@ use App\Http\Controllers\CartsController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\CommentController;
-
+use App\Http\Controllers\CategoryPostController;
+use App\Http\Controllers\PostController;
 
 
 /*
@@ -42,6 +43,10 @@ Route::get('/san-pham', [
     HomeController::class, 'product'
 ])->name('product');
 
+// Route::get('/Category-Post', [
+//     HomeController::class, 'Category_Post'
+// ])->name('Category-Post');
+
 
 
 
@@ -49,23 +54,23 @@ Route::get('/san-pham', [
 //Danh mục sản phẩm - Trang Chủ "Hung"============
 Route::get('/danh-muc-san-pham/{category_id}', [
     CategoryProductController::class, 'show_category_home'
-])->name('home'); 
+])->name('home');
 
 Route::get('/chi-tiet-san-pham/{product_id}', [
     ProductController::class, 'detail_product'
-])->name('home'); 
+])->name('home');
 
 //Đánh giá sao
 Route::get('/insert-rating', [
-    ProductController::class,'insert_rating'
+    ProductController::class, 'insert_rating'
 ])->name('/insert-rating');
 
 Route::get('/load-comment', [
-    ProductController::class,'load_comment'
+    ProductController::class, 'load_comment'
 ])->name('/load_comment');
 
 Route::get('/send-comment', [
-    ProductController::class,'send_comment'
+    ProductController::class, 'send_comment'
 ])->name('/send_comment');
 //Danh mục sản phẩm - Trang Chủ "Hung"============
 
@@ -107,7 +112,7 @@ Route::post('/admin-dashboard', [
 
 // ordersatus
 Route::get('/update-order-status', [
-    AdminController::class, 'updateOrderStatus' 
+    AdminController::class, 'updateOrderStatus'
 ])->name('/update-order-status');
 
 // XỬ LÝ CATEGORY-PRODUCT (DASHBOARD)
@@ -149,9 +154,6 @@ Route::post('/save-category-product', [
     CategoryProductController::class, 'save_category_product'
 ])->name('save-category-product');
 
-// END :  XỬ LÝ CATEGORY-PRODUCT (DASHBOARD)
-
-//=====================================================================================
 Route::get('/search-category-product', [
     CategoryProductController::class, 'search_category_product'
 ])->name('search-category-product');
@@ -202,58 +204,60 @@ Route::post('/save-product', [
 
 // luongth check out
 // add tocard
-Route::get('/product/add-to-card/{id}',
-[
-    CartController::class,'addToCard'
-])->name('addToCard');
-//cart detail 
-Route::get('/cartDetail',[
-    CartController::class,'showCart'
+Route::get(
+    '/product/add-to-card/{id}',
+    [
+        CartController::class, 'addToCard'
+    ]
+)->name('addToCard');
+//cart detail
+Route::get('/cartDetail', [
+    CartController::class, 'showCart'
 ])->name('cartDetail');
-//update cart 
-Route::get('/cart-update',[
-    CartController::class,'upDateCart'
+//update cart
+Route::get('/cart-update', [
+    CartController::class, 'upDateCart'
 ])->name('updateCart');
-Route::get('/cart-delete_by_id',[
-    CartController::class,'deleteCartById'
+Route::get('/cart-delete_by_id', [
+    CartController::class, 'deleteCartById'
 ])->name('deleteCart');
 // route check out
-Route::get('/check_out',[
-        
-    CartController::class,'getTotal'
-    ])->name('check_out');
-    Route::post('/vn_payment',[
-        
-        CheckOutController::class,'vn_payment'
-        ])->name('vn_payment');
-        Route::post('/vn_momo',[
-        
-            CheckOutController::class,'vn_momo'
-            ])->name('vn_momo');
-            Route::post('/vn_onepay',[
-        
-                CheckOutController::class,'vn_onepay'
-                ])->name('vn_onepay');
-                //route thank History
-   Route::get('/thank',[
-        
-    HistoryController::class,'index'
-    ])->name('thank');
-   
-    Route::get('/thank_vn_momo',[
-        
-        HistoryController::class,'insertPaymentVnMomo'
-        ])->name('isert_momo');
-        Route::get('/thank_vn_pay',[
-        
-            HistoryController::class,'insertPaymentVNpay'
-            ])->name('isert_vn_pay');
+Route::get('/check_out', [
 
-            Route::get('/data_user',[
-        
-             HistoryController::class,'getDataCheckOut'
-                ])->name('input_data');  
-            
+    CartController::class, 'getTotal'
+])->name('check_out');
+Route::post('/vn_payment', [
+
+    CheckOutController::class, 'vn_payment'
+])->name('vn_payment');
+Route::post('/vn_momo', [
+
+    CheckOutController::class, 'vn_momo'
+])->name('vn_momo');
+Route::post('/vn_onepay', [
+
+    CheckOutController::class, 'vn_onepay'
+])->name('vn_onepay');
+//route thank History
+Route::get('/thank', [
+
+    HistoryController::class, 'index'
+])->name('thank');
+
+Route::get('/thank_vn_momo', [
+
+    HistoryController::class, 'insertPaymentVnMomo'
+])->name('isert_momo');
+Route::get('/thank_vn_pay', [
+
+    HistoryController::class, 'insertPaymentVNpay'
+])->name('isert_vn_pay');
+
+Route::get('/data_user', [
+
+    HistoryController::class, 'getDataCheckOut'
+])->name('input_data');
+
 Route::get('/search-product', [
     ProductController::class, 'search_product'
 ])->name('search-product');
@@ -401,3 +405,86 @@ Route::get('active-comment/{comment_id}', [
 Route::get('delete-comment/{comment_id}', [
     CommentController::class, 'delete_comment'
 ])->name('delete-comment');
+
+//============================================================================================================
+
+// MANAGER CATEGORY_POST
+Route::get('add-category-post', [
+    CategoryPostController::class, 'add_category_post'
+])->name('add-category-post');
+
+Route::get('all-category-post', [
+    CategoryPostController::class, 'all_category_post'
+])->name('all-category-post');
+
+Route::post('/save-category-post', [
+    CategoryPostController::class, 'save_category_post'
+])->name('save-category-post');
+
+Route::get('unactive-cate-post/{category_posts_id}', [
+    CategoryPostController::class, 'unactive_cate_post'
+])->name('unactive-cate-post');
+
+Route::get('active-cate-post/{category_posts_id}', [
+    CategoryPostController::class, 'active_cate_post'
+])->name('active-cate-post');
+
+Route::get('/edit-cate-post/{category_posts_id}', [
+    CategoryPostController::class, 'edit_category_post'
+])->name('edit-cate-post');
+
+Route::post('/update-cate-post/{category_posts_id}', [
+    CategoryPostController::class, 'update_category_post'
+])->name('update-cate-post');
+
+Route::get('/delete-cate-post/{category_posts_id}', [
+    CategoryPostController::class, 'delete_category_post'
+])->name('delete-cate-post');
+
+Route::get('/search-cate-post', [
+    CategoryPostController::class, 'search_cate_post'
+])->name('search-cate-post');
+
+// Hiển thị page home
+Route::get('/category-post', [
+    CategoryPostController::class, 'category_post'
+])->name('category-post');
+
+//============================================================================================================
+
+// MANAGER POST
+Route::get('/add-post', [
+    PostController::class, 'add_post'
+])->name('add-post');
+
+Route::post('/save-post', [
+    PostController::class, 'save_post'
+])->name('save-post');
+
+Route::get('/all-post', [
+    PostController::class, 'all_post'
+])->name('all-post');
+
+Route::get('unactive-post/{posts_id}', [
+    PostController::class, 'unactive_post'
+])->name('unactive-post');
+
+Route::get('active-post/{posts_id}', [
+    PostController::class, 'active_post'
+])->name('active-post');
+
+Route::get('/edit-post/{posts_id}', [
+    PostController::class, 'edit_post'
+])->name('edit-post');
+
+Route::post('/update-post/{posts_id}', [
+    PostController::class, 'update_post'
+])->name('update-post');
+
+Route::get('/delete-post/{posts_id}', [
+    PostController::class, 'delete_post'
+])->name('delete-post');
+
+Route::get('/search-post', [
+    PostController::class, 'search_post'
+])->name('search-post');

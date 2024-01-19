@@ -1,5 +1,5 @@
 @extends('admin_layout')
-@section('admin-content')
+@section('admin_content')
     <div class="row">
         <div class="col-lg-12">
             <section class="panel">
@@ -27,13 +27,6 @@
                                 <input type="text" class="form-control" name="discount_name" id="exampleInputEmail1"
                                     data-validation="length" data-validation-length = "min3">
                             </div>
-
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Product_id</label>
-                                <input type="text" class="form-control" name="product_id" id="exampleInputEmail1"
-                                    data-validation="length" data-validation-length = "min3">
-                            </div>
-
 
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Discount_code</label>

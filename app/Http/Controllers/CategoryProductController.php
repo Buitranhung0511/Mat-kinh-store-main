@@ -26,7 +26,7 @@ class CategoryProductController extends Controller
         }
     }
 
-    public function add_category_product()
+    public function add_category_product(Request $request)
     {
         $this->AuthLogin();           // Nếu login thì trả về trang add_category_product
         return view('admin.add_category_product');
@@ -35,7 +35,7 @@ class CategoryProductController extends Controller
     public function all_category_product()
     {
         $this->AuthLogin();           // Nếu login thì trả về trang all_category_product
-        $all_category_product = DB::table('category_product')->get(); // Lấy dữ liệu bảng category_product
+        $all_category_product = DB::table('category_product')->paginate(10); // Lấy dữ liệu bảng category_product
 
         $manage_category_product = view('admin.all_category_product')->with('all_category_product', $all_category_product);  // Hiển thị dữ liệu lên trang 'all_category_product'
         return view('admin_layout')->with('admin.all_category_product', $manage_category_product);
@@ -46,21 +46,26 @@ class CategoryProductController extends Controller
         $this->AuthLogin();           // Nếu login thì trả về trang save_category_product
         // Lấy CSDL
         $data = array();
-        $data['category_name'] = $request->category_product_name;
+
+        // Kiểm tra đầu vào có trùng tên hay không
+        $checkCategory = DB::table('category_product')
+            ->where('category_name', $request->category_product_name)
+            ->where('category_id', $request->category_product_id)
+            ->exists();
+
+        if ($checkCategory) {
+            $data['category_name'] = $request->category_product_name;
+        } else {
+            Session::put('message', '<h4 style="color:red;">Category_name already exits ? Please input again!</h4>');
+            return Redirect()->back();
+        }
+
         $data['category_desc'] = $request->category_product_desc;
         $data['category_status'] = $request->category_product_status;
-
-        // $data['product_quantity'] = $request->category_product_quantity;
-
-
-        // echo '<pre>';
-        // print_r($data);
-        // echo '</pre>';
 
         DB::table('category_product')->insert($data);
         Session::put('message', 'Add category successfully');
         return Redirect::to('add-category-product');
-
     }
 
     // Hàm xử lý Show/Hiden
@@ -97,7 +102,20 @@ class CategoryProductController extends Controller
     {
         $this->AuthLogin();
         $data = array();
-        $data['category_name'] = $request->category_product_name;
+
+        // Kiểm tra đầu vào có trùng tên hay không
+        $checkCategory = DB::table('category_product')
+            ->where("category_name", $request->category_product_name)
+            ->where("category_id", "!=", $category_product_id)
+            ->exists();
+
+        if ($checkCategory == true) {
+            Session::put('message', '<h4 style="color:red;">Product_name already exits ? Please input again!</h4>');
+            return Redirect()->back();
+        } else {
+            $data['category_name'] = $request->category_product_name;
+        }
+
         $data['category_desc'] = $request->category_product_desc;
         DB::table('category_product')->where('category_id', $category_product_id)->update($data);
         Session::put('message', 'Update category successfully');
@@ -117,15 +135,16 @@ class CategoryProductController extends Controller
 
 
 
-    public function show_category_home($category_id){
-        $cate_product = DB::table('category_product')->where('category_status','0')->orderby('category_id','desc')->get();
+    public function show_category_home($category_id)
+    {
+        $cate_product = DB::table('category_product')->where('category_status', '0')->orderby('category_id', 'desc')->get();
 
 
-        $category_by_id = DB::table('product')->join('category_product','product.category_id','=','category_product.category_id')->where('product.category_id',$category_id)->get();
+        $category_by_id = DB::table('product')->join('category_product', 'product.category_id', '=', 'category_product.category_id')->where('product.category_id', $category_id)->get();
 
-        $category_name = DB::table('category_product')->where('category_product.category_id',$category_id)->limit(1)->get();
+        $category_name = DB::table('category_product')->where('category_product.category_id', $category_id)->limit(1)->get();
 
 
-            return view('pages.category.show_category')->with('category',$cate_product)->with('category_by_id',$category_by_id)->with('category_name',$category_name);
+        return view('pages.category.show_category')->with('category', $cate_product)->with('category_by_id', $category_by_id)->with('category_name', $category_name);
     }
 }

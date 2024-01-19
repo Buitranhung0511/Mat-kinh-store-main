@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Session;
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-    
+
     <script type="application/x-javascript">
         addEventListener("load", function() {
             setTimeout(hideURLbar, 0);
@@ -28,7 +28,9 @@ use Illuminate\Support\Facades\Session;
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
     <link href="{{ asset('backend/css/style-responsive.css') }}" rel="stylesheet" />
     <!-- font CSS -->
-    <link href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+    <link
+        href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic'
+        rel='stylesheet' type='text/css'>
     <!-- Custom CSS.. -->
     <link href="{{ asset('backend/css/style.css') }}" rel='stylesheet' type='text/css' />
     <link href="{{ asset('backend/css/style-responsive.css') }}" rel="stylesheet" />
@@ -61,7 +63,7 @@ use Illuminate\Support\Facades\Session;
 
         i.styling-edit {
             font-size: 25px
-        } 
+        }
     </style>
 </head>
 
@@ -140,11 +142,10 @@ use Illuminate\Support\Facades\Session;
                         </li>
 
 
-           
+
                         <li class="sub-menu">
                             <a href="javascript:;">
                                 <i class="fa fa-book"></i>
-                                <span>Category products list</span>
                                 <span>Category products</span>
                             </a>
                             <ul class="sub">
@@ -158,7 +159,6 @@ use Illuminate\Support\Facades\Session;
                         <li class="sub-menu">
                             <a href="javascript:;">
                                 <i class="fa fa-book"></i>
-                                <span>Products list</span>
                                 <span>Products</span>
                             </a>
                             <ul class="sub">
@@ -219,6 +219,40 @@ use Illuminate\Support\Facades\Session;
                         </li>
                         {{-- End --}}
 
+                        {{-- Category News Dashboard --}}
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-book"></i>
+                                <span>Category News</span>
+                            </a>
+                            <ul class="sub">
+                                <li><a href="{{ URL::to('/add-category-post/') }}">Add Category News</a></li>
+                            </ul>
+                            <ul class="sub">
+                                <li><a href="{{ URL::to('/all-category-post/') }}">Show Category news list</a></li>
+                            </ul>
+
+
+                        </li>
+                        {{-- End --}}
+
+                        {{-- News Dashboard --}}
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-book"></i>
+                                <span> News</span>
+                            </a>
+                            <ul class="sub">
+                                <li><a href="{{ URL::to('/add-post/') }}">Add News</a></li>
+                            </ul>
+                            <ul class="sub">
+                                <li><a href="{{ URL::to('/all-post/') }}">Show News list</a></li>
+                            </ul>
+
+
+                        </li>
+                        {{-- End --}}
+
 
                     </ul>
                 </div>
@@ -234,7 +268,7 @@ use Illuminate\Support\Facades\Session;
             <section class="wrapper">
 
                 @yield('admin_content')
-              
+
             </section>
             <!-- Phan Body -->
 
@@ -259,12 +293,12 @@ use Illuminate\Support\Facades\Session;
     <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-    4 <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
-   {{-- luongth functions order --}}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+    {{-- luongth functions order --}}
 
-   <script  type="application/x-javascript">
+    <script  type="application/x-javascript">
     $( function() {
-        
+
       $( "#datepicker" ).datepicker({
 
 
@@ -278,55 +312,55 @@ dateFormat:"yy-mm-dd"
     } );
     </script>
 
-<script>
-    $(document).ready(function () {
+    <script>
+        $(document).ready(function() {
 
- var chart = new Morris.Bar({
-  // ID of the element in which to draw the chart.
-  element: 'myfirstchart',
-  barColors: ['#00a65a', '#32c5d2', '#5cb85c', '#8cc152'],
- parseTime:false,
- hideHover:'auto',
-  // Chart data records -- each entry in this array corresponds to a point on
-  // the chart.
-  
-  // The name of the data record attribute that contains x-values.
-  xkey: 'perifod',
-  // A list of names of data record attributes that contain y-values.
-  ykeys: ['order','sales','profit','quantity'],
-  // Labels for the ykeys -- will be displayed when you hover over the
-  labels:['đơn hàng','doanh số','lợi nhuận','số lượng']
-  // chart.
-});
+            var chart = new Morris.Bar({
+                // ID of the element in which to draw the chart.
+                element: 'myfirstchart',
+                barColors: ['#00a65a', '#32c5d2', '#5cb85c', '#8cc152'],
+                parseTime: false,
+                hideHover: 'auto',
+                // Chart data records -- each entry in this array corresponds to a point on
+                // the chart.
 
-        $('#filterForm').submit(function (event) {
-            event.preventDefault(); // Prevent the default form submission
+                // The name of the data record attribute that contains x-values.
+                xkey: 'perifod',
+                // A list of names of data record attributes that contain y-values.
+                ykeys: ['order', 'sales', 'profit', 'quantity'],
+                // Labels for the ykeys -- will be displayed when you hover over the
+                labels: ['đơn hàng', 'doanh số', 'lợi nhuận', 'số lượng']
+                // chart.
+            });
 
-            // Your AJAX request code goes here
-            var _token = $('input[name="_token"]').val();
-            var from_date = $('#datepicker').val();
-            var to_date = $('#datepicker2').val();
+            $('#filterForm').submit(function(event) {
+                event.preventDefault(); // Prevent the default form submission
 
-            $.ajax({
-                type: 'GET',
-                url: '/filter_by_date', // Replace with the actual endpoint URL
-                data: {
-                    // _token: _token,
-                    from_date: from_date,
-                    to_date: to_date
-                },
-                success: function (response) {
-                    console.log(response);
-                   chart.setData(response);
-                },
-                error: function (error) {
-                    console.error(error);
-                    // Handle the error or show a message to the user
-                }
+                // Your AJAX request code goes here
+                var _token = $('input[name="_token"]').val();
+                var from_date = $('#datepicker').val();
+                var to_date = $('#datepicker2').val();
+
+                $.ajax({
+                    type: 'GET',
+                    url: '/filter_by_date', // Replace with the actual endpoint URL
+                    data: {
+                        // _token: _token,
+                        from_date: from_date,
+                        to_date: to_date
+                    },
+                    success: function(response) {
+                        console.log(response);
+                        chart.setData(response);
+                    },
+                    error: function(error) {
+                        console.error(error);
+                        // Handle the error or show a message to the user
+                    }
+                });
             });
         });
-    });
-</script>
+    </script>
 
     {{-- script tìm kiếm sản phẩm --}}
 
@@ -443,8 +477,8 @@ dateFormat:"yy-mm-dd"
             function gd(year, day, month) {
                 return new Date(year, month - 1, day).getTime();
             }
-            
-           
+
+
             // graphArea2 = Morris.Area({
             //     element: 'hero-area',
             //     padding: 10,
@@ -522,9 +556,9 @@ dateFormat:"yy-mm-dd"
             //     hideHover: 'auto',
             //     resize: true
             // });
-        
 
-    });
+
+        });
     </script>
     <!-- calendar -->
     <script type="text/javascript" src="{{ asset('/backend/js/monthly.js') }}"></script>

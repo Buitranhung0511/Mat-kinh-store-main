@@ -11,7 +11,6 @@ class Discount extends Model
     protected $fillable = [
 
         'discount_name',
-        'product_id',
         'discount_code',
         'discount_percent',
         'discount_status',

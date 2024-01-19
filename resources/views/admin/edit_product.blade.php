@@ -1,11 +1,9 @@
-   
-   
-   <?php
+<?php
 
 use Illuminate\Support\Facades\Session;
 ?>
-   @extends('admin_layout')
-@section('admin-content')
+@extends('admin_layout')
+@section('admin_content')
     <div class="row">
         <div class="col-lg-12">
             <section class="panel">
@@ -16,7 +14,6 @@ use Illuminate\Support\Facades\Session;
 
                     <div class="position-center">
                         @foreach ($edit_product as $key => $pro)
-                            {{-- Message hiển thị thông báo thêm thành công hay thất bại --}}
                             {{-- Message hiển thị thông báo thêm thành công hay thất bại.. --}}
                             <?php
                             $message = Session::get('message');
@@ -41,7 +38,6 @@ use Illuminate\Support\Facades\Session;
                                     <input type="file" class="form-control" name="product_image" id="exampleInputEmail1">
                                     <img src="{{ URL::to('public/uploads/product/' . $pro->product_image) }} "
                                         height="100" width="100">
-                                        value="{{ $pro->product_name }}" required>
                                 </div>
 
                                 <div class="form-group">
@@ -50,19 +46,11 @@ use Illuminate\Support\Facades\Session;
                                         id="exampleInputEmail1" value="{{ $pro->product_quantity }}" required>
                                 </div>
 
-
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Product image :</label>
-                                    <input type="file" class="form-control" name="product_image" id="exampleInputEmail1">
-                                    <img src="{{ URL::to('public/uploads/product/' . $pro->product_image) }} "
-                                        height="100" width="100" required>
-                                </div>
-
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Product price :</label>
                                     <input type="text" class="form-control" name="product_price" id="exampleInputEmail1"
                                         value="{{ $pro->product_price }}">
-                                        value="{{ $pro->product_price }}" required>
+
                                 </div>
 
                                 <div class="form-group">
@@ -80,8 +68,7 @@ use Illuminate\Support\Facades\Session;
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="exampleInputPassword1">Category : </label>
-                                    <select name="product_cate" class="form-control input-sm m-bot15 ">
+                                    <label for="exampleInputPassword1">Category name: </label>
                                     <select name="product_cate" class="form-control input-sm m-bot15 " required>
                                         {{-- Sử dụng foreach để lấy tên category --}}
                                         @foreach ($cate_product as $key => $cate)

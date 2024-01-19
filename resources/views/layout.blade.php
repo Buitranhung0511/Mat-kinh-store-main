@@ -47,7 +47,7 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="social-icons pull-right">
-                            <ul class="nav navbar-nav">
+                            <ul class="nav navbar-nav" style="display: inline-block;">
                                 <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                                 <li><a href="#"><i class="fa fa-twitter"></i></a></li>
                                 <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
@@ -65,11 +65,13 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="logo pull-left">
-                            <a href="index.html"><img src="{{ asset('frontend/images/logo.png') }}" alt="" /></a>
+                            <a href="index.html"><img src="{{ asset('frontend/images/logo.png') }}"
+                                    alt="" /></a>
                         </div>
                         <div class="btn-group pull-right">
                             <div class="btn-group">
-                                <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
+                                <button type="button" class="btn btn-default dropdown-toggle usa"
+                                    data-toggle="dropdown">
                                     USA
                                     <span class="caret"></span>
                                 </button>
@@ -80,7 +82,8 @@
                             </div>
 
                             <div class="btn-group">
-                                <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
+                                <button type="button" class="btn btn-default dropdown-toggle usa"
+                                    data-toggle="dropdown">
                                     DOLLAR
                                     <span class="caret"></span>
                                 </button>
@@ -93,7 +96,7 @@
                     </div>
                     <div class="col-sm-8">
                         <div class="shop-menu pull-right">
-                            <ul class="nav navbar-nav">
+                            <ul class="nav navbar-nav" style="display: inline-block;">
                                 <li><a href="#"><i class="fa fa-user"></i> Account</a></li>
                                 <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
                                 <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
@@ -111,7 +114,8 @@
                 <div class="row">
                     <div class="col-sm-9">
                         <div class="navbar-header">
-                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                                data-target=".navbar-collapse">
                                 <span class="sr-only">Toggle navigation</span>
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
@@ -120,20 +124,26 @@
                         </div>
                         <div class="mainmenu pull-left">
                             <ul class="nav navbar-nav collapse navbar-collapse">
-                                <li><a href="{{ URL::to('/trang-chu') }} " class="active">Trang Chu</a></li>
-                                <li class="dropdown"><a href="{{ URL::to('/san-pham') }}">Product<i class="fa fa-angle-down"></i></a>
+                                {{-- Menu Home --}}
+                                <li><a href="{{ URL::to('/trang-chu') }} " class="active">Home</a></li>
+
+                                {{-- Menu Product --}}
+                                <li class="dropdown"><a href="{{ URL::to('/san-pham') }}">Product<i
+                                            class="fa fa-angle-down"></i></a>
+                                </li>
+
+                                {{-- Menu News --}}
+                                <li class="dropdown"><a href="#">News<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                        <li><a href="shop.html">Products</a></li>
-                                        <li><a href="product-details.html">Product Details</a></li>
-                                        <li><a href="checkout.html">Checkout</a></li>
-                                        <li><a href="cart.html">Cart</a></li>
-                                        <li><a href="login.html">Login</a></li>
+                                        @foreach ($category_post as $key => $catepost)
+                                            <li><a
+                                                    href="{{ URL::to('/category-post') }}">{{ $catepost->category_posts_name }}</a>
+                                            </li>
+                                        @endforeach
                                     </ul>
                                 </li>
-                                <li class="dropdown"><a href="#">Tin Tức<i class="fa fa-angle-down"></i></a>
-                                </li>
-                                <li><a href="404.html">Giỏ Hàng</a></li>
-                                <li><a href="contact-us.html">liên Hệ</a></li>
+                                <li><a href="404.html">Cart</a></li>
+                                <li><a href="contact-us.html">Contact</a></li>
                             </ul>
                         </div>
                     </div>
@@ -151,14 +161,14 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
-                    <div id="slider-carousel" class="carousel slide" data-ride="carousel">
+                    {{-- <div id="slider-carousel" class="carousel slide" data-ride="carousel">
                         <ol class="carousel-indicators">
                             <li data-target="#slider-carousel" data-slide-to="0" class="active"></li>
                             <li data-target="#slider-carousel" data-slide-to="1"></li>
                             <li data-target="#slider-carousel" data-slide-to="2"></li>
                         </ol>
 
-                        <!-- <div class="carousel-inner">
+                        <div class="carousel-inner">
                             <div class="item active">
                                 <div class="col-sm-6">
                                     <h1><span>E</span>-SHOPPER</h1>
@@ -168,8 +178,10 @@
                                     <button type="button" class="btn btn-default get">Get it now</button>
                                 </div>
                                 <div class="col-sm-6">
-                                    <img src="{{ asset('frontend/images/girl1.jpg') }}" class="girl img-responsive" alt="" />
-                                    <img src="{{ asset('frontend/images/pricing.png') }}" class="pricing" alt="" />
+                                    <img src="{{ asset('frontend/images/girl1.jpg') }}" class="girl img-responsive"
+                                        alt="" />
+                                    <img src="{{ asset('frontend/images/pricing.png') }}" class="pricing"
+                                        alt="" />
                                 </div>
                             </div>
                             <div class="item">
@@ -181,8 +193,10 @@
                                     <button type="button" class="btn btn-default get">Get it now</button>
                                 </div>
                                 <div class="col-sm-6">
-                                    <img src="{{ asset('frontend/images/girl2.jpg') }}" class="girl img-responsive" alt="" />
-                                    <img src="{{ asset('frontend/images/pricing.png') }}" class="pricing" alt="" />
+                                    <img src="{{ asset('frontend/images/girl2.jpg') }}" class="girl img-responsive"
+                                        alt="" />
+                                    <img src="{{ asset('frontend/images/pricing.png') }}" class="pricing"
+                                        alt="" />
                                 </div>
                             </div>
 
@@ -195,12 +209,14 @@
                                     <button type="button" class="btn btn-default get">Get it now</button>
                                 </div>
                                 <div class="col-sm-6">
-                                    <img src="{{ asset('frontend/images/girl3.jpg') }}" class="girl img-responsive" alt="" />
-                                    <img src="{{ asset('frontend/images/pricing.png') }}" class="pricing" alt="" />
+                                    <img src="{{ asset('frontend/images/girl3.jpg') }}" class="girl img-responsive"
+                                        alt="" />
+                                    <img src="{{ asset('frontend/images/pricing.png') }}" class="pricing"
+                                        alt="" />
                                 </div>
                             </div>
 
-                        </div> -->
+                        </div>
 
                         <a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
                             <i class="fa fa-angle-left"></i>
@@ -208,7 +224,7 @@
                         <a href="#slider-carousel" class="right control-carousel hidden-xs" data-slide="next">
                             <i class="fa fa-angle-right"></i>
                         </a>
-                    </div>
+                    </div> --}}
 
                 </div>
             </div>
@@ -359,7 +375,8 @@
                             <h2>About Shopper</h2>
                             <form action="#" class="searchform">
                                 <input type="text" placeholder="Your email address" />
-                                <button type="submit" class="btn btn-default"><i class="fa fa-arrow-circle-o-right"></i></button>
+                                <button type="submit" class="btn btn-default"><i
+                                        class="fa fa-arrow-circle-o-right"></i></button>
                                 <p>Get the most recent updates from <br />our site and be updated your self...</p>
                             </form>
                         </div>
@@ -373,7 +390,8 @@
             <div class="container">
                 <div class="row">
                     <p class="pull-left">Copyright © 2013 E-SHOPPER Inc. All rights reserved.</p>
-                    <p class="pull-right">Designed by <span><a target="_blank" href="http://www.themeum.com">Themeum</a></span></p>
+                    <p class="pull-right">Designed by <span><a target="_blank"
+                                href="http://www.themeum.com">Themeum</a></span></p>
                 </div>
             </div>
         </div>
@@ -393,7 +411,7 @@
 
 <script type="text/javascript">
     function remove_background(product_id) {
-        
+
         for (var count = 1; count <= 5; count++) {
             $('#' + product_id + '-' + count).css('color', '#ccc');
         }
@@ -431,7 +449,7 @@
         var _token = $('input[name="_token"]').val();
 
         $.ajax({
-            url: "{{url('insert-rating')}}",
+            url: "{{ url('insert-rating') }}",
             method: "GET",
             data: {
                 index: index,
@@ -460,7 +478,7 @@
             var product_id = $('.product_id').val();
             var _token = $('input[name="_token"]').val();
             $.ajax({
-                url: "{{url('/load-comment')}}",
+                url: "{{ url('/load-comment') }}",
                 method: "GET",
                 data: {
                     product_id: product_id,
@@ -473,13 +491,13 @@
         }
 
         $('.send-comment').click(function() {
-            var product_id = $('.product_id').val();     
+            var product_id = $('.product_id').val();
             var _token = $('input[name="_token"]').val();
             var comment_name = $('.comment_name').val();
             var comment_email = $('.comment_email').val();
-            var comment_content = $('.comment_content').val();        
+            var comment_content = $('.comment_content').val();
             $.ajax({
-                url: "{{url('/send-comment')}}",
+                url: "{{ url('/send-comment') }}",
                 method: "GET",
                 data: {
                     product_id: product_id,
@@ -489,7 +507,9 @@
                     _token: _token
                 },
                 success: function(data) {
-                    $('#notify_comment').html('<span class="text text-success">Them Binh Luan Thanh Cong</span>');
+                    $('#notify_comment').html(
+                        '<span class="text text-success">Them Binh Luan Thanh Cong</span>'
+                    );
                     load_comment();
                     $('#notify_comment').fadeOut(5000);
                     $('.comment_name').val('');
@@ -512,7 +532,7 @@
 <!-- Bootstrap theme -->
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css" />
 
-<!-- 
+<!--
       RTL version
   -->
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.rtl.min.css" />
@@ -534,7 +554,8 @@
         } else if (typeof data === 'object') {
             // Trường hợp 2: Nếu cần duyệt qua các giá trị của đối tượng
             Object.values(data).forEach(item => {
-                totalQuantity += parseInt(item.quantity); // Giả sử mỗi item là một đối tượng có trường 'quantity'
+                totalQuantity += parseInt(item
+                    .quantity); // Giả sử mỗi item là một đối tượng có trường 'quantity'
             });
         } else {
             console.log("Dữ liệu không hợp lệ");
@@ -641,7 +662,7 @@
                     if (response.code === 200) {
                         // alertify.notify( message, 'success', [wait, callback]);
                         alertify.success('Success Addcart');
-                        // parse json 
+                        // parse json
                         calculateTotalQuantity(response.data);
 
 
@@ -711,7 +732,7 @@
                 }
             });
         }
-        //update Cart 
+        //update Cart
         $('.cart_wapper').on('click', '.cart-edit', function(event) {
             event.preventDefault();
 
@@ -814,7 +835,8 @@
             return true;
         };
 
-        function setModalFields(nameProduct, quantity, subtotal, nameUser, email, phone, address, city, district, ward) {
+        function setModalFields(nameProduct, quantity, subtotal, nameUser, email, phone, address, city,
+            district, ward) {
             $('#nameProduct').val(nameProduct);
             $('#quantity').val(quantity);
 
@@ -829,7 +851,8 @@
 
         function openModal(data) {
             // Set modal fields with the provided data
-            setModalFields(data.product, data.quantity, data.subtotal, data.fullname, data.email, data.phone, data.address, data.city, data.district, data.ward);
+            setModalFields(data.product, data.quantity, data.subtotal, data.fullname, data.email, data.phone,
+                data.address, data.city, data.district, data.ward);
 
             // Show the modal
             $('#myModal').modal('show');

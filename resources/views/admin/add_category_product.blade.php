@@ -1,8 +1,9 @@
-<?php 
+<?php
 use Illuminate\Support\Facades\Session;
+use Illuminate\Pagination\Paginator;
 ?>
 @extends('admin_layout')
-@section('admin-content')
+@section('admin_content')
     <div class="row">
         <div class="col-lg-12">
             <section class="panel">
@@ -27,9 +28,9 @@ use Illuminate\Support\Facades\Session;
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Category name :</label>
                                 <input type="text" class="form-control" name="category_product_name"
-                                    id="exampleInputEmail1" placeholder="Enter email">
+                                    id="exampleInputEmail1" placeholder="Enter category">
 
-                                <input type="text" class="form-control" name="category_product_name" id="category_name">
+                                {{-- <input type="text" class="form-control" name="category_product_name" id="category_name"> --}}
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Discription</label>
@@ -43,8 +44,6 @@ use Illuminate\Support\Facades\Session;
                                 <select name="category_product_status" class="form-control input-sm m-bot15 ">
                                     <option value="0">Hiden</option>
                                     <option value="1">Show</option>
-                                    <option value="1">Hiden</option>
-                                    <option value="0">Show</option>
                                 </select>
                             </div>
 
