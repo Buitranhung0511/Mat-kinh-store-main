@@ -32,15 +32,16 @@ class HistoryController extends Controller
             $orders = Order::all();
             $totalSales = 0;
             $totalProfit = 0;
+            $totalDiscount = 0;
             $totalQuantity = 0; // Initialize total quantity
             $totalOrders = count($orders);
             
             foreach ($orders as $order) {
                 $totalSales += $order->total_amount;
-                $totalProfit += $order->total_amount;
+                $totalDiscount += $order->total_discount;
                 $totalQuantity += $order->quantity;
             }
-        
+            $totalProfit = $totalSales - $totalDiscount;
             $statisticalRecord = StatirticModel::where('order_date', $todayDate)->first();
             
             if ($statisticalRecord) {

@@ -195,29 +195,22 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
  
    {{-- luongth functions order --}}
 
-   <script  type="application/x-javascript">
-    $( function() {
-        
-      $( "#datepicker" ).datepicker({
+   
+
+<script>
+    $(document).ready(function () {
+        $( "#datepicker" ).datepicker({
         dateFormat:"yy-mm-dd"
       });
       $( "#datepicker2" ).datepicker({
         dateFormat:"yy-mm-dd"
 });
-    } );
-    </script>
-
-<script>
-    $(document).ready(function () {
-
  var chart = new Morris.Bar({
   // ID of the element in which to draw the chart.
   element: 'myfirstchart',
   barColors: ['#00a65a', '#32c5d2', '#5cb85c', '#8cc152'],
  parseTime:false,
  hideHover:'auto',
-  // Chart data records -- each entry in this array corresponds to a point on
-  // the chart.
   
   // The name of the data record attribute that contains x-values.
   xkey: 'perifod',
@@ -228,7 +221,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
   // chart.
 });
 
-
     // filter submit
         $('#filterForm').submit(function (event) {
             event.preventDefault(); // Prevent the default form submission
@@ -237,33 +229,84 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             var _token = $('input[name="_token"]').val();
             var from_date = $('#datepicker').val();
             var to_date = $('#datepicker2').val();
-
-            $.ajax({
-                type: 'GET',
-                url: '/filter_by_date', // Replace with the actual endpoint URL
-                data: {
-                    // _token: _token,
-                    from_date: from_date,
-                    to_date: to_date
-                },
-                success: function (response) {
-                    console.log(response);
-                   chart.setData(response);
-                },
-                error: function (error) {
-                    console.error(error);
-                    // Handle the error or show a message to the user
-                }
-            });
+            performAjaxRequest(from_date, to_date);
+           
         });
+//funtion get data theo select
+$('#selectOption').change(function () {
+        var selectedValue = $(this).val();
+        var from_date, to_date;
+
+        switch (selectedValue) {
+            case '1':
+                // If value is 1, subtract 30 days from the current date
+                var currentDate = new Date();
+                var thirtyDaysAgo = new Date(currentDate);
+                thirtyDaysAgo.setDate(currentDate.getDate() - 30);
+
+                // Format dates as needed
+                from_date = formatDate(thirtyDaysAgo);
+                to_date = formatDate(currentDate);
+                break;
+
+            case '2':
+                // If value is 2, get the first day of the current month
+                var currentDate = new Date();
+                from_date = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+
+                // Get the last day of the current month
+                var lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+                to_date = formatDate(lastDay);
+                break;
+
+            case '3':
+                // If value is 3, get the first day of the current year
+                var currentYear = new Date().getFullYear();
+                from_date = currentYear + '-01-01';
+
+                // Get the last day of the current year
+                to_date = currentYear + '-12-31';
+                break;
+
+            // Add more cases if needed
+
+            default:
+                // Handle other cases if needed
+                break;
+        }
+        performAjaxRequest(from_date, to_date);
+        formatDate(date)
+    })
+// hàm gọi data table theo ngày 
+function performAjaxRequest(from_date, to_date) {
+    $.ajax({
+        type: 'GET',
+        url: '/filter_by_date', // Replace with the actual endpoint URL
+        data: { from_date: from_date, to_date: to_date },
+        success: function (response) {
+            console.log(response);
+            
+            chart.setData(response);
+        },
+        error: function (error) {
+            console.error(error);
+            // Handle the error or show a message to the user
+        }
+    });
+}
+// Function to format date as "YYYY-MM-DD"
+function formatDate(date) {
+    if (!date) return null;
+    var year = date.getFullYear();
+    var month = ('0' + (date.getMonth() + 1)).slice(-2);
+    var day = ('0' + date.getDate()).slice(-2);
+    return year + '-' + month + '-' + day;
+}
     });
 </script>
 
-    {{-- script tìm kiếm sản phẩm --}}
 
-    {{-- <script src="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css"></script>
-    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+
 
     <script>
         new DataTable('#example', {
@@ -271,7 +314,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 return: true
             }
         });
-    </script> --}}
+    </script> 
 
     <!-- Khởi tạo CKEditor cho textarea có id là 'editor' -->
     <script>
@@ -351,7 +394,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 
 
-    <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/flot-chart/excanvas.min.js"></script><![endif]-->
+
     <script src="{{ asset('backend/js/jquery.scrollTo.js') }}"></script>
     <!-- morris JavaScript -->
 

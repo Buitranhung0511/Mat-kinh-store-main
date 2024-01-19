@@ -70,14 +70,10 @@ class AdminController extends Controller
         //chart larvel
         $stockProducts = $totalStock - $soldThisMonth;
 
-        // $chart = Charts::create('bar', 'highcharts')
-        // ->title('Số lượng sản phẩm bán trong tháng')
-        // ->labels(['Tháng 1', 'Tháng 2', 'Tháng 3']) // Thêm các tháng cần hiển thị
-        // ->values($soldProducts);
-        // total stock product
+      
     
 
-        return view('admin.showDataOrder',compact('bestSellingProduct', 'stockProducts','totalStock'));
+        return view('admin.showDataOrder',compact('bestSellingProduct', 'stockProducts','soldThisMonth'));
        
     }
 
@@ -157,6 +153,7 @@ class AdminController extends Controller
             $chart_data[] = array(
                 'perifod' => $value->order_date,
                 'order' => $value->total_order,
+                'profit' => $value->profit,
                 'sales' => $value->sales,
                 'quantity' => $value->quantity,
             );

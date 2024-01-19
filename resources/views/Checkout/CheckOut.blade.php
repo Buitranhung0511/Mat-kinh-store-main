@@ -329,7 +329,7 @@
               <i class="fas fa-money-bill-wave"></i> Momo
             </button>
           </form>
-            <button type="button" class="btn btn-primary"style="display: none;" id="cashButton">Cash</button>
+            <button type="button" class="btn btn-primary w-100"style="display: none;" id="cashButton">Cash</button>
           </div>
         </div>
       </div>
