@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 ?>
 <!DOCTYPE html>
@@ -96,7 +97,7 @@ use Illuminate\Support\Facades\Session;
                             <span class="username">
 
                                 <?php
-                                $name = Session::get('admin_name');
+                                $name = Auth::user()->admin_name;
                                 if ($name) {
                                     echo $name;
                                 }
@@ -107,7 +108,7 @@ use Illuminate\Support\Facades\Session;
                         <ul class="dropdown-menu extended logout">
                             <li><a href="#"><i class=" fa fa-suitcase"></i>Profile</a></li>
                             <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
-                            <li><a href="{{ URL::to('/logout') }}"><i class="fa fa-key"></i> Log Out</a></li>
+                            <li><a href="{{ URL::to('/logout-auth') }}"><i class="fa fa-key"></i> Log Out</a></li>
                         </ul>
                     </li>
                     <!-- user login dropdown end -->

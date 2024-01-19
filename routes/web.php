@@ -15,8 +15,13 @@ use App\Http\Controllers\CartsController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\CommentController;
+<<<<<<< HEAD
 use App\Http\Controllers\CategoryPostController;
 use App\Http\Controllers\PostController;
+=======
+use App\Http\Controllers\AuthController;
+
+>>>>>>> 26a79f808d8ed167a268c55bc93161fd0049d66a
 
 
 /*
@@ -406,6 +411,7 @@ Route::get('delete-comment/{comment_id}', [
     CommentController::class, 'delete_comment'
 ])->name('delete-comment');
 
+<<<<<<< HEAD
 //============================================================================================================
 
 // MANAGER CATEGORY_POST
@@ -488,3 +494,30 @@ Route::get('/delete-post/{posts_id}', [
 Route::get('/search-post', [
     PostController::class, 'search_post'
 ])->name('search-post');
+=======
+
+//============================================================================================================
+
+
+//Authentication roles
+Route::get('register-auth', [
+    AuthController::class, 'register_auth'
+])->name('register-auth');
+
+Route::get('login-auth', [
+    AuthController::class, 'login_auth'
+])->name('login-auth');
+
+Route::get('logout-auth', [
+    AuthController::class, 'logout_auth'
+])->name('logout-auth');
+
+Route::post ('register', [
+    AuthController::class, 'register'
+])->name('register');
+
+Route::post ('login', [
+    AuthController::class, 'login'
+])->name('login');
+
+>>>>>>> 26a79f808d8ed167a268c55bc93161fd0049d66a
