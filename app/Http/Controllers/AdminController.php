@@ -25,8 +25,8 @@ class AdminController extends Controller
 {
 
     // Hàm check login
-   
-//=========================HUNG============================
+
+    //=========================HUNG============================
     // Hàm check login..
     public function AuthLogin()
     {
@@ -39,7 +39,7 @@ class AdminController extends Controller
             return Redirect::to('admin_login')->send();
         }
     }
-//=========================HUNG============================
+    //=========================HUNG============================
 
     public function index()
     {
@@ -48,38 +48,38 @@ class AdminController extends Controller
 
     public function show_dashboard()
     {
-        $this->AuthLogin();           // Nếu login thì trả về trang showDashboard
+        // $this->AuthLogin();           // Nếu login thì trả về trang showDashboard
 
-        $orders = DB::table('orders')->get();
+        // $orders = DB::table('orders')->get();
 
 
-        $totalStock = DB::table('product')->sum('product_quantity');
-        // tính tổng sản lượng product bán theo tháng 
-        $soldThisMonth = DB::table('orders')
-        ->whereMonth('created_at', Carbon::now()->month)
-        ->whereYear('created_at', Carbon::now()->year)
-        ->sum('quantity');
-        //    best sale in month
+        // $totalStock = DB::table('product')->sum('product_quantity');
+        // // tính tổng sản lượng product bán theo tháng
+        // $soldThisMonth = DB::table('orders')
+        //     ->whereMonth('created_at', Carbon::now()->month)
+        //     ->whereYear('created_at', Carbon::now()->year)
+        //     ->sum('quantity');
+        // //    best sale in month
 
-        $bestSellingProduct = DB::table('orders')
-        ->join('product', 'orders.product_id', '=', 'products.id')
-        ->select('product.product_id', 'product.product_content', DB::raw('SUM(orders.quantity) as total_quantity'))
-        ->whereMonth('orders.created_at', Carbon::now()->month)
-        ->whereYear('orders.created_at',  Carbon::now()->year)
-        ->groupBy('products.product_id', 'products.product.product_content')
-        ->orderBy('total_quantity', 'desc');
+        // $bestSellingProduct = DB::table('orders')
+        //     ->join('product', 'orders.product_id', '=', 'products.id')
+        //     ->select('product.product_id', 'product.product_content', DB::raw('SUM(orders.quantity) as total_quantity'))
+        //     ->whereMonth('orders.created_at', Carbon::now()->month)
+        //     ->whereYear('orders.created_at',  Carbon::now()->year)
+        //     ->groupBy('products.product_id', 'products.product.product_content')
+        //     ->orderBy('total_quantity', 'desc');
         // ->first(); //
         //chart larvel
-        $stockProducts = $totalStock - $soldThisMonth;
+        // $stockProducts = $totalStock - $soldThisMonth;
 
         // $chart = Charts::create('bar', 'highcharts')
-        // ->title('Số lượng sản phẩm bán trong tháng')
-        // ->labels(['Tháng 1', 'Tháng 2', 'Tháng 3']) // Thêm các tháng cần hiển thị
-        // ->values($soldProducts);
+        //     ->title('Số lượng sản phẩm bán trong tháng')
+        //     ->labels(['Tháng 1', 'Tháng 2', 'Tháng 3']) // Thêm các tháng cần hiển thị
+        //     ->values($soldProducts);
         // total stock product
-    
 
-        return view('admin.dashboard',compact('bestSellingProduct', 'stockProducts'));
+
+        return view('admin.dashboard');
     }
 
     public function dashboard(Request $request)
@@ -93,15 +93,15 @@ class AdminController extends Controller
         // echo '</pre>';
         // return view('admin.dashboard');
 
-       
+
         // KIỂM TẢ DỮ LIỆU CÓ ĐÚNG VỚI DATABASE
         if ($result) {
             Session::put('admin_name', $result->admin_name);
             Session::put('admin_id', $result->admin_id);
-           // Tạo biểu đồ
-     
-          
-          
+            // Tạo biểu đồ
+
+
+
             //  return view('admin.dashboard');
 
 
@@ -122,7 +122,7 @@ class AdminController extends Controller
         return Redirect::to('/admin_login');
     }
 
-    // /cap  nhat trang thai order 
+    // /cap  nhat trang thai order
     public function updateOrderStatus(Request $request)
     {
         $orderId = $request->input('orderId');
@@ -130,7 +130,7 @@ class AdminController extends Controller
 
         // Retrieve the order
         $order = Order::find($orderId);
-       
+
         if (!$order) {
             return response()->json(['error' => 'Order not found'], 404);
         }
@@ -146,11 +146,11 @@ class AdminController extends Controller
         $data = $request->all();
         $from_date = $data['from_date'];
         $to_date = $data['to_date'];
-    
+
         $statistics = StatirticModel::whereBetween('order_date', [$from_date, $to_date])
             ->orderBy('order_date', 'ASC')
             ->get();
-    
+
         $chart_data = [];
         foreach ($statistics as $value) {
             $chart_data[] = array(
@@ -160,9 +160,8 @@ class AdminController extends Controller
                 'quantity' => $value->quantity,
             );
         }
-    
+
         // Explicitly setting the HTTP status code to 200
         return response()->json($chart_data, 200);
     }
-    
 }
