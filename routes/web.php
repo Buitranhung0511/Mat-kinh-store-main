@@ -16,8 +16,13 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\AuthController;
+
 use App\Http\Controllers\CategoryPostController;
 use App\Http\Controllers\PostController;
+
+use App\Http\Controllers\UserController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -488,3 +493,14 @@ Route::get('/delete-post/{posts_id}', [
 Route::get('/search-post', [
     PostController::class, 'search_post'
 ])->name('search-post');
+
+
+// USER
+Route::get('all-user', [
+    UserController::class, 'index'
+])->name('all-user');
+
+
+Route::post('assign-roles', [
+    AuthController::class, 'assign_roles'
+])->name('assign-roles');
