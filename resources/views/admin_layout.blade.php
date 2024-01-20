@@ -110,7 +110,6 @@ use Illuminate\Support\Facades\Session;
                         </ul>
                     </li>
                     <!-- user login dropdown end -->
-
                 </ul>
                 <!--search & user info end-->
             </div>
@@ -220,7 +219,8 @@ use Illuminate\Support\Facades\Session;
                         </li>
                         {{-- End --}}
 
-                        {{-- user Dashboard --}}
+                        <!-- {{-- user Dashboard --}} -->
+                        @hasRole(['admin','author'])
                         <li class="sub-menu">
                             <a href="javascript:;">
                                 <i class="fa fa-book"></i>
@@ -231,7 +231,8 @@ use Illuminate\Support\Facades\Session;
                                 <li><a href="{{ URL::to('/add-user/') }}">Add User</a></li>
                             </ul>
                         </li>
-                        {{-- End --}}
+                        @endhasRole
+                        <!-- {{-- End --}} -->
 
                     </ul>
                 </div>

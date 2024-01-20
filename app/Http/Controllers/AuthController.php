@@ -81,4 +81,5 @@ class AuthController extends Controller
 //=============Dang Xuat Auth=============
 
 
+
 }

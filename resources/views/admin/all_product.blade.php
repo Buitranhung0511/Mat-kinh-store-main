@@ -1,10 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Pagination\Paginator;
 ?>
 
 @extends('admin_layout')
-@section('admin-content')
+@section('admin_content')
     <div class="table-agile-info">
         <div class="panel panel-default">
             <div class="panel-heading">
