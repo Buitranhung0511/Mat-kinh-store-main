@@ -50,6 +50,7 @@
 					<!-- Spacer with '*' -->
 					<p class="h3 mt-5">*</p>
 				</div>
+				{{-- luongth --}}
 			
 				<!-- Quantity -->
 				<div class="col-2">
