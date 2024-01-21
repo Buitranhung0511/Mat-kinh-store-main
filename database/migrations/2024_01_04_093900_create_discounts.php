@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('discounts', function (Blueprint $table) {
             $table->increments('discount_id');
-            $table->unsignedInteger('product_id');
             $table->string('discount_name');
             $table->string('discount_code');
             $table->string('discount_percent');
@@ -21,7 +20,7 @@ return new class extends Migration
             $table->date('start_date');
             $table->date('end_date');
 
-            $table->foreign('product_id')->references('product_id')->on('product');   // Đinh nghĩa khóa ngoại của bảng
+
             $table->timestamps();
         });
     }

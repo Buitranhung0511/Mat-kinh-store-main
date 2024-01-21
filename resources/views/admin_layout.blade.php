@@ -20,6 +20,9 @@ use Illuminate\Support\Facades\Session;
             window.scrollTo(0, 1);
         }
     </script>
+    <link href="{{ asset('frontend/css/sb-admin-2.min.css') }}" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
+
     <!-- bootstrap-css -->
     <link rel="stylesheet" href="{{ asset('backend/css/bootstrap.min.css') }}">
     <!-- //bootstrap-css -->
@@ -50,7 +53,11 @@ use Illuminate\Support\Facades\Session;
     <script src="{{ asset('backend/js/jquery2.0.3.min.js') }}"></script>
     <script src="{{ asset('backend/js/raphael-min.js') }}"></script>
     <script src="{{ asset('backend/js/morris.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
+    <!-- Include jQuery UI library -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <style>
         span.fa-thumb-styling.fa.fa-thumbs-down {
             font-size: 25px;
@@ -377,11 +384,8 @@ dateFormat:"yy-mm-dd"
         });
     </script>
 
-    {{-- script tìm kiếm sản phẩm --}}
 
-    {{-- <script src="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css"></script>
-    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+
 
     <script>
         new DataTable('#example', {
@@ -389,7 +393,7 @@ dateFormat:"yy-mm-dd"
                 return: true
             }
         });
-    </script> --}}
+    </script>
 
     <!-- Khởi tạo CKEditor cho textarea có id là 'editor' -->
     <script>

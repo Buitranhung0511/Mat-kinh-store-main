@@ -127,7 +127,7 @@ $amount = (string)(($total));
 $orderid = time() . "";
 $requestId = time(). "";
 $returnUrl = "http://127.0.0.1:8000/thank_vn_momo";
-$notifyurl = "http://127.0.0.1:8000/check_out";
+$notifyurl = "http://127.0.0.1:8000/thank";
 // Lưu ý: link notifyUrl không phải là dạng localhost
 $bankCode = "SML";
 $requestType = "payWithMoMoATM";
@@ -211,7 +211,7 @@ $vpc_MerchTxnRef = time();
 
 $vpc_OrderInfo = 'JSECURETEST01';
 $vpc_Amount = $data['vn_onepay']*100;
-$vpc_ReturnURL = 'http://127.0.0.1:8000/check_out';
+$vpc_ReturnURL = 'http://127.0.0.1:8000//vn_payment';
 $vpc_Version = '2';
 $vpc_Command = 'pay';
 $vpc_Locale ='vn';

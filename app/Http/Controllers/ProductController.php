@@ -36,7 +36,6 @@ class ProductController extends Controller
 
         $cate_product = DB::table('category_product')->orderby('category_id', 'desc')->paginate(10);
         return view('admin.add_product')->with('cate_product', $cate_product);
-        
     }
 
     public function all_product()

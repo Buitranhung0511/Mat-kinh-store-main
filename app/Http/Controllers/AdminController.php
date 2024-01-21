@@ -21,18 +21,19 @@ use Illuminate\Support\Facades\Redirect;
 
 //  session_start();
 
+
+// Hàm check login
+
+
+// dd(Auth::user());  // xuất ra array
+
+
 class AdminController extends Controller
 {
-
     // Hàm check login
-
-    //=========================HUNG============================
-    // Hàm check login..
     public function AuthLogin()
     {
-        // dd(Auth::user());  // xuất ra array
-
-        $admin_id = Auth::id();
+        $admin_id = Session::get('admin_id');
         if ($admin_id == true) {
             return Redirect::to('dashboard');
         } else {
@@ -156,6 +157,7 @@ class AdminController extends Controller
             $chart_data[] = array(
                 'perifod' => $value->order_date,
                 'order' => $value->total_order,
+                'profit' => $value->profit,
                 'sales' => $value->sales,
                 'quantity' => $value->quantity,
             );

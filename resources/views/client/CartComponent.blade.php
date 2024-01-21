@@ -1,3 +1,6 @@
+
+@extends('layout')
+@section('content')
 <section class="h-100 h-custom" style="background-color: #d2c9ff;">
     <div class="container py-5 h-100  update_cart_url" data-url="{{ route('updateCart') }}">
       <div class="row d-flex justify-content-center align-items-center h-100 delete_cart_url" data-url="{{ route('deleteCart') }}">
@@ -136,3 +139,4 @@
     <p>Giỏ hàng của bạn đang trống. Hãy <a >quay lại trang sản phẩm</a>.</p>
 @endif
   </section>
+@endsection

@@ -19,5 +19,13 @@ class Discount extends Model
     ];
     protected $table = 'discounts';
     use HasFactory;
+    public static function findByCodeAndDate($code, $day)
+    {
+        // Tìm kiếm discount dựa trên 'code' và kiểm tra xem ngày có nằm trong khoảng start_date và end_date
+        return self::where('discount_code', $code)
+                   ->where('start_date', '<=', $day)
+                   ->where('end_date', '>=', $day)
+                   ->first();
+    }
 }
 //

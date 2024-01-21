@@ -48,13 +48,6 @@ Route::get('/san-pham', [
     HomeController::class, 'product'
 ])->name('product');
 
-// Route::get('/Category-Post', [
-//     HomeController::class, 'Category_Post'
-// ])->name('Category-Post');
-
-
-
-
 
 //Danh mục sản phẩm - Trang Chủ "Hung"============
 Route::get('/danh-muc-san-pham/{category_id}', [
@@ -312,7 +305,7 @@ Route::get('/search-discount', [
     DiscountController::class, 'search_discount'
 ])->name('search-discount');
 
-
+Route::post('/check-discount', [DiscountController::class, 'checkDiscountCode'])->name('check-discount');
 // XỬ LÝ Member (DASHBOARD)
 
 Route::post('/register-member', [

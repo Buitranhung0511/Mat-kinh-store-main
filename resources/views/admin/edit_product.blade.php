@@ -50,7 +50,6 @@ use Illuminate\Support\Facades\Session;
                                     <label for="exampleInputEmail1">Product price :</label>
                                     <input type="text" class="form-control" name="product_price" id="exampleInputEmail1"
                                         value="{{ $pro->product_price }}">
-
                                 </div>
 
                                 <div class="form-group">

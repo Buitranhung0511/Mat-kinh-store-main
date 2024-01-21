@@ -90,27 +90,27 @@
 
                     <!--brands_products-->
                     <!-- <div class="brands_products">
-                                                                                        <h2>Thương Hiệu Sản Phẩm</h2>
-                                                                                        <div class="brands-name">
+                                                                                            <h2>Thương Hiệu Sản Phẩm</h2>
+                                                                                            <div class="brands-name">
 
-                                                                                            <ul class="nav nav-pills nav-stacked">
-                                                                                                <li><a href="#"> <span class="pull-right">(50)</span>Acne</a></li>
-                                                                                            </ul>
-                                                                                        </div>
-                                                                                    </div> -->
+                                                                                                <ul class="nav nav-pills nav-stacked">
+                                                                                                    <li><a href="#"> <span class="pull-right">(50)</span>Acne</a></li>
+                                                                                                </ul>
+                                                                                            </div>
+                                                                                        </div> -->
                     <!--/brands_products-->
 
 
                     <!--price-range-->
                     <!-- <div class="price-range">
-                                                                                        <h2>Price Range</h2>
-                                                                                        <div class="well text-center">
-                                                                                            <input type="text" class="span2" value="" data-slider-min="0"
-                                                                                                data-slider-max="600" data-slider-step="5" data-slider-value="[250,450]"
-                                                                                                id="sl2"><br />
-                                                                                            <b class="pull-left">$ 0</b> <b class="pull-right">$ 600</b>
-                                                                                        </div>
-                                                                                    </div> -->
+                                                                                            <h2>Price Range</h2>
+                                                                                            <div class="well text-center">
+                                                                                                <input type="text" class="span2" value="" data-slider-min="0"
+                                                                                                    data-slider-max="600" data-slider-step="5" data-slider-value="[250,450]"
+                                                                                                    id="sl2"><br />
+                                                                                                <b class="pull-left">$ 0</b> <b class="pull-right">$ 600</b>
+                                                                                            </div>
+                                                                                        </div> -->
                     <!--/price-range-->
 
                     <div class="features_items">

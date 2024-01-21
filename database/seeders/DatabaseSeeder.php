@@ -15,17 +15,17 @@ class DatabaseSeeder extends Seeder
     /**
      * Seed the application's database.
      */
-    public function run(): void
+    public function run()
     {
         Admin::trumcate();
         DB::table('admin_roles')->truncate();
 
 
-        $this->call(RolesTableSeeder::class); //gọi đến class của seeder Roles 
+        $this->call(RolesTableSeeder::class); //gọi đến class của seeder Roles
         // sau đó chạy câu lên "php artisan db:seed" để đưa dữ liệu vào database
 
 
-        $this->call(UsersTableSeeder::class); //gọi đến class của seeder Users 
+        $this->call(UsersTableSeeder::class); //gọi đến class của seeder Users
         // sau đó chạy câu lên "php artisan db:seed" để đưa dữ liệu vào database
 
 
@@ -38,7 +38,7 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        
-            // factory(App\Models\Admin::class,20)->create();
+
+        // factory(App\Models\Admin::class,20)->create();
     }
 }

@@ -4,7 +4,10 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9c735972c689d92533ceabb863e55a922c0aaa2f
     "content-hash": "10ab759c0fc85405628408edd1b1e548",
     "packages": [
         {
