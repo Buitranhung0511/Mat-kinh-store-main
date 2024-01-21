@@ -254,6 +254,19 @@ use Illuminate\Support\Facades\Session;
                         </li>
                         {{-- End --}}
 
+                        {{-- user Dashboard --}}
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-book"></i>
+                                <span>User</span>
+                            </a>
+                            <ul class="sub">
+                                <li><a href="{{ URL::to('/all-user/') }}">User List</a></li>
+                                <li><a href="{{ URL::to('/add-user/') }}">Add User</a></li>
+                            </ul>
+                        </li>
+                        {{-- End --}}
+
 
                     </ul>
                 </div>
@@ -451,6 +464,10 @@ dateFormat:"yy-mm-dd"
             return true;
         }
     </script>
+
+
+
+
     <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/flot-chart/excanvas.min.js"></script><![endif]-->
     <script src="{{ asset('backend/js/jquery.scrollTo.js') }}"></script>
     <!-- morris JavaScript -->

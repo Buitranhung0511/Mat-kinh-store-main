@@ -494,7 +494,29 @@ Route::get('/search-post', [
     PostController::class, 'search_post'
 ])->name('search-post');
 
+//========================================================================================
+//Authentication roles
+Route::get('register-auth', [
+    AuthController::class, 'register_auth'
+])->name('register-auth');
 
+Route::get('login-auth', [
+    AuthController::class, 'login_auth'
+])->name('login-auth');
+
+Route::get('logout-auth', [
+    AuthController::class, 'logout_auth'
+])->name('logout-auth');
+
+Route::post('register', [
+    AuthController::class, 'register'
+])->name('register');
+
+Route::post('login', [
+    AuthController::class, 'login'
+])->name('login');
+
+//======================================================================================
 // USER
 Route::get('all-user', [
     UserController::class, 'index'

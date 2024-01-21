@@ -19,7 +19,6 @@
     <link href="{{ asset('frontend/css/bootstrap.min copy.css') }}" rel="stylesheet">
     {{-- <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet"> --}}
 
-
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
@@ -128,19 +127,22 @@
                                 <li><a href="{{ URL::to('/trang-chu') }} " class="active">Home</a></li>
 
                                 {{-- Menu Product --}}
-                                <li class="dropdown"><a href="{{ URL::to('/san-pham') }}">Product<i
-                                            class="fa fa-angle-down"></i></a>
+                                <li><a href="{{ URL::to('/san-pham') }}">Product</i></a>
                                 </li>
 
                                 {{-- Menu News --}}
-                                <li class="dropdown"><a href="#">News<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
+                                <li class="dropdown">
+                                    <a href="{{ URL::to('/category-post') }}">News<i
+                                            class="fa fa-angle-down"></i></a>
+                                    {{-- <ul role="menu" class="sub-menu">
                                         @foreach ($category_post as $key => $catepost)
-                                            <li><a
-                                                    href="{{ URL::to('/category-post') }}">{{ $catepost->category_posts_name }}</a>
+                                            <li>
+                                                <a href="">
+                                                    {{ $catepost->category_posts_name }}
+                                                </a>
                                             </li>
                                         @endforeach
-                                    </ul>
+                                    </ul> --}}
                                 </li>
                                 <li><a href="404.html">Cart</a></li>
                                 <li><a href="contact-us.html">Contact</a></li>
@@ -161,61 +163,38 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
-                    {{-- <div id="slider-carousel" class="carousel slide" data-ride="carousel">
-                        <ol class="carousel-indicators">
+                    <div id="slider-carousel" class="carousel slide" data-ride="carousel">
+                        {{-- <ol class="carousel-indicators">
                             <li data-target="#slider-carousel" data-slide-to="0" class="active"></li>
                             <li data-target="#slider-carousel" data-slide-to="1"></li>
                             <li data-target="#slider-carousel" data-slide-to="2"></li>
-                        </ol>
+                        </ol> --}}
 
                         <div class="carousel-inner">
-                            <div class="item active">
-                                <div class="col-sm-6">
-                                    <h1><span>E</span>-SHOPPER</h1>
-                                    <h2>Free E-Commerce Template</h2>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua. </p>
-                                    <button type="button" class="btn btn-default get">Get it now</button>
-                                </div>
-                                <div class="col-sm-6">
-                                    <img src="{{ asset('frontend/images/girl1.jpg') }}" class="girl img-responsive"
-                                        alt="" />
-                                    <img src="{{ asset('frontend/images/pricing.png') }}" class="pricing"
-                                        alt="" />
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="col-sm-6">
-                                    <h1><span>E</span>-SHOPPER</h1>
-                                    <h2>100% Responsive Design</h2>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua. </p>
-                                    <button type="button" class="btn btn-default get">Get it now</button>
-                                </div>
-                                <div class="col-sm-6">
-                                    <img src="{{ asset('frontend/images/girl2.jpg') }}" class="girl img-responsive"
-                                        alt="" />
-                                    <img src="{{ asset('frontend/images/pricing.png') }}" class="pricing"
-                                        alt="" />
-                                </div>
-                            </div>
+                            @php
+                                // khai báo biến toàn cục để sử dụng foreach không bị xung đột với những biến khác
+                                global $slider;
+                                $slider = DB::table('slider')
+                                    ->orderBy('id', 'DESC')
+                                    ->where('slider_status', '0')
+                                    ->take(4)
+                                    ->get();
+                                $i = 0;
+                            @endphp
+                            @foreach ($slider as $key => $sli)
+                                @php
+                                    $i++;
+                                @endphp
+                                <div class="item {{ $i == 1 ? 'active' : '' }}">
 
-                            <div class="item">
-                                <div class="col-sm-6">
-                                    <h1><span>E</span>-SHOPPER</h1>
-                                    <h2>Free Ecommerce Template</h2>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua. </p>
-                                    <button type="button" class="btn btn-default get">Get it now</button>
-                                </div>
-                                <div class="col-sm-6">
-                                    <img src="{{ asset('frontend/images/girl3.jpg') }}" class="girl img-responsive"
-                                        alt="" />
-                                    <img src="{{ asset('frontend/images/pricing.png') }}" class="pricing"
-                                        alt="" />
-                                </div>
-                            </div>
+                                    <div class="col-sm-12" style="margin-left: -46px;">
+                                        <img alt="{{ $sli->slider_image }}"
+                                            src="public/uploads/slider/{{ $sli->slider_image }}" width="1200px"
+                                            height="450px" alt="">
 
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
 
                         <a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
@@ -224,7 +203,7 @@
                         <a href="#slider-carousel" class="right control-carousel hidden-xs" data-slide="next">
                             <i class="fa fa-angle-right"></i>
                         </a>
-                    </div> --}}
+                    </div>
 
                 </div>
             </div>
@@ -232,11 +211,7 @@
     </section><!--/slider-->
 
 
-    <section>
-
-        @yield('content')
-
-    </section>
+    @yield('content');
 
     <footer id="footer"><!--Footer-->
         <div class="footer-top">
