@@ -387,13 +387,13 @@ dateFormat:"yy-mm-dd"
 
 
 
-    <script>
+    {{-- <script>
         new DataTable('#example', {
             search: {
                 return: true
             }
         });
-    </script>
+    </script> --}}
 
     <!-- Khởi tạo CKEditor cho textarea có id là 'editor' -->
     <script>

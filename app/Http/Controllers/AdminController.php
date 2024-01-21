@@ -51,36 +51,32 @@ class AdminController extends Controller
     {
         // $this->AuthLogin();           // Nếu login thì trả về trang showDashboard
 
-        // $orders = DB::table('orders')->get();
+        $orders = DB::table('orders')->get();
 
 
-        // $totalStock = DB::table('product')->sum('product_quantity');
-        // // tính tổng sản lượng product bán theo tháng
-        // $soldThisMonth = DB::table('orders')
-        //     ->whereMonth('created_at', Carbon::now()->month)
-        //     ->whereYear('created_at', Carbon::now()->year)
-        //     ->sum('quantity');
-        // //    best sale in month
+        $totalStock = DB::table('product')->sum('product_quantity');
+        // tính tổng sản lượng product bán theo tháng
+        $soldThisMonth = DB::table('orders')
+            ->whereMonth('created_at', Carbon::now()->month)
+            ->whereYear('created_at', Carbon::now()->year)
+            ->sum('quantity');
+        //    best sale in month
 
-        // $bestSellingProduct = DB::table('orders')
-        //     ->join('product', 'orders.product_id', '=', 'products.id')
-        //     ->select('product.product_id', 'product.product_content', DB::raw('SUM(orders.quantity) as total_quantity'))
-        //     ->whereMonth('orders.created_at', Carbon::now()->month)
-        //     ->whereYear('orders.created_at',  Carbon::now()->year)
-        //     ->groupBy('products.product_id', 'products.product.product_content')
-        //     ->orderBy('total_quantity', 'desc');
+        $bestSellingProduct = DB::table('orders')
+            ->join('product', 'orders.product_id', '=', 'products.id')
+            ->select('product.product_id', 'product.product_content', DB::raw('SUM(orders.quantity) as total_quantity'))
+            ->whereMonth('orders.created_at', Carbon::now()->month)
+            ->whereYear('orders.created_at',  Carbon::now()->year)
+            ->groupBy('products.product_id', 'products.product.product_content')
+            ->orderBy('total_quantity', 'desc');
         // ->first(); //
         //chart larvel
-        // $stockProducts = $totalStock - $soldThisMonth;
-
-        // $chart = Charts::create('bar', 'highcharts')
-        //     ->title('Số lượng sản phẩm bán trong tháng')
-        //     ->labels(['Tháng 1', 'Tháng 2', 'Tháng 3']) // Thêm các tháng cần hiển thị
-        //     ->values($soldProducts);
-        // total stock product
+        $stockProducts = $totalStock - $soldThisMonth;
 
 
-        return view('admin.dashboard');
+
+
+        return view('admin.showDataOrder', compact('bestSellingProduct', 'stockProducts', 'soldThisMonth'));
     }
 
     public function dashboard(Request $request)
@@ -88,11 +84,13 @@ class AdminController extends Controller
         $admin_email = $request->admin_email;
         $admin_password = $request->admin_password;
 
-        $result = DB::table('admin')->where('admin_email', $admin_email)->where('admin_password', $admin_password)->first(); // first() : lấy giới hạn 1 user
+        $result = DB::table('admin')->where('admin_email', $admin_email)->where('admin_password', $admin_password)->first();
+        // first() : lấy giới hạn 1 user
         // echo '<pre>';
         // print_r($result);
         // echo '</pre>';
-        // return view('admin.dashboard');
+        //  return view('admin.dashboard');
+
 
 
         // KIỂM TẢ DỮ LIỆU CÓ ĐÚNG VỚI DATABASE

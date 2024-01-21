@@ -707,6 +707,7 @@
                 }
             });
         }
+
         //update Cart
         $('.cart_wapper').on('click', '.cart-edit', function(event) {
             event.preventDefault();
