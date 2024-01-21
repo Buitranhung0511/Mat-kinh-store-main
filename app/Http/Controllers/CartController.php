@@ -112,7 +112,11 @@ if (isset($carts[$productToRemove])) {
     // Render view với mảng cập nhật
     $cartComponent = view('client.CartComponent', compact('carts'))->render();
     
-    return response()->json(['cart_Component' => $cartComponent, 'data'=>$carts,'code' => 200], 200);
+    return response()->json([
+         'cart_Component' => $cartComponent,
+         'data'=>$carts,'code' => 200,
+         'totalQuantity' => $this->getTotalCartQuantity()
+        ], 200);
     
 }
 public function getTotal(){

@@ -86,12 +86,19 @@
                                 <li class="dropdown"><a href="#">Tin Tức<i class="fa fa-angle-down"></i></a>
                                 </li>
                                 @php
-                                 $cart = session()->get('cart', []);
-                                 $totalQuantity = 0;
-                                 foreach ($cart as $item) {
-                               $totalQuantity += $item['quantity'];
-                                  }
-                                @endphp
+                                session_start();
+                                $cart = session()->get('cart', []);
+                                $totalQuantity = 0;
+                            
+                                if (!empty($cart)) {
+                                    foreach ($cart as $item) {
+                                        $totalQuantity += $item['quantity'];
+                                    }
+                                } else {
+                                    $totalQuantity = 0;
+                                }
+                            @endphp
+                            
                                 <li>
                                     <a href="{{ route('cartDetail') }}">
                                         Giỏ Hàng
@@ -644,6 +651,7 @@
                     console.log(response);
                     if (response.code === 200) {
                         $('.cart_wapper').html(response.cart_Component);
+                        $('#cart-quantity').text(response.totalQuantity);
                        
 
                     }
