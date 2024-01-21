@@ -169,10 +169,17 @@ Route::get('/search-category-product', [
 // ============================================================================================================
 
 // XỬ LÝ PRODUCT (DASHBOARD)
+Route::group(['middleware' => 'auth.roles', 'auth.roles' => ['admin', 'author']], function () {
 
-Route::get('/add-product', [
-    ProductController::class, 'add_product'
-])->name('add-product');
+    Route::get('/add-product', [
+        ProductController::class, 'add_product'
+    ])->name('add-product');
+
+    Route::get('/edit-product/{product_id}', [
+        ProductController::class, 'edit_product'
+    ])->name('edit-product');
+});
+
 
 Route::get('/all-product', [
     ProductController::class, 'all_product'
@@ -190,9 +197,7 @@ Route::get('/active-product/{product_id}', [
 // End
 
 // Xử lý trang UPDATE Product
-Route::get('/edit-product/{product_id}', [
-    ProductController::class, 'edit_product'
-])->name('edit-product');
+
 
 Route::post('/update-product/{product_id}', [
     ProductController::class, 'update_product'
@@ -518,11 +523,23 @@ Route::post('login', [
 
 //======================================================================================
 // USER
+Route::group(['middleware' => 'auth.roles'], function () {
+});
+
+
 Route::get('all-user', [
     UserController::class, 'index'
 ])->name('all-user');
+
+Route::get('add-user', [
+    UserController::class, 'add_users'
+])->name('add-user')->middleware('auth.roles');
 
 
 Route::post('assign-roles', [
     AuthController::class, 'assign_roles'
 ])->name('assign-roles');
+
+Route::post('assign-roles', [
+    UserController::class, 'assign_roles'
+])->name('assign-roles')->middleware('auth.roles');

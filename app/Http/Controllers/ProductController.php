@@ -9,12 +9,10 @@ use App\Models\Product;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Log;
-
-
 use App\Models\Rating;
 use App\Models\Comment;
-
 use file;
+use Illuminate\Support\Facades\Auth;
 
 session_start();
 
@@ -23,7 +21,7 @@ class ProductController extends Controller
     // Hàm check login
     public function AuthLogin()
     {
-        $admin_id = Session::get('admin_id');
+        $admin_id = Auth::id();
         if ($admin_id == true) {
             return Redirect::to('dashboard');
         } else {
@@ -37,8 +35,8 @@ class ProductController extends Controller
         $this->AuthLogin();
 
         $cate_product = DB::table('category_product')->orderby('category_id', 'desc')->paginate(10);
-
         return view('admin.add_product')->with('cate_product', $cate_product);
+        
     }
 
     public function all_product()

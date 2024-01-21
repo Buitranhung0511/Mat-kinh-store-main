@@ -112,7 +112,6 @@ use Illuminate\Support\Facades\Session;
                         </ul>
                     </li>
                     <!-- user login dropdown end -->
-
                 </ul>
                 <!--search & user info end-->
             </div>
@@ -220,8 +219,7 @@ use Illuminate\Support\Facades\Session;
                         </li>
                         {{-- End --}}
 
-                        {{-- Category News Dashboard --}}
-                        <li class="sub-menu">
+                        {{-- Category News Dashboard --}} <li class="sub-menu">
                             <a href="javascript:;">
                                 <i class="fa fa-book"></i>
                                 <span>Category News</span>
@@ -254,18 +252,21 @@ use Illuminate\Support\Facades\Session;
                         </li>
                         {{-- End --}}
 
-                        {{-- user Dashboard --}}
-                        <li class="sub-menu">
-                            <a href="javascript:;">
-                                <i class="fa fa-book"></i>
-                                <span>User</span>
-                            </a>
-                            <ul class="sub">
-                                <li><a href="{{ URL::to('/all-user/') }}">User List</a></li>
-                                <li><a href="{{ URL::to('/add-user/') }}">Add User</a></li>
-                            </ul>
-                        </li>
-                        {{-- End --}}
+
+                        <!-- {{-- user Dashboard --}} -->
+                        @hasRole(['admin', 'author'])
+                            <li class="sub-menu">
+                                <a href="javascript:;">
+                                    <i class="fa fa-book"></i>
+                                    <span>User</span>
+                                </a>
+                                <ul class="sub">
+                                    <li><a href="{{ URL::to('/all-user/') }}">User List</a></li>
+                                    <li><a href="{{ URL::to('/add-user/') }}">Add User</a></li>
+                                </ul>
+                            </li>
+                        @endhasRole
+                        <!-- {{-- End --}} -->
 
 
                     </ul>

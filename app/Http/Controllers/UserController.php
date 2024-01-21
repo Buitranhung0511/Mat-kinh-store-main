@@ -21,6 +21,12 @@ class UserController extends Controller
     }
 
 
+    public function add_users()
+    {
+        return view('admin.users.add_users');
+    }
+
+
     public function assign_roles(Request $request)
     {
         $data = $request->all();
@@ -35,6 +41,6 @@ class UserController extends Controller
         if ($request['admin_role']) {
             $user->roles()->attach(Roles::where('name', 'admin')->first());
         }
-        return redirect()->back();
+        return redirect()->back()->with('messsage', 'Cap Quyen Thanh Cong');
     }
 }

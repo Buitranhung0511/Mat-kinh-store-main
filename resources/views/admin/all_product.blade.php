@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Pagination\Paginator;
 ?>
 
 @extends('admin_layout')
