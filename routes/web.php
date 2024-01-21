@@ -15,7 +15,8 @@ use App\Http\Controllers\CartsController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\CommentController;
-
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 
 
 /*
@@ -56,16 +57,17 @@ Route::get('/chi-tiet-san-pham/{product_id}', [
 ])->name('home'); 
 
 //Đánh giá sao
-Route::post('/insert_rating', [
-    ProductController::class,'Rating'
-])->name('/insert_rating');
+Route::get('/insert-rating', [
+    ProductController::class,'insert_rating'
+])->name('/insert-rating');
+
 Route::get('/load-comment', [
     ProductController::class,'load_comment'
 ])->name('/load_comment');
 
 Route::get('/send-comment', [
     ProductController::class,'send_comment'
-])->name('/send_omment');
+])->name('/send_comment');
 //Danh mục sản phẩm - Trang Chủ "Hung"============
 
 
@@ -400,3 +402,39 @@ Route::get('active-comment/{comment_id}', [
 Route::get('delete-comment/{comment_id}', [
     CommentController::class, 'delete_comment'
 ])->name('delete-comment');
+
+
+//============================================================================================================
+
+
+//Authentication roles
+Route::get('register-auth', [
+    AuthController::class, 'register_auth'
+])->name('register-auth');
+
+Route::get('login-auth', [
+    AuthController::class, 'login_auth'
+])->name('login-auth');
+
+Route::get('logout-auth', [
+    AuthController::class, 'logout_auth'
+])->name('logout-auth');
+
+Route::post ('register', [
+    AuthController::class, 'register'
+])->name('register');
+
+Route::post ('login', [
+    AuthController::class, 'login'
+])->name('login');
+
+
+// USER
+Route::get('all-user', [
+    UserController::class, 'index'
+])->name('all-user');
+
+
+Route::post ('assign-roles', [
+    AuthController::class, 'assign_roles'
+])->name('assign-roles');

@@ -2,7 +2,7 @@
 use Illuminate\Support\Facades\Session;
 ?>
 @extends('admin_layout')
-@section('admin-content')
+@section('admin_content')
     <div class="table-agile-info">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -31,8 +31,7 @@ use Illuminate\Support\Facades\Session;
                 </div>
             </div>
             <div class="table-responsive">
-                {{-- Message hiển thị thông báo active --}}
-                    <form class="input-group" role="form" method="GET" name="myForm1"
+                {{-- Message hiển thị thông báo active --}}                    <form class="input-group" role="form" method="GET" name="myForm1"
                         action="{{ route('search-category-product') }}">
                         <input type="text" name="search_category_product" class="input-sm form-control"
                             placeholder="Search">
@@ -43,7 +42,7 @@ use Illuminate\Support\Facades\Session;
                 </div>
             </div>
             <div class="table-responsive">
-                {{-- Message hiển thị thông báo active.. --}}
+                <!-- {{-- Message hiển thị thông báo active.. --}} -->
 
                 <?php
                 $message = Session::get('message');
@@ -52,9 +51,9 @@ use Illuminate\Support\Facades\Session;
                     Session::put('message', null);
                 }
                 ?>
-                {{-- End Message --}}
+                <!-- {{-- End Message --}} -->
 
-                {{-- Message hiển thị thông báo unactive --}}
+                <!-- {{-- Message hiển thị thông báo unactive --}} -->
                 <?php
                 $message1 = Session::get('message1');
                 if ($message1) {
@@ -62,7 +61,7 @@ use Illuminate\Support\Facades\Session;
                     Session::put('message1', null);
                 }
                 ?>
-                {{-- End Message --}}
+                <!-- {{-- End Message --}} -->
                 <table class="table table-striped b-t b-light">
                     <thead>
                         <tr>
@@ -180,7 +179,6 @@ use Illuminate\Support\Facades\Session;
                                 </li>
                             </ul>
                         @endif
-
                     </div>
                 </div>
             </footer>

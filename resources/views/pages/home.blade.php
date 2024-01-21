@@ -3,6 +3,7 @@
 {{-- carousel --}}
 <section id="slider"><!--slider-->
     <div class="container">
+        
         <div class="row">
             <div class="col-sm-12">
                 <div id="slider-carousel" class="carousel slide" data-ride="carousel">
@@ -73,10 +74,6 @@
         <div class="row">
             <div class="col-sm-8">
                 <div class="left-sidebar">
-
-                    <h2>Danh Mục Sản Phẩm</h2>
-
-
                     <div class="panel-group category-products" id="accordian"><!--category-productsr-->
                         {{-- @foreach($category as $key => $cate)
                         <div class="panel panel-default">

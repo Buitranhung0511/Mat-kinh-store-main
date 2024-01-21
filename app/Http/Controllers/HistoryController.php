@@ -69,8 +69,7 @@ class HistoryController extends Controller
     
 
     public function saveOrder($data){
-
-      
+     
             //code...
             $address = session()->get('address');
             //getdata carts
@@ -171,8 +170,7 @@ class HistoryController extends Controller
         'signature'     => $data['signature'],
     ];
     $this->saveOrder($data_momo) ;
-
-            
+       
     if (isset($data['errorCode']) && $data['errorCode'] == 0) {
        // Tạo dữ liệu Payment
                       $payment = Payment::create($data_momo);
@@ -208,8 +206,13 @@ class HistoryController extends Controller
       return response()->json(['error' => 'Không thể xử lý đơn hàng'], 500);
 }
 public function insertPaymentVNpay(Request $request){
+
+   
+
     try {
         $data = $request->all();
+
+        
         $data_vnpay = [
             'partnerCode'   => $data['vnp_TmnCode'],
             'accessKey'     => $data['vnp_TxnRef'],
@@ -274,7 +277,6 @@ public function insertPaymentVNpay(Request $request){
      public function getDataCheckOut(Request $request){
         // Handle the POST request logic here
   
-
         $validatedData = $request->validate([
             
             'city' => 'required',

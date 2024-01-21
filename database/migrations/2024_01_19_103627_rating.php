@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Bảng này lưu tất cả các quyền user có thể truy cập
+        Schema::create('rating', function (Blueprint $table) {
+            $table->increments('rating_id');
+            $table->unsignedInteger('product_id');
+            $table->integer('rating');
 
-        Schema::create('roles', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name', 150)->unique();
-            $table->text('permission')->nullable();
+            $table->foreign('product_id')->references('product_id')->on('product');
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('roles');
+        //
     }
 };

@@ -1,5 +1,5 @@
 @extends('admin_layout')
-@section('admin-content')
+@section('admin_content')
 
  <!-- Content Row -->
  <div class="row">

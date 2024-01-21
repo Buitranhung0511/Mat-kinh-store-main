@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Order;
 use App\Models\StatirticModel;
+use Illuminate\Http\Request;
+
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -38,6 +39,7 @@ class AdminController extends Controller
             return Redirect::to('admin_login')->send();
         }
     }
+//=========================HUNG============================
 
     public function index()
     {
@@ -86,7 +88,7 @@ class AdminController extends Controller
         // echo '<pre>';
         // print_r($result);
         // echo '</pre>';
-        // return view('admin.dashboard');
+        //  return view('admin.dashboard');
 
 
 
@@ -101,7 +103,6 @@ class AdminController extends Controller
             //  return view('admin.dashboard');
 
 
-
             return Redirect::to('/dashboard');
         } else {
             Session::put('message', 'Invalid Email or Password ! Try again.');
@@ -112,7 +113,7 @@ class AdminController extends Controller
     // HÀM XỬ LÝ LOG_OUT
     public function logout(Request $request)
     {
-        $this->AuthLogin();           // Nếu login thì trả về trang logout
+        $this->AuthLogin();           // Nếu login thì trả về trang logout CUA HUNG
         Session::put('admin_name', null);
         Session::put('admin_id', null);
 

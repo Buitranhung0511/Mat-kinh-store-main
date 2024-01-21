@@ -1,7 +1,7 @@
 @extends('admin_layout')
-@section('admin-content')
+@section('admin_content')
     <h3>Wellcome to Admin</h3>
-    {{-- <div>
+    <div>
         {{-- <h2>Sản phẩm bán chạy nhất trong tháng:</h2>
         <p>{{ $bestSellingProduct->name }} - {{ $bestSellingProduct->quantity_sold }} sản phẩm bán</p> --}}
     </div>
@@ -11,5 +11,4 @@
    
           
 @endsection
-
 

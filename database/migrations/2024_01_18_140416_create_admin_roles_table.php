@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Bảng đánh dấu quyền
-        Schema::create('user_roles', function (Blueprint $table) {
-            $table->foreign('user_id')->references('id')->on('users');   // Khóa ngoại
-            $table->foreign('role_id')->references('id')->on('roles');   // Khóa ngoại
+        Schema::create('admin_roles', function (Blueprint $table) {
+            $table->increments('id_roles');
+            $table->integer('admin_admin_id');
+            $table->integer('roles_id_roles');
+
+ 
         });
     }
 
@@ -23,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_roles');
+        Schema::dropIfExists('admin_roles');
     }
 };

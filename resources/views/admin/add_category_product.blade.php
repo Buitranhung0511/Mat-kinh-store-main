@@ -1,8 +1,8 @@
-<?php
+<?php 
 use Illuminate\Support\Facades\Session;
 ?>
 @extends('admin_layout')
-@section('admin-content')
+@section('admin_content')
     <div class="row">
         <div class="col-lg-12">
             <section class="panel">
@@ -20,7 +20,6 @@ use Illuminate\Support\Facades\Session;
                             Session::put('message', null);
                         }
                         ?>
-
                         <form role="form" action="{{ URL::to('/save-category-product') }}" method="post" name="myForm1"
                             onsubmit="return validateForm('myForm1')">
 
@@ -31,7 +30,6 @@ use Illuminate\Support\Facades\Session;
                                     id="exampleInputEmail1" placeholder="Enter email">
 
                                 <input type="text" class="form-control" name="category_product_name" id="category_name">
-
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Discription</label>
@@ -45,10 +43,8 @@ use Illuminate\Support\Facades\Session;
                                 <select name="category_product_status" class="form-control input-sm m-bot15 ">
                                     <option value="0">Hiden</option>
                                     <option value="1">Show</option>
-
                                     <option value="1">Hiden</option>
                                     <option value="0">Show</option>
-
                                 </select>
                             </div>
 

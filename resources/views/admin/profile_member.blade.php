@@ -1,5 +1,5 @@
 @extends('admin_layout')
-@section('admin-content')
+@section('admin_content')
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-6">

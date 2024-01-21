@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 ?>
 <!DOCTYPE html>
@@ -8,28 +9,33 @@ use Illuminate\Support\Facades\Session;
     <title>DashBoard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="keywords" content="Visitors Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+
+    
     <script type="application/x-javascript">
-        addEventListener("load", function() {
-            setTimeout(hideURLbar, 0);
-        }, false);
+      
 
         function hideURLbar() {
             window.scrollTo(0, 1);
         }
     </script>
      <link href="{{ asset('frontend/css/sb-admin-2.min.css') }}" rel="stylesheet">
-     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
+     
 
     <!-- bootstrap-css -->
     <link rel="stylesheet" href="{{ asset('backend/css/bootstrap.min.css') }}">
     <!-- //bootstrap-css -->
     <!-- Custom CSS -->
     <link href="{{ asset('backend/css/style.css') }}" rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
     <link href="{{ asset('backend/css/style-responsive.css') }}" rel="stylesheet" />
     <!-- font CSS -->
     <link href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+    <!-- Custom CSS.. -->
+    <link href="{{ asset('backend/css/style.css') }}" rel='stylesheet' type='text/css' />
+    <link href="{{ asset('backend/css/style-responsive.css') }}" rel="stylesheet" />
+    <!-- font CSS -->
+    
     <!-- font-awesome icons -->
     <link rel="stylesheet" href="{{ asset('backend/css/font.css') }}" type="text/css" />
     <link href="{{ asset('backend/css/font-awesome.css') }}" rel="stylesheet">
@@ -38,11 +44,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <link rel="stylesheet" href="{{ asset('backend/css/monthly.css') }}">
     <!-- //calendar -->
     <!-- //font-awesome icons -->
-    <script src="{{ asset('backend/js/jquery2.0.3.min.js') }}"></script>
+ 
     <script src="{{ asset('backend/js/raphael-min.js') }}"></script>
     <script src="{{ asset('backend/js/morris.js') }}"></script>
+    
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
     <!-- Include jQuery UI library -->
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -59,7 +65,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
         i.styling-edit {
             font-size: 25px
-        }
+        } 
     </style>
 </head>
 
@@ -84,15 +90,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <li>
                         <input type="text" class="form-control search" placeholder=" Search">
                     </li>
+
+                    {{-- luongth --}}
                     <!-- user login dropdown start-->
-                    <li class="dropdown">
+                   {{-- <li class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <img alt="" src="{{ 'backend/images/2.png' }}">
 
                             <span class="username">
 
                                 <?php
-                                $name = Session::get('admin_name');
+                                $name = Auth::user()->admin_name;
                                 if ($name) {
                                     echo $name;
                                 }
@@ -103,9 +111,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <ul class="dropdown-menu extended logout">
                             <li><a href="#"><i class=" fa fa-suitcase"></i>Profile</a></li>
                             <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
-                            <li><a href="{{ URL::to('/logout') }}"><i class="fa fa-key"></i> Log Out</a></li>
+                            <li><a href="{{ URL::to('/logout-auth') }}"><i class="fa fa-key"></i> Log Out</a></li>
                         </ul>
-                    </li>
+                    </li>  --}}
+
+
                     <!-- user login dropdown end -->
 
                 </ul>
@@ -126,11 +136,24 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             </a>
                         </li>
 
-                        {{-- Category product Dashboard --}}
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-book"></i>
+                                <span>Banner</span>
+                            </a>
+                            <ul class="sub">
+                                <li><a href="{{ URL::to('/add-slider/') }}">Add slider</a></li>
+                                <li><a href="{{ URL::to('/manage-slider/') }}">Show slider list</a></li>
+                            </ul>
+                        </li>
+
+
+           
                         <li class="sub-menu">
                             <a href="javascript:;">
                                 <i class="fa fa-book"></i>
                                 <span>Category products list</span>
+                                <span>Category products</span>
                             </a>
                             <ul class="sub">
                                 <li><a href="{{ URL::to('/add-category-product/') }}">Add Category product</a></li>
@@ -144,10 +167,75 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             <a href="javascript:;">
                                 <i class="fa fa-book"></i>
                                 <span>Products list</span>
+                                <span>Products</span>
                             </a>
                             <ul class="sub">
                                 <li><a href="{{ URL::to('/add-product/') }}">Add product</a></li>
                                 <li><a href="{{ URL::to('/all-product/') }}">Show product list</a></li>
+                            </ul>
+                        </li>
+                        {{-- End --}}
+
+                        {{-- Member Dashboard --}}
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-book"></i>
+                                <span>Member</span>
+                            </a>
+                            <ul class="sub">
+                                <li><a href="{{ URL::to('/register-member/') }}">Register Member</a></li>
+                                <li><a href="{{ URL::to('/all-member/') }}">Show member list</a></li>
+                            </ul>
+                        </li>
+                        {{-- End --}}
+
+                        {{-- Order Dashboard --}}
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-book"></i>
+                                <span>Order</span>
+                            </a>
+                            <ul class="sub">
+                                <li><a href="{{ URL::to('/view-order/') }}">Manage Order</a></li>
+
+                            </ul>
+                        </li>
+                        {{-- End --}}
+
+                        {{-- Discount Dashboard --}}
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-book"></i>
+                                <span>Discount</span>
+                            </a>
+                            <ul class="sub">
+                                <li><a href="{{ URL::to('/add-discount/') }}">Add discount</a></li>
+                                <li><a href="{{ URL::to('/all-discount/') }}">Show discount list</a></li>
+                            </ul>
+                        </li>
+                        {{-- End --}}
+
+                        {{-- Comment Dashboard --}}
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-book"></i>
+                                <span>Comment</span>
+                            </a>
+                            <ul class="sub">
+                                <li><a href="{{ URL::to('/all-comment/') }}">Show commnet list</a></li>
+                            </ul>
+                        </li>
+                        {{-- End --}}
+
+                        {{-- user Dashboard --}}
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-book"></i>
+                                <span>User</span>
+                            </a>
+                            <ul class="sub">
+                                <li><a href="{{ URL::to('/all-user/') }}">User List</a></li>
+                                <li><a href="{{ URL::to('/add-user/') }}">Add User</a></li>
                             </ul>
                         </li>
                         {{-- End --}}
@@ -165,8 +253,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <!-- Phan Body -->
             <section class="wrapper">
 
-                @yield('admin-content')
-          
+                @yield('admin_content')
+              
             </section>
             <!-- Phan Body -->
 
@@ -308,13 +396,13 @@ function formatDate(date) {
 
 
 
-    <script>
+    {{-- <script>
         new DataTable('#example', {
             search: {
                 return: true
             }
         });
-    </script> 
+    </script>  --}}
 
     <!-- Khởi tạo CKEditor cho textarea có id là 'editor' -->
     <script>
@@ -394,7 +482,7 @@ function formatDate(date) {
 
 
 
-
+    <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/flot-chart/excanvas.min.js"></script><![endif]-->
     <script src="{{ asset('backend/js/jquery.scrollTo.js') }}"></script>
     <!-- morris JavaScript -->
 
