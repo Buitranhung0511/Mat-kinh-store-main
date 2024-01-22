@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('comments', function (Blueprint $table) {
+        Schema::create('rating', function (Blueprint $table) {
             $table->increments('rating_id');
             $table->unsignedInteger('product_id');
             $table->integer('rating');

@@ -51,7 +51,6 @@ use Illuminate\Support\Facades\Session;
 
                             <button type="submit" name="add-category-product" class="btn btn-info ">Add</button>
 
-
                         </form>
                     </div>
 

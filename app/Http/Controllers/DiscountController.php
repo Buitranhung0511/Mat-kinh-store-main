@@ -113,4 +113,47 @@ class DiscountController extends Controller
         Session::put('message', 'Delete discount successfully !');
         return Redirect::to('all-discount');
     }
+
+
+    public function checkDiscountCode(Request $request)
+    {
+        $code = $request->code;
+        $day = $request->timeNow;
+
+       $discount = Discount::findByCodeAndDate($code, $day);
+
+       if ($discount) {
+        // Clear any existing discount in the session
+        Session::forget('discount');
+    
+        // Add the new discount code to the session
+        $new_discount = array(
+            'counbon_code' => $discount->discount_code,
+            'counbon_status' => $discount->discount_status,
+            'counbon_percent' => $discount->discount_percent,
+        );
+        Session::put('discount', [$new_discount]);
+        Session::save();
+    
+        // Redirect back with success message
+        return redirect()->back()->with("message", "Discount successfully applied.");
+    } else {
+        // Invalid discount code, redirect back with an error message
+       // Clear any existing discount in the session
+    Session::forget('discount');
+
+    // Set default values for the discount
+    $default_discount = array(
+        'counbon_code' => 'no',
+        'counbon_status' => 0,
+        'counbon_percent' => 0,
+    );
+    Session::put('discount', [$default_discount]);
+    Session::save();
+
+    // Invalid discount code, redirect back with an error message
+    return redirect()->back()->with("error", "Invalid discount code.");
+    }
+
+}
 }

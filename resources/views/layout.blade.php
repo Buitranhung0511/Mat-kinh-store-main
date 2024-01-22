@@ -17,13 +17,10 @@
     <link href="{{ asset('frontend/css/sb-admin-2.min.css') }}" rel="stylesheet">
     <link href="{{ asset('frontend/css/animate.css') }}" rel="stylesheet">
     <link href="{{ asset('frontend/css/bootstrap.min copy.css') }}" rel="stylesheet">
-    {{-- <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet"> --}}
+   
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
-
-    <!--[if lt IE 9]>
-    <script src="js/html5shiv.js"></script>
-    <script src="js/respond.min.js"></script>
-    <![endif]-->
+   
     <link rel="shortcut icon" href="{{ asset('frontend/images/ico/favicon.ico') }}">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
@@ -47,7 +44,7 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="social-icons pull-right">
-                            <ul class="nav navbar-nav">
+                            <ul class="nav  nav-pills">
                                 <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                                 <li><a href="#"><i class="fa fa-twitter"></i></a></li>
                                 <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
@@ -60,51 +57,7 @@
             </div>
         </div><!--/header_top-->
 
-        <div class="header-middle"><!--header-middle-->
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-4">
-                        <div class="logo pull-left">
-                            <a href="index.html"><img src="{{ asset('frontend/images/logo.png') }}" alt="" /></a>
-                        </div>
-                        <div class="btn-group pull-right">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
-                                    USA
-                                    <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">Canada</a></li>
-                                    <li><a href="#">UK</a></li>
-                                </ul>
-                            </div>
-
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
-                                    DOLLAR
-                                    <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">Canadian Dollar</a></li>
-                                    <li><a href="#">Pound</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-8">
-                        <div class="shop-menu pull-right">
-                            <ul class="nav navbar-nav">
-                                <li><a href="#"><i class="fa fa-user"></i> Account</a></li>
-                                <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
-                                <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-                                <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-                                <li><a href="login.html"><i class="fa fa-lock"></i> Login</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div><!--/header-middle-->
+      
 
         <div class="header-bottom"><!--header-bottom-->
             <div class="container">
@@ -132,7 +85,29 @@
                                 </li>
                                 <li class="dropdown"><a href="#">Tin Tức<i class="fa fa-angle-down"></i></a>
                                 </li>
-                                <li><a href="404.html">Giỏ Hàng</a></li>
+                                @php
+                                // session_start();
+                                $cart = session()->get('cart', []);
+                                $totalQuantity = 0;
+                            
+                                if (!empty($cart)) {
+                                    foreach ($cart as $item) {
+                                        $totalQuantity += $item['quantity'];
+                                    }
+                                } else {
+                                    $totalQuantity = 0;
+                                }
+                            @endphp
+                            
+                                <li>
+                                    <a href="{{ route('cartDetail') }}">
+                                        Giỏ Hàng
+                                        <span id="cart-quantity" class="badge badge-pill badge-danger">
+                                            {{ $totalQuantity }}
+                                        </span>
+                                    </a>
+                                </li>
+                                
                                 <li><a href="contact-us.html">liên Hệ</a></li>
                             </ul>
                         </div>
@@ -202,12 +177,6 @@
 
                         </div> -->
 
-                        <a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
-                            <i class="fa fa-angle-left"></i>
-                        </a>
-                        <a href="#slider-carousel" class="right control-carousel hidden-xs" data-slide="next">
-                            <i class="fa fa-angle-right"></i>
-                        </a>
                     </div>
 
                 </div>
@@ -523,27 +492,7 @@
 <!-- Bootstrap theme -->
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.rtl.min.css" />
 <Script>
-    function calculateTotalQuantity(data) {
-        let totalQuantity = 0;
-
-        if (data && Array.isArray(data.items)) {
-            // Trường hợp 1: Nếu data chứa một trường là mảng (ví dụ: items)
-            data.items.forEach(item => {
-                totalQuantity += parseInt(item.quantity);
-            });
-        } else if (typeof data === 'object') {
-            // Trường hợp 2: Nếu cần duyệt qua các giá trị của đối tượng
-            Object.values(data).forEach(item => {
-                totalQuantity += parseInt(item.quantity); // Giả sử mỗi item là một đối tượng có trường 'quantity'
-            });
-        } else {
-            console.log("Dữ liệu không hợp lệ");
-            return;
-        }
-
-        // Cập nhật nội dung HTML
-        $('#total-quantity').html(totalQuantity);
-    }
+ 
 
 
 
@@ -628,7 +577,7 @@
 
         }
 
-        // update cart
+        // add toCart
         function addToCard(event) {
             event.preventDefault();
             let urlProduct = $(this).data('url');
@@ -641,8 +590,8 @@
                     if (response.code === 200) {
                         // alertify.notify( message, 'success', [wait, callback]);
                         alertify.success('Success Addcart');
-                        // parse json 
-                        calculateTotalQuantity(response.data);
+                        $('#cart-quantity').text(response.totalQuantity);
+                        
 
 
 
@@ -656,14 +605,14 @@
             });
 
         }
-
+     // get function add to cart
         $('.add_to_card').on('click', addToCard);
 
 
         // Function to update the cart
-        function upDateCart(id, quantity) {
-            let urlUpdateCart = $('.cart_wapper .update_cart_url').data('url');
-
+        function upDateCart(id, quantity,urlUpdateCart) {
+            
+            console.log(urlUpdateCart);  
             // Your AJAX request
             $.ajax({
                 type: 'GET',
@@ -676,8 +625,8 @@
                 success: function(response) {
                     if (response.code === 200) {
                         $('.cart_wapper').html(response.cart_Component);
-                        console.log(response.data);
-                        calculateTotalQuantity(response.data);
+                        alertify.success('Success add to cart');
+                        $('#cart-quantity').text(response.totalQuantity);
 
                     }
                 },
@@ -702,7 +651,8 @@
                     console.log(response);
                     if (response.code === 200) {
                         $('.cart_wapper').html(response.cart_Component);
-                        calculateTotalQuantity(response.data);
+                        $('#cart-quantity').text(response.totalQuantity);
+                       
 
                     }
                 },
@@ -714,14 +664,25 @@
         //update Cart 
         $('.cart_wapper').on('click', '.cart-edit', function(event) {
             event.preventDefault();
-
+            let urlUpdateCart = $('.cart_wapper .update_cart_url').data('url');
             // Retrieve id and quantity
             let id = $(this).data('id');
             let quantity = $('.cart_wapper #' + id).val();
 
             // Call the upDateCart function with id and quantity
-            upDateCart(id, quantity);
+            upDateCart(id, quantity,urlUpdateCart);
         });
+        //update car blade Show_detail
+        $('.cart_edit').click(function() {
+            let urlUpdateCart = $('.update_cart_url').data('url');
+
+        // Retrieve id and quantity
+        let id = $(this).data('id');
+        let quantity = $('#' + id).val();
+        
+        upDateCart(id, quantity,urlUpdateCart);
+     });
+
         //delet cart
         $('.cart_wapper').on('click', '.cart-delete', function(event) {
             event.preventDefault();

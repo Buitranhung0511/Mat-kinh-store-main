@@ -1,19 +1,17 @@
 @extends('layout')
 @section('content')
 @foreach($product_detail as $key => $value)
+<div class="container">
+	<div class="product-details"><!--product-details-->
+		<div class="col-sm-5">
+			<div class="view-product">
+				<img src="{{ URL::to('/public/uploads/product/'.$value->product_image) }}" alt="" />
+				<h3>ZOOM</h3>
+			</div>
+			<div id="similar-product" class="carousel slide" data-ride="carousel">
 
-
-<div class="product-details container"><!--product-details-->
-
-	<div class="col-sm-5">
-		<div class="view-product">
-			<img src="{{ URL::to('/public/uploads/product/'.$value->product_image) }}" alt="" />
-			<h3>ZOOM</h3>
-		</div>
-		<div id="similar-product" class="carousel slide" data-ride="carousel">
-
-			<!-- Wrapper for slides -->
-			<!-- <div class="carousel-inner">
+				<!-- Wrapper for slides -->
+				<!-- <div class="carousel-inner">
 
 				<div class="item active">
 					<a href=""><img src="{{URL::to('/public/frontend/images/similar1.jpg')}}" alt=""></a>
@@ -34,24 +32,57 @@
 
 	</div>
 	<div class="col-sm-7">
-		<div class="product-information"><!--/product-information-->
+		<div class="product-information">
 			<img src="images/product-details/new.jpg" class="newarrival" alt="" />
-			<h2>{{$value->product_name}}</h2>
+
+			<h2 class="my-3"> Product name :{{$value->product_name}}</h2>
 			<img src="images/product-details/rating.png" alt="" />
-			<span>
-				<span>{{number_format($value->product_price).'$'}}</span>
-				<label>Quantity:</label>
-				<input type="number" min="1" value="1" />
-				<a data-url="{{ route('addToCard', ['id' => $value->product_id]) }}" class="btn btn-default add_to_card">
-					<i class="fa fa-shopping-cart"></i>Add to cart
+			
+		
+			<div class="row mt-3 align-items-center">
+				<!-- Price -->
+				<div class="col-2">
+					<label class="form-label d-block">Price:</label>
+					<p class="h3">{{ number_format($value->product_price) }}$</p>
+				</div>
+			
+				<div class="col-1">
+					<!-- Spacer with '*' -->
+					<p class="h3 mt-5">*</p>
+				</div>
+				{{-- luongth --}}
+			
+				<!-- Quantity -->
+				<div class="col-2">
+					<label for="{{ $id }}" class="form-label d-block">Quantity:</label>
+					<input
+						id="{{ $id }}"
+						min="1"
+						name="quantity"
+						value="1"
+						max="10"
+						type="number"
+						class="form-control form-control-sm"
+						style="width: 60px; display: inline-block; font-size: 16px;" 
+					/>
+				</div>
+			</div>
+			
+			
+	
+			<div class="mt-3">
+				<a data-id="{{ $id }}" class="btn btn-primary cart_edit update_cart_url" data-url="{{ route('updateCart') }}">
+					<i class="fa fa-shopping-cart"></i> Add to cart
 				</a>
-			</span>
-			<p><b>Tinh Trang:</b> Con Hang</p>
+			</div>
+	
+			<p class="mt-3"><b>Tinh Trang:</b> Con Hang</p>
 			<p><b>Condition:</b> New</p>
 			<p><b>Danh Muc:</b> {{$value->category_id}}</p>
 			<a href=""><img src="images/product-details/share.png" class="share img-responsive" alt="" /></a>
-		</div><!--/product-information-->
+		</div>
 	</div>
+	
 </div><!--/product-details-->
 
 

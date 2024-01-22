@@ -25,6 +25,6 @@ class AccessPermission
         if (optional(auth()->user())->hasRole('admin')) {
             return $next($request);
         }
-        return redirect('/dashboard')->with('message',"Bạn không có quyền truy cập");
+        return redirect('/dashboard');
     }
 }

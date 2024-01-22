@@ -52,14 +52,14 @@
                                     <img src="{{URL::to('public/uploads/product/'.$product->product_image) }}" alt="" />
                                     <h2>{{number_format($product->product_price).' '.'$'}}</h2>
                                     <p>{{($product->product_name)}}</p>
-                                    <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to
+                                    <a data-url="{{ route('addToCard' , ['id' => $product->product_id]) }}" class="btn btn-default add_to_card"><i class="fa fa-shopping-cart"></i>Add to
                                         cart</a>
                                 </div>
                             </div>
 
 
                             <div class="choose">
-                                <ul class="nav nav-pills nav-justified">
+                                <ul class="nav nav-pills ">
                                     <li><a href="#"><i class="fa fa-plus-square"></i>Thêm Yêu Thích</a>
                                     </li>
                                     <li><a href="#"><i class="fa fa-plus-square"></i>So Sánh</a></li>

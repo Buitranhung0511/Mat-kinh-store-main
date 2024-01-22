@@ -1,3 +1,4 @@
+
 <?php
 use Illuminate\Support\Facades\Session;
 ?>
@@ -28,6 +29,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!-- //font-awesome icons -->
     <script src="js/jquery2.0.3.min.js"></script>
 
+    <script src="{{ asset('frontend/js/jquery.js') }}"></script>
     <style>
         p.text-alert {
             color: red;
@@ -70,7 +72,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <script src="{{ asset('backend/js/jquery.slimscroll.js') }}"></script>
     <script src="{{ asset('backend/js/jquery.nicescroll.js') }}"></script>
     <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/flot-chart/excanvas.min.js"></script><![endif]-->
-    <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/flot-chart/excanvas.min.js"></script><![endif]..-->
+
     <script src="{{ asset('backend/js/jquery.scrollTo.js') }}"></script>
 </body>
 

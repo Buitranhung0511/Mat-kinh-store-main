@@ -1,3 +1,5 @@
+
+
 <section class="h-100 h-custom" style="background-color: #d2c9ff;">
     <div class="container py-5 h-100  update_cart_url" data-url="{{ route('updateCart') }}">
       <div class="row d-flex justify-content-center align-items-center h-100 delete_cart_url" data-url="{{ route('deleteCart') }}">
@@ -35,12 +37,13 @@
                         class="btn btn-link px-2"
                         onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
                          >
-                          <i class="fas fa-minus"></i>
+                          <i class="fa fa-minus"></i>
                         </button>
   
                         <input
                         id="{{ $id }}"
                         min="1"
+                        max="10"
                         name="quantity"
                         value="{{ $cart['quantity'] }}"
                         type="number"
@@ -50,7 +53,7 @@
   
                         <button class="btn btn-link px-2"
                           onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                          <i class="fas fa-plus"></i>
+                          <i class="fa fa-plus"></i>
                         </button>
                       </div>
                       <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
@@ -63,14 +66,14 @@
                         class="text-muted cart-edit"
                        
                         >
-                          <i class="fas fa-edit"></i></a>
+                          <i class="fa fa-edit"></i></a>
                       </div>
                       <div class="col-md-1 col-lg-1 col-xl-1 text-end">
                         <a 
-                        href="#!"
+                        
                         data-id="{{$id}}"
                         class="text-muted cart-delete">
-                          <i class="fas fa-times"></i></a>
+                          <i class="fa fa-times"></i></a>
                       </div>
                       
                     </div>
@@ -136,3 +139,4 @@
     <p>Giỏ hàng của bạn đang trống. Hãy <a >quay lại trang sản phẩm</a>.</p>
 @endif
   </section>
+

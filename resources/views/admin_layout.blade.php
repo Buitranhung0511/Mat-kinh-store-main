@@ -12,14 +12,15 @@ use Illuminate\Support\Facades\Session;
 
     
     <script type="application/x-javascript">
-        addEventListener("load", function() {
-            setTimeout(hideURLbar, 0);
-        }, false);
+      
 
         function hideURLbar() {
             window.scrollTo(0, 1);
         }
     </script>
+     <link href="{{ asset('frontend/css/sb-admin-2.min.css') }}" rel="stylesheet">
+     
+
     <!-- bootstrap-css -->
     <link rel="stylesheet" href="{{ asset('backend/css/bootstrap.min.css') }}">
     <!-- //bootstrap-css -->
@@ -34,9 +35,7 @@ use Illuminate\Support\Facades\Session;
     <link href="{{ asset('backend/css/style.css') }}" rel='stylesheet' type='text/css' />
     <link href="{{ asset('backend/css/style-responsive.css') }}" rel="stylesheet" />
     <!-- font CSS -->
-    <link
-        href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic'
-        rel='stylesheet' type='text/css'>
+    
     <!-- font-awesome icons -->
     <link rel="stylesheet" href="{{ asset('backend/css/font.css') }}" type="text/css" />
     <link href="{{ asset('backend/css/font-awesome.css') }}" rel="stylesheet">
@@ -45,10 +44,14 @@ use Illuminate\Support\Facades\Session;
     <link rel="stylesheet" href="{{ asset('backend/css/monthly.css') }}">
     <!-- //calendar -->
     <!-- //font-awesome icons -->
-    <script src="{{ asset('backend/js/jquery2.0.3.min.js') }}"></script>
+ 
     <script src="{{ asset('backend/js/raphael-min.js') }}"></script>
     <script src="{{ asset('backend/js/morris.js') }}"></script>
-
+    
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <!-- Include jQuery UI library -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <style>
         span.fa-thumb-styling.fa.fa-thumbs-down {
             font-size: 25px;
@@ -87,8 +90,10 @@ use Illuminate\Support\Facades\Session;
                     <li>
                         <input type="text" class="form-control search" placeholder=" Search">
                     </li>
+
+                    {{-- luongth --}}
                     <!-- user login dropdown start-->
-                    <li class="dropdown">
+                   {{-- <li class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <img alt="" src="{{ 'backend/images/2.png' }}">
 
@@ -108,7 +113,9 @@ use Illuminate\Support\Facades\Session;
                             <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
                             <li><a href="{{ URL::to('/logout-auth') }}"><i class="fa fa-key"></i> Log Out</a></li>
                         </ul>
-                    </li>
+                    </li>  --}}
+
+
                     <!-- user login dropdown end -->
                 </ul>
                 <!--search & user info end-->
@@ -263,7 +270,6 @@ use Illuminate\Support\Facades\Session;
         </section>
         <!--main content end-->
     </section>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="{{ asset('backend/js/bootstrap.js') }}"></script>
     <script src="{{ asset('backend/js/jquery.dcjqaccordion.2.7.js') }}"></script>
     <script src="{{ asset('backend/js/scripts.js') }}"></script>
@@ -273,36 +279,27 @@ use Illuminate\Support\Facades\Session;
     <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-    4 <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+ <!-- Custom styles for this template-->
+ 
    {{-- luongth functions order --}}
 
-   <script  type="application/x-javascript">
-    $( function() {
-        
-      $( "#datepicker" ).datepicker({
-
-
-        dateFormat:"yy-mm-dd"
-      });
-      $( "#datepicker2" ).datepicker({
-
-
-dateFormat:"yy-mm-dd"
-});
-    } );
-    </script>
+   
 
 <script>
     $(document).ready(function () {
-
+        $( "#datepicker" ).datepicker({
+        dateFormat:"yy-mm-dd"
+      });
+      $( "#datepicker2" ).datepicker({
+        dateFormat:"yy-mm-dd"
+});
  var chart = new Morris.Bar({
   // ID of the element in which to draw the chart.
   element: 'myfirstchart',
   barColors: ['#00a65a', '#32c5d2', '#5cb85c', '#8cc152'],
  parseTime:false,
  hideHover:'auto',
-  // Chart data records -- each entry in this array corresponds to a point on
-  // the chart.
   
   // The name of the data record attribute that contains x-values.
   xkey: 'perifod',
@@ -313,6 +310,7 @@ dateFormat:"yy-mm-dd"
   // chart.
 });
 
+    // filter submit
         $('#filterForm').submit(function (event) {
             event.preventDefault(); // Prevent the default form submission
 
@@ -320,41 +318,92 @@ dateFormat:"yy-mm-dd"
             var _token = $('input[name="_token"]').val();
             var from_date = $('#datepicker').val();
             var to_date = $('#datepicker2').val();
-
-            $.ajax({
-                type: 'GET',
-                url: '/filter_by_date', // Replace with the actual endpoint URL
-                data: {
-                    // _token: _token,
-                    from_date: from_date,
-                    to_date: to_date
-                },
-                success: function (response) {
-                    console.log(response);
-                   chart.setData(response);
-                },
-                error: function (error) {
-                    console.error(error);
-                    // Handle the error or show a message to the user
-                }
-            });
+            performAjaxRequest(from_date, to_date);
+           
         });
+//funtion get data theo select
+$('#selectOption').change(function () {
+        var selectedValue = $(this).val();
+        var from_date, to_date;
+
+        switch (selectedValue) {
+            case '1':
+                // If value is 1, subtract 30 days from the current date
+                var currentDate = new Date();
+                var thirtyDaysAgo = new Date(currentDate);
+                thirtyDaysAgo.setDate(currentDate.getDate() - 30);
+
+                // Format dates as needed
+                from_date = formatDate(thirtyDaysAgo);
+                to_date = formatDate(currentDate);
+                break;
+
+            case '2':
+                // If value is 2, get the first day of the current month
+                var currentDate = new Date();
+                from_date = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+
+                // Get the last day of the current month
+                var lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+                to_date = formatDate(lastDay);
+                break;
+
+            case '3':
+                // If value is 3, get the first day of the current year
+                var currentYear = new Date().getFullYear();
+                from_date = currentYear + '-01-01';
+
+                // Get the last day of the current year
+                to_date = currentYear + '-12-31';
+                break;
+
+            // Add more cases if needed
+
+            default:
+                // Handle other cases if needed
+                break;
+        }
+        performAjaxRequest(from_date, to_date);
+        formatDate(date)
+    })
+// hàm gọi data table theo ngày 
+function performAjaxRequest(from_date, to_date) {
+    $.ajax({
+        type: 'GET',
+        url: '/filter_by_date', // Replace with the actual endpoint URL
+        data: { from_date: from_date, to_date: to_date },
+        success: function (response) {
+            console.log(response);
+            
+            chart.setData(response);
+        },
+        error: function (error) {
+            console.error(error);
+            // Handle the error or show a message to the user
+        }
+    });
+}
+// Function to format date as "YYYY-MM-DD"
+function formatDate(date) {
+    if (!date) return null;
+    var year = date.getFullYear();
+    var month = ('0' + (date.getMonth() + 1)).slice(-2);
+    var day = ('0' + date.getDate()).slice(-2);
+    return year + '-' + month + '-' + day;
+}
     });
 </script>
 
-    {{-- script tìm kiếm sản phẩm --}}
 
-    {{-- <script src="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css"></script>
-    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
 
-    <script>
+
+    {{-- <script>
         new DataTable('#example', {
             search: {
                 return: true
             }
         });
-    </script> --}}
+    </script>  --}}
 
     <!-- Khởi tạo CKEditor cho textarea có id là 'editor' -->
     <script>

@@ -9,7 +9,7 @@ class StatirticModel extends Model
 {
     use HasFactory;
     protected $table = 'tbl_statistical'; // Replace 'your_table_name' with the actual table name
-
+    protected $primaryKey = 'id';
     protected $fillable = [
         'order_date',
         'sales',

@@ -3,6 +3,9 @@
 !.gitignore
 <<<<<<< HEAD
 =======
+<<<<<<< HEAD
+=======
+>>>>>>> 3c10d7d22552a6184b4b3d762175bcf4f612d035
 compiled.php
 config.php
 down
@@ -12,4 +15,7 @@ routes.php
 routes.scanned.php
 schedule-*
 services.json
+<<<<<<< HEAD
+=======
 >>>>>>> master
+>>>>>>> 3c10d7d22552a6184b4b3d762175bcf4f612d035

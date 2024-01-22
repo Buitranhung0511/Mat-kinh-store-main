@@ -17,22 +17,22 @@ use ConsoleTVs\Charts\Facades\Charts;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 
-
-
 //  session_start();
 
-class AdminController extends Controller
-{
 
     // Hàm check login
    
-//=========================HUNG============================
-    // Hàm check login..
-    public function AuthLogin()
-    {
+
+  
         // dd(Auth::user());  // xuất ra array
 
-        $admin_id = Auth::id();
+
+class AdminController extends Controller
+{
+    // Hàm check login
+    public function AuthLogin()
+    {
+        $admin_id = Session::get('admin_id');
         if ($admin_id == true) {
             return Redirect::to('dashboard');
         } else {
@@ -48,7 +48,7 @@ class AdminController extends Controller
 
     public function show_dashboard()
     {
-        $this->AuthLogin();           // Nếu login thì trả về trang showDashboard
+        // $this->AuthLogin();           // Nếu login thì trả về trang showDashboard
 
         $orders = DB::table('orders')->get();
 
@@ -72,11 +72,7 @@ class AdminController extends Controller
         //chart larvel
         $stockProducts = $totalStock - $soldThisMonth;
 
-        // $chart = Charts::create('bar', 'highcharts')
-        // ->title('Số lượng sản phẩm bán trong tháng')
-        // ->labels(['Tháng 1', 'Tháng 2', 'Tháng 3']) // Thêm các tháng cần hiển thị
-        // ->values($soldProducts);
-        // total stock product
+      
     
         return view('admin.showDataOrder',compact('bestSellingProduct', 'stockProducts','soldThisMonth'));
     }
@@ -90,9 +86,10 @@ class AdminController extends Controller
         // echo '<pre>';
         // print_r($result);
         // echo '</pre>';
-        // return view('admin.dashboard');
+       return view('admin.dashboard');
 
-       
+
+
         // KIỂM TẢ DỮ LIỆU CÓ ĐÚNG VỚI DATABASE
         if ($result) {
             Session::put('admin_name', $result->admin_name);
@@ -112,14 +109,15 @@ class AdminController extends Controller
     }
 
     // HÀM XỬ LÝ LOG_OUT
-    public function logout(Request $request)
-    {
-        $this->AuthLogin();           // Nếu login thì trả về trang logout CUA HUNG
-        Session::put('admin_name', null);
-        Session::put('admin_id', null);
+  
+    // public function logout(Request $request)
+    // {
+    //     $this->AuthLogin();           // Nếu login thì trả về trang logout CUA HUNG
+    //     Session::put('admin_name', null);
+    //     Session::put('admin_id', null);
 
-        return Redirect::to('/admin_login');
-    }
+    //     return Redirect::to('/admin_login');
+    // }
 
     // /cap  nhat trang thai order 
     public function updateOrderStatus(Request $request)
@@ -155,6 +153,7 @@ class AdminController extends Controller
             $chart_data[] = array(
                 'perifod' => $value->order_date,
                 'order' => $value->total_order,
+                'profit' => $value->profit,
                 'sales' => $value->sales,
                 'quantity' => $value->quantity,
             );

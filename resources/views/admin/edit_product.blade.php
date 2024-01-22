@@ -17,7 +17,10 @@ use Illuminate\Support\Facades\Session;
                     <div class="position-center">
                         @foreach ($edit_product as $key => $pro)
                             {{-- Message hiển thị thông báo thêm thành công hay thất bại --}}
+<<<<<<< HEAD
+=======
                             {{-- Message hiển thị thông báo thêm thành công hay thất bại.. --}}
+>>>>>>> 3c10d7d22552a6184b4b3d762175bcf4f612d035
                             <?php
                             $message = Session::get('message');
                             if ($message) {
@@ -62,7 +65,10 @@ use Illuminate\Support\Facades\Session;
                                     <label for="exampleInputEmail1">Product price :</label>
                                     <input type="text" class="form-control" name="product_price" id="exampleInputEmail1"
                                         value="{{ $pro->product_price }}">
+<<<<<<< HEAD
+=======
                                         value="{{ $pro->product_price }}" required>
+>>>>>>> 3c10d7d22552a6184b4b3d762175bcf4f612d035
                                 </div>
 
                                 <div class="form-group">
@@ -82,7 +88,11 @@ use Illuminate\Support\Facades\Session;
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Category : </label>
                                     <select name="product_cate" class="form-control input-sm m-bot15 ">
+<<<<<<< HEAD
+                                  
+=======
                                     <select name="product_cate" class="form-control input-sm m-bot15 " required>
+>>>>>>> 3c10d7d22552a6184b4b3d762175bcf4f612d035
                                         {{-- Sử dụng foreach để lấy tên category --}}
                                         @foreach ($cate_product as $key => $cate)
                                             @if (is_object($cate) && property_exists($cate, 'category_name'))
@@ -112,7 +122,10 @@ use Illuminate\Support\Facades\Session;
 
 
                                 <button type="submit" name="add-product" class="btn btn-info ">Update</button>
+<<<<<<< HEAD
+=======
                                 <button type="cancel" name="cancel-product" class="btn btn-warning ">Cancel</button>
+>>>>>>> 3c10d7d22552a6184b4b3d762175bcf4f612d035
                             </form>
                         @endforeach
                     </div>

@@ -57,10 +57,9 @@ use Illuminate\Support\Facades\Session;
 
 
                                 <button type="submit" name="update-category-product" class="btn btn-info ">Update</button>
-<<<<<<< HEAD
-=======
+
                                 <button type="cancel" name="cancel-product" class="btn btn-warning ">Cancel</button>
->>>>>>> master
+
                             </form>
                         @endforeach
                     </div>

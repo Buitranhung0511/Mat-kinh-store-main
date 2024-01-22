@@ -324,7 +324,7 @@ Route::get('/search-discount', [
     DiscountController::class, 'search_discount'
 ])->name('search-discount');
 
-
+Route::post('/check-discount', [ DiscountController::class, 'checkDiscountCode'])->name('check-discount');
 // XỬ LÝ Member (DASHBOARD)
 
 Route::post('/register-member', [

@@ -5,15 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests;
-use App\Models\Rating as ModelsRating;
+use App\Models\Rating ;
 use App\Models\Product;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Log;
-use App\Models\Rating;
-use App\Models\Comment;
-use file;
 use Illuminate\Support\Facades\Auth;
+
+use App\Models\Comment;
+
 
 session_start();
 
@@ -216,11 +216,12 @@ class ProductController extends Controller
                 ->where('product.product_id', '<>', $product_id)
                 ->get();
         }
-        $rating = rating::where('product_id',$product_id)->avg('rating');
+        $rating = Rating::where('product_id',$product_id)->avg('rating');
         $rating = round($rating);
         return view('pages.product.show_detail')
             ->with('category', $cate_product)
             ->with('product_detail', $detail_product)
+            ->with('id',$product_id)
             ->with('rating', $rating);
     }
 
