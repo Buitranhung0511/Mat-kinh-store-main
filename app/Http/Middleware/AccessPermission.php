@@ -15,7 +15,7 @@ class AccessPermission
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next): Response 
     {
         // if(Auth::user()->hasRole('admin')){
         // return $next($request);
@@ -25,6 +25,6 @@ class AccessPermission
         if (optional(auth()->user())->hasRole('admin')) {
             return $next($request);
         }
-        return redirect('/dashboard');
+        return redirect('/dashboard')->with('message',"Bạn không có quyền truy cập");
     }
 }

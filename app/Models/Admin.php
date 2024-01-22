@@ -32,6 +32,7 @@ class Admin extends Authenticatable
 
     public function hasRole($roles){
         return null !== $this->roles()->where('name',$roles)->first();
+        
     }
 
 }

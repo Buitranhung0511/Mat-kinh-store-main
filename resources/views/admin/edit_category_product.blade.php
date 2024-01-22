@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Session;
 
 
 @extends('admin_layout')
-@section('admin-content')
+@section('admin_content')
     <div class="row">
         <div class="col-lg-12">
             <section class="panel">

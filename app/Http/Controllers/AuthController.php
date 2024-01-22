@@ -63,6 +63,7 @@ class AuthController extends Controller
       ]);
       // $data = $request->all(); // nếu ok rồi thì lấy tất cả các data trên request
       if(Auth::attempt(['admin_email' => $request->admin_email,'admin_password' => $request->admin_password])){
+         // thay đổi cấu hình trong file config.auth.php để thay đổi user và lấy được admin_email và password
          return redirect('/dashboard');
       }else{
          return redirect('/login-auth')->with('message','Lỗi Đăng Nhập');

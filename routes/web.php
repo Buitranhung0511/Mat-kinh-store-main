@@ -50,23 +50,23 @@ Route::get('/san-pham', [
 //Danh mục sản phẩm - Trang Chủ "Hung"============
 Route::get('/danh-muc-san-pham/{category_id}', [
     CategoryProductController::class, 'show_category_home'
-])->name('home'); 
+])->name('home');
 
 Route::get('/chi-tiet-san-pham/{product_id}', [
     ProductController::class, 'detail_product'
-])->name('home'); 
+])->name('home');
 
 //Đánh giá sao
 Route::get('/insert-rating', [
-    ProductController::class,'insert_rating'
+    ProductController::class, 'insert_rating'
 ])->name('/insert-rating');
 
 Route::get('/load-comment', [
-    ProductController::class,'load_comment'
+    ProductController::class, 'load_comment'
 ])->name('/load_comment');
 
 Route::get('/send-comment', [
-    ProductController::class,'send_comment'
+    ProductController::class, 'send_comment'
 ])->name('/send_comment');
 //Danh mục sản phẩm - Trang Chủ "Hung"============
 
@@ -83,7 +83,40 @@ Route::get('/send-comment', [
 // ])->name('home');
 
 
-// BACK-END..
+
+// GROUP ADMIN
+Route::group(['middleware' => 'auth.roles'], function () {
+    Route::get('all-user', [
+        UserController::class, 'index'
+    ])->name('all-user');
+
+    Route::get('add-user', [
+        UserController::class, 'add_users'
+    ])->name('add-user');
+
+    Route::post('assign-roles', [
+        UserController::class, 'assign_roles'
+    ])->name('assign-roles');
+
+    Route::get('/dashboard', [
+        AdminController::class, 'show_dashboard'
+    ])->name('dashboard');
+
+    Route::get('/add-product', [
+        ProductController::class, 'add_product'
+    ])->name('add-product');
+
+    Route::get('/edit-product/{product_id}', [
+        ProductController::class, 'edit_product'
+    ])->name('edit-product');
+
+    Route::get('/all-product', [
+        ProductController::class, 'all_product'
+    ])->name('all-product');
+    
+});
+
+
 Route::get('/admin_login', [
     AdminController::class, 'index'
 ])->name('admin_login');
@@ -93,9 +126,6 @@ Route::get('/filter_by_date', [
 ])->name('filter_by_date');
 
 
-Route::get('/dashboard', [
-    AdminController::class, 'show_dashboard'
-])->name('dashboard');
 
 //XỬ LÝ LOG_OUT
 Route::get('/logout', [
@@ -108,7 +138,7 @@ Route::post('/admin-dashboard', [
 
 // ordersatus
 Route::get('/update-order-status', [
-    AdminController::class, 'updateOrderStatus' 
+    AdminController::class, 'updateOrderStatus'
 ])->name('/update-order-status');
 
 // XỬ LÝ CATEGORY-PRODUCT (DASHBOARD)
@@ -163,21 +193,9 @@ Route::get('/search-category-product', [
 // ============================================================================================================
 
 // XỬ LÝ PRODUCT (DASHBOARD)
-Route::group(['middleware'=>'auth.roles','auth.roles'=>['admin','author']],function(){
-
-    Route::get('/add-product', [
-        ProductController::class, 'add_product'
-    ])->name('add-product');
-
-    Route::get('/edit-product/{product_id}', [
-        ProductController::class, 'edit_product'
-    ])->name('edit-product');
-});
 
 
-Route::get('/all-product', [
-    ProductController::class, 'all_product'
-])->name('all-product');
+
 
 // Xử lý Hiden/Show của trang product
 Route::get('/unactive-product/{product_id}', [
@@ -208,58 +226,60 @@ Route::post('/save-product', [
 
 // luongth check out
 // add tocard
-Route::get('/product/add-to-card/{id}',
-[
-    CartController::class,'addToCard'
-])->name('addToCard');
+Route::get(
+    '/product/add-to-card/{id}',
+    [
+        CartController::class, 'addToCard'
+    ]
+)->name('addToCard');
 //cart detail 
-Route::get('/cartDetail',[
-    CartController::class,'showCart'
+Route::get('/cartDetail', [
+    CartController::class, 'showCart'
 ])->name('cartDetail');
 //update cart 
-Route::get('/cart-update',[
-    CartController::class,'upDateCart'
+Route::get('/cart-update', [
+    CartController::class, 'upDateCart'
 ])->name('updateCart');
-Route::get('/cart-delete_by_id',[
-    CartController::class,'deleteCartById'
+Route::get('/cart-delete_by_id', [
+    CartController::class, 'deleteCartById'
 ])->name('deleteCart');
 // route check out
-Route::get('/check_out',[
-        
-    CartController::class,'getTotal'
-    ])->name('check_out');
-    Route::post('/vn_payment',[
-        
-        CheckOutController::class,'vn_payment'
-        ])->name('vn_payment');
-        Route::post('/vn_momo',[
-        
-            CheckOutController::class,'vn_momo'
-            ])->name('vn_momo');
-            Route::post('/vn_onepay',[
-        
-                CheckOutController::class,'vn_onepay'
-                ])->name('vn_onepay');
-                //route thank History
-   Route::get('/thank',[
-        
-    HistoryController::class,'index'
-    ])->name('thank');
-   
-    Route::get('/thank_vn_momo',[
-        
-        HistoryController::class,'insertPaymentVnMomo'
-        ])->name('isert_momo');
-        Route::get('/thank_vn_pay',[
-        
-            HistoryController::class,'insertPaymentVNpay'
-            ])->name('isert_vn_pay');
+Route::get('/check_out', [
 
-            Route::get('/data_user',[
-        
-             HistoryController::class,'getDataCheckOut'
-                ])->name('input_data');  
-            
+    CartController::class, 'getTotal'
+])->name('check_out');
+Route::post('/vn_payment', [
+
+    CheckOutController::class, 'vn_payment'
+])->name('vn_payment');
+Route::post('/vn_momo', [
+
+    CheckOutController::class, 'vn_momo'
+])->name('vn_momo');
+Route::post('/vn_onepay', [
+
+    CheckOutController::class, 'vn_onepay'
+])->name('vn_onepay');
+//route thank History
+Route::get('/thank', [
+
+    HistoryController::class, 'index'
+])->name('thank');
+
+Route::get('/thank_vn_momo', [
+
+    HistoryController::class, 'insertPaymentVnMomo'
+])->name('isert_momo');
+Route::get('/thank_vn_pay', [
+
+    HistoryController::class, 'insertPaymentVNpay'
+])->name('isert_vn_pay');
+
+Route::get('/data_user', [
+
+    HistoryController::class, 'getDataCheckOut'
+])->name('input_data');
+
 Route::get('/search-product', [
     ProductController::class, 'search_product'
 ])->name('search-product');
@@ -425,30 +445,10 @@ Route::get('logout-auth', [
     AuthController::class, 'logout_auth'
 ])->name('logout-auth');
 
-Route::post ('register', [
+Route::post('register', [
     AuthController::class, 'register'
 ])->name('register');
 
-Route::post ('login', [
+Route::post('login', [
     AuthController::class, 'login'
 ])->name('login');
-
-
-
-// USER
-Route::group(['middleware'=>'auth.roles'],function(){
-
-});
-
-
-Route::get('all-user', [
-    UserController::class, 'index'
-])->name('all-user');
-
-Route::get('add-user', [
-    UserController::class, 'add_users'
-])->name('add-user')->middleware('auth.roles');
-
-Route::post ('assign-roles', [
-    UserController::class, 'assign_roles'
-])->name('assign-roles')->middleware('auth.roles');

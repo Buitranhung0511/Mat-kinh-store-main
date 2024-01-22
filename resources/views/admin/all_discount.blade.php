@@ -1,5 +1,9 @@
+<?php
+use Illuminate\Support\Facades\Session;
+
+?>
 @extends('admin_layout')
-@section('admin-content')
+@section('admin_content')
     <div class="table-agile-info">
         <div class="panel panel-default">
             <div class="panel-heading">
