@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Payment extends Model
 {
     use HasFactory;
-    protected $table = 'payment'; // Change this to 'payment' if your table is named 'payment'
+    protected $table = 'payments'; // Change this to 'payment' if your table is named 'payment'
     protected $primaryKey = 'transId';
     protected $fillable = [
         'partnerCode',

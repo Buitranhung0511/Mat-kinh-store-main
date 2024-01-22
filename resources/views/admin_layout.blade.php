@@ -149,17 +149,9 @@ use Illuminate\Support\Facades\Session;
                             </ul>
                         </li>
 
-
                         <li class="sub-menu">
                             <a href="javascript:;">
                                 <i class="fa fa-book"></i>
-
-
-                        <li class="sub-menu">
-                            <a href="javascript:;">
-                                <i class="fa fa-book"></i>
-                                <span>Category products list</span>
-                                >>>>>>> origin/master
                                 <span>Category products</span>
                             </a>
                             <ul class="sub">
@@ -175,7 +167,6 @@ use Illuminate\Support\Facades\Session;
                         <li class="sub-menu">
                             <a href="javascript:;">
                                 <i class="fa fa-book"></i>
-                                <span>Products list</span>
                                 <span>Products</span>
                             </a>
                             <ul class="sub">
@@ -253,7 +244,8 @@ use Illuminate\Support\Facades\Session;
                         </li>
                         {{-- End --}}
 
-                        {{-- News Dashboard --}} <li class="sub-menu">
+                        {{-- News Dashboard --}}
+                        <li class="sub-menu">
                             <a href="javascript:;">
                                 <i class="fa fa-book"></i>
                                 <span> News</span>
@@ -264,8 +256,6 @@ use Illuminate\Support\Facades\Session;
                             <ul class="sub">
                                 <li><a href="{{ URL::to('/all-post/') }}">Show News list</a></li>
                             </ul>
-
-
                         </li>
                         {{-- End --}}
 
