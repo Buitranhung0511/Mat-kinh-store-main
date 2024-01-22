@@ -434,7 +434,10 @@ Route::get('all-user', [
     UserController::class, 'index'
 ])->name('all-user');
 
+Route::get('add-user', [
+    UserController::class, 'add_users'
+])->name('add-user')->middleware('auth.roles');
 
 Route::post ('assign-roles', [
-    AuthController::class, 'assign_roles'
-])->name('assign-roles');
+    UserController::class, 'assign_roles'
+])->name('assign-roles')->middleware('auth.roles');

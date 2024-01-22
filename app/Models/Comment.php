@@ -19,7 +19,7 @@ class Comment extends Model
 
     protected $primaryKey = 'comment_id';
     protected $table = 'comments';
-    public $timestamps = false; // set time to false
+   
    
 
     

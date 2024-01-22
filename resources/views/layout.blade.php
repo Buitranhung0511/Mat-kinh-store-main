@@ -86,7 +86,7 @@
                                 <li class="dropdown"><a href="#">Tin Tức<i class="fa fa-angle-down"></i></a>
                                 </li>
                                 @php
-                                session_start();
+                                // session_start();
                                 $cart = session()->get('cart', []);
                                 $totalQuantity = 0;
                             

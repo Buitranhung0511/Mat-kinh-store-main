@@ -81,15 +81,18 @@ class HistoryController extends Controller
             $totalPrice = 0;
             $totalQuantity = 0;
             $productNames = [];
-             
-       
+            $discountCode = 'No';
+            $totalDiscount  = 0;
             foreach ($carts as $cart) {
                
                 $productNames[] = $cart['name'];
                 $totalQuantity += $cart['quantity'];
                 $totalPrice += $cart['price'];
             }
-            $totalDiscount  =   $totalPrice*($discount[0]['counbon_percent'] / 100);
+            if (!empty($discount) && is_array($discount) && isset($discount[0]['counbon_percent'])) {
+                $totalDiscount = $totalPrice * ($discount[0]['counbon_percent'] / 100);
+                $discountCode =   $discount[0]['counbon_code'];
+            }
             $today = Carbon::now(); // Lấy ngày hiện tại
         $expectedDeliveryDate = $today->addDays(3)->format('Y-m-d'); // Cộng thêm 3 ngày
            
@@ -114,7 +117,7 @@ class HistoryController extends Controller
                 'payment_status' =>  $data['orderInfo'], // Cập nhật từ quy trình thanh toán
                 'order_status' => 'Pending', // Cập nhật từ trạng thái mặc định hoặc quy trình xử lý
                 'additional_notes' => 'Ghi chú thêm', // Nếu có
-                'discount_code' =>  $discount[0]['counbon_code'], // Nếu áp dụng
+                'discount_code' =>  $discountCode, // Nếu áp dụng
                 'total_discount'=>$totalDiscount,
                 'tax_amount' => '20' , // Tính toán nếu cần
                 'user_account_id' => isset($address['user_account_id']) ?? 0,// Nếu có liên kết với người dùng
