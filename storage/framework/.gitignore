@@ -1,6 +1,14 @@
 *
 !data/
 !.gitignore
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> 3c10d7d22552a6184b4b3d762175bcf4f612d035
+>>>>>>> origin/master
 compiled.php
 config.php
 down
@@ -10,4 +18,11 @@ routes.php
 routes.scanned.php
 schedule-*
 services.json
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> master
+>>>>>>> 3c10d7d22552a6184b4b3d762175bcf4f612d035
+>>>>>>> origin/master

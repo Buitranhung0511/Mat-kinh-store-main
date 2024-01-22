@@ -46,11 +46,6 @@ class AuthController extends Controller
 
         ]);
     }
-    //=============Dang Ky Auth=============
-
-
-
-
 
     //=============Dang Nhap Auth=============
     public function login_auth()
@@ -77,7 +72,6 @@ class AuthController extends Controller
         //     return redirect('/login-auth')->with('message', 'Lỗi Đăng Nhập');
         // }
     }
-    //=============Dang Nhap Auth=============
 
     //=============Dang Xuat Auth=============
     public function logout_auth()

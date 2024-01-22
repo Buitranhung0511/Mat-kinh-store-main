@@ -1,9 +1,8 @@
 <?php
+
 use Illuminate\Support\Facades\Session;
 use Illuminate\Pagination\Paginator;
-?>
-@extends('admin_layout')
-@section('admin_content')
+?> @extends('admin_layout') @section('admin_content')
     <div class="row">
         <div class="col-lg-12">
             <section class="panel">

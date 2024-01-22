@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Session;
                     <div class="position-center">
                         @foreach ($edit_product as $key => $pro)
                             {{-- Message hiển thị thông báo thêm thành công hay thất bại.. --}}
+
                             <?php
                             $message = Session::get('message');
                             if ($message) {
@@ -69,6 +70,11 @@ use Illuminate\Support\Facades\Session;
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Category name: </label>
                                     <select name="product_cate" class="form-control input-sm m-bot15 " required>
+
+                                        {{-- <label for="exampleInputPassword1">Category : </label>
+                                        <select name="product_cate" class="form-control input-sm m-bot15 ">
+                                            <select name="product_cate" class="form-control input-sm m-bot15 " required> --}}
+
                                         {{-- Sử dụng foreach để lấy tên category --}}
                                         @foreach ($cate_product as $key => $cate)
                                             @if (is_object($cate) && property_exists($cate, 'category_name'))
@@ -99,6 +105,7 @@ use Illuminate\Support\Facades\Session;
 
                                 <button type="submit" name="add-product" class="btn btn-info ">Update</button>
                                 <button type="cancel" name="cancel-product" class="btn btn-warning ">Cancel</button>
+
                             </form>
                         @endforeach
                     </div>

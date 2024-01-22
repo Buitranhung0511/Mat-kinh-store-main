@@ -72,7 +72,6 @@ class HistoryController extends Controller
     public function saveOrder($data)
     {
 
-
         //code...
         $address = session()->get('address');
         //getdata carts
@@ -84,15 +83,18 @@ class HistoryController extends Controller
         $totalPrice = 0;
         $totalQuantity = 0;
         $productNames = [];
-
-
+        $discountCode = 'No';
+        $totalDiscount  = 0;
         foreach ($carts as $cart) {
 
             $productNames[] = $cart['name'];
             $totalQuantity += $cart['quantity'];
             $totalPrice += $cart['price'];
         }
-        $totalDiscount  =   $totalPrice * ($discount[0]['counbon_percent'] / 100);
+        if (!empty($discount) && is_array($discount) && isset($discount[0]['counbon_percent'])) {
+            $totalDiscount = $totalPrice * ($discount[0]['counbon_percent'] / 100);
+            $discountCode =   $discount[0]['counbon_code'];
+        }
         $today = Carbon::now(); // Lấy ngày hiện tại
         $expectedDeliveryDate = $today->addDays(3)->format('Y-m-d'); // Cộng thêm 3 ngày
 
@@ -117,7 +119,7 @@ class HistoryController extends Controller
             'payment_status' =>  $data['orderInfo'], // Cập nhật từ quy trình thanh toán
             'order_status' => 'Pending', // Cập nhật từ trạng thái mặc định hoặc quy trình xử lý
             'additional_notes' => 'Ghi chú thêm', // Nếu có
-            'discount_code' =>  $discount[0]['counbon_code'], // Nếu áp dụng
+            'discount_code' =>  $discountCode, // Nếu áp dụng
             'total_discount' => $totalDiscount,
             'tax_amount' => '20', // Tính toán nếu cần
             'user_account_id' => isset($address['user_account_id']) ?? 0, // Nếu có liên kết với người dùng
@@ -173,7 +175,6 @@ class HistoryController extends Controller
         ];
         $this->saveOrder($data_momo);
 
-
         if (isset($data['errorCode']) && $data['errorCode'] == 0) {
             // Tạo dữ liệu Payment
             $payment = Payment::create($data_momo);
@@ -209,24 +210,13 @@ class HistoryController extends Controller
     }
     public function insertPaymentVNpay(Request $request)
     {
-        $data = $request->all();
-        $data_vnpay = [
-            'partnerCode'   => $data['vnp_TmnCode'],
-            'accessKey'     => $data['vnp_TxnRef'],
-            'requestId'     => $data['vnp_BankTranNo'],
-            'amount'        => $data['vnp_Amount'],
-            'orderId'       => $data['vnp_TmnCode'],
-            'orderInfo'     => $data['vnp_OrderInfo'],
-            'orderType'     => $data['vnp_CardType'],
-            'transId'       =>  strval($data['vnp_TransactionNo']),
-            'localMessage'  => $data['vnp_TransactionStatus'],
-            'responseTime'  => $data['vnp_PayDate'],
-            'payType'       => $data['vnp_BankCode'],
-            'signature'     => $data['vnp_SecureHash']
-        ];
+
+
 
         try {
             $data = $request->all();
+
+
             $data_vnpay = [
                 'partnerCode'   => $data['vnp_TmnCode'],
                 'accessKey'     => $data['vnp_TxnRef'],
@@ -261,12 +251,24 @@ class HistoryController extends Controller
             if (isset($data['vnp_TransactionStatus']) && $data['vnp_TransactionStatus'] == 0) {
                 Payment::create($data_vnpay);
 
+                // Nếu order được tạo thành công, gọi updateStatistics
                 $this->saveOrder($data_vnpay);
 
+                $orderId = session('orderId');
+                // Truy xuất đơn hàng và chi tiết của nó
+                $order = Order::find($orderId);
+
+                if ($order) {
+                    // Nếu order được tạo thành công, gọi updateStatistics
+                    $this->updateStatistics();
 
 
-
-                return redirect()->route('thank');
+                    // Chuyển hướng đến trang cảm ơn
+                    return redirect()->route('thank', ['order' => $order]);
+                } else {
+                    // Ghi log lỗi
+                    Log::error('Không thể tạo đơn hàng', ['data' => $data_vnpay]);
+                }
             }
         } catch (\Exception $e) {
             // Xử lý các exception trong quá trình xử lý dữ liệu
@@ -277,7 +279,6 @@ class HistoryController extends Controller
     public function getDataCheckOut(Request $request)
     {
         // Handle the POST request logic here
-
 
         $validatedData = $request->validate([
 
@@ -295,15 +296,6 @@ class HistoryController extends Controller
             'city' => $validatedData['city'],
             'email' => $validatedData['email'],
             'fullname' => $validatedData['fullname'],
-            'address' => $validatedData['address'],
-            'phone' => $validatedData['phone'],
-            'district' => $validatedData['district'],
-            'ward' => $validatedData['ward'],
         ]);
-
-        // Perform database operations, validation, etc.
-        $address = session()->get('address');
-
-        return response()->json(['message' => 'Request processed successfully', 'code' => 200, compact('address')], 200);
     }
 }

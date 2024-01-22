@@ -17,7 +17,8 @@
     <link href="{{ asset('frontend/css/sb-admin-2.min.css') }}" rel="stylesheet">
     <link href="{{ asset('frontend/css/animate.css') }}" rel="stylesheet">
     <link href="{{ asset('frontend/css/bootstrap.min copy.css') }}" rel="stylesheet">
-    {{-- <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet"> --}}
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
@@ -144,8 +145,33 @@
                                         @endforeach
                                     </ul> --}}
                                 </li>
-                                <li><a href="404.html">Cart</a></li>
-                                <li><a href="contact-us.html">Contact</a></li>
+                                @php
+
+                                    $cart = session()->get('cart', []);
+                                    // if ($cart) {
+                                    //     // session_start();
+                                    // }
+                                    $totalQuantity = 0;
+
+                                    if (!empty($cart)) {
+                                        foreach ($cart as $item) {
+                                            $totalQuantity += $item['quantity'];
+                                        }
+                                    } else {
+                                        $totalQuantity = 0;
+                                    }
+                                @endphp
+
+                                <li>
+                                    <a href="{{ route('cartDetail') }}">
+                                        Cart
+                                        <span id="cart-quantity" class="badge badge-pill badge-danger">
+                                            {{ $totalQuantity }}
+                                        </span>
+                                    </a>
+                                </li>
+
+                                <li><a href="contact-us.html">liên Hệ</a></li>
                             </ul>
                         </div>
                     </div>
@@ -197,12 +223,6 @@
                             @endforeach
                         </div>
 
-                        <a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
-                            <i class="fa fa-angle-left"></i>
-                        </a>
-                        <a href="#slider-carousel" class="right control-carousel hidden-xs" data-slide="next">
-                            <i class="fa fa-angle-right"></i>
-                        </a>
                     </div>
 
                 </div>
@@ -518,31 +538,6 @@
 <!-- Bootstrap theme -->
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.rtl.min.css" />
 <Script>
-    function calculateTotalQuantity(data) {
-        let totalQuantity = 0;
-
-        if (data && Array.isArray(data.items)) {
-            // Trường hợp 1: Nếu data chứa một trường là mảng (ví dụ: items)
-            data.items.forEach(item => {
-                totalQuantity += parseInt(item.quantity);
-            });
-        } else if (typeof data === 'object') {
-            // Trường hợp 2: Nếu cần duyệt qua các giá trị của đối tượng
-            Object.values(data).forEach(item => {
-                totalQuantity += parseInt(item
-                    .quantity); // Giả sử mỗi item là một đối tượng có trường 'quantity'
-            });
-        } else {
-            console.log("Dữ liệu không hợp lệ");
-            return;
-        }
-
-        // Cập nhật nội dung HTML
-        $('#total-quantity').html(totalQuantity);
-    }
-
-
-
     $(document).ready(function() {
         // render country
         // 1. what is API
@@ -624,7 +619,7 @@
 
         }
 
-        // update cart
+        // add toCart
         function addToCard(event) {
             event.preventDefault();
             let urlProduct = $(this).data('url');
@@ -637,10 +632,7 @@
                     if (response.code === 200) {
                         // alertify.notify( message, 'success', [wait, callback]);
                         alertify.success('Success Addcart');
-                        // parse json
-                        calculateTotalQuantity(response.data);
-
-
+                        $('#cart-quantity').text(response.totalQuantity);
 
                     }
                 },
@@ -652,14 +644,14 @@
             });
 
         }
-
+        // get function add to cart
         $('.add_to_card').on('click', addToCard);
 
 
         // Function to update the cart
-        function upDateCart(id, quantity) {
-            let urlUpdateCart = $('.cart_wapper .update_cart_url').data('url');
+        function upDateCart(id, quantity, urlUpdateCart) {
 
+            console.log(urlUpdateCart);
             // Your AJAX request
             $.ajax({
                 type: 'GET',
@@ -672,8 +664,8 @@
                 success: function(response) {
                     if (response.code === 200) {
                         $('.cart_wapper').html(response.cart_Component);
-                        console.log(response.data);
-                        calculateTotalQuantity(response.data);
+                        alertify.success('Success add to cart');
+                        $('#cart-quantity').text(response.totalQuantity);
 
                     }
                 },
@@ -698,7 +690,8 @@
                     console.log(response);
                     if (response.code === 200) {
                         $('.cart_wapper').html(response.cart_Component);
-                        calculateTotalQuantity(response.data);
+                        $('#cart-quantity').text(response.totalQuantity);
+
 
                     }
                 },
@@ -711,14 +704,25 @@
         //update Cart
         $('.cart_wapper').on('click', '.cart-edit', function(event) {
             event.preventDefault();
-
+            let urlUpdateCart = $('.cart_wapper .update_cart_url').data('url');
             // Retrieve id and quantity
             let id = $(this).data('id');
             let quantity = $('.cart_wapper #' + id).val();
 
             // Call the upDateCart function with id and quantity
-            upDateCart(id, quantity);
+            upDateCart(id, quantity, urlUpdateCart);
         });
+        //update car blade Show_detail
+        $('.cart_edit').click(function() {
+            let urlUpdateCart = $('.update_cart_url').data('url');
+
+            // Retrieve id and quantity
+            let id = $(this).data('id');
+            let quantity = $('#' + id).val();
+
+            upDateCart(id, quantity, urlUpdateCart);
+        });
+
         //delet cart
         $('.cart_wapper').on('click', '.cart-delete', function(event) {
             event.preventDefault();

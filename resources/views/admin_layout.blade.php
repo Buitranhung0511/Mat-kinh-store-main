@@ -10,11 +10,8 @@ use Illuminate\Support\Facades\Session;
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-
     <script type="application/x-javascript">
-        addEventListener("load", function() {
-            setTimeout(hideURLbar, 0);
-        }, false);
+
 
         function hideURLbar() {
             window.scrollTo(0, 1);
@@ -50,11 +47,11 @@ use Illuminate\Support\Facades\Session;
     <link rel="stylesheet" href="{{ asset('backend/css/monthly.css') }}">
     <!-- //calendar -->
     <!-- //font-awesome icons -->
-    <script src="{{ asset('backend/js/jquery2.0.3.min.js') }}"></script>
+
     <script src="{{ asset('backend/js/raphael-min.js') }}"></script>
     <script src="{{ asset('backend/js/morris.js') }}"></script>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <!-- Include jQuery UI library -->
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -96,6 +93,8 @@ use Illuminate\Support\Facades\Session;
                     <li>
                         <input type="text" class="form-control search" placeholder=" Search">
                     </li>
+
+                    {{-- luongth --}}
                     <!-- user login dropdown start-->
                     <li class="dropdown">
                         {{-- <a data-toggle="dropdown" class="dropdown-toggle" href="#">
@@ -118,6 +117,8 @@ use Illuminate\Support\Facades\Session;
                             <li><a href="{{ URL::to('/logout-auth') }}"><i class="fa fa-key"></i> Log Out</a></li>
                         </ul>
                     </li>
+
+
                     <!-- user login dropdown end -->
                 </ul>
                 <!--search & user info end-->
@@ -149,15 +150,23 @@ use Illuminate\Support\Facades\Session;
                         </li>
 
 
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-book"></i>
+
 
                         <li class="sub-menu">
                             <a href="javascript:;">
                                 <i class="fa fa-book"></i>
+                                <span>Category products list</span>
+                                >>>>>>> origin/master
                                 <span>Category products</span>
                             </a>
                             <ul class="sub">
-                                <li><a href="{{ URL::to('/add-category-product/') }}">Add Category product</a></li>
-                                <li><a href="{{ URL::to('/all-category-product/') }}">Show Category list</a></li>
+                                <li><a href="{{ URL::to('/add-category-product/') }}">Add Category product</a>
+                                </li>
+                                <li><a href="{{ URL::to('/all-category-product/') }}">Show Category list</a>
+                                </li>
                             </ul>
                         </li>
                         {{-- End --}}
@@ -166,6 +175,7 @@ use Illuminate\Support\Facades\Session;
                         <li class="sub-menu">
                             <a href="javascript:;">
                                 <i class="fa fa-book"></i>
+                                <span>Products list</span>
                                 <span>Products</span>
                             </a>
                             <ul class="sub">
@@ -235,15 +245,15 @@ use Illuminate\Support\Facades\Session;
                                 <li><a href="{{ URL::to('/add-category-post/') }}">Add Category News</a></li>
                             </ul>
                             <ul class="sub">
-                                <li><a href="{{ URL::to('/all-category-post/') }}">Show Category news list</a></li>
+                                <li><a href="{{ URL::to('/all-category-post/') }}">Show Category news list</a>
+                                </li>
                             </ul>
 
 
                         </li>
                         {{-- End --}}
 
-                        {{-- News Dashboard --}}
-                        <li class="sub-menu">
+                        {{-- News Dashboard --}} <li class="sub-menu">
                             <a href="javascript:;">
                                 <i class="fa fa-book"></i>
                                 <span> News</span>
@@ -275,7 +285,6 @@ use Illuminate\Support\Facades\Session;
                         @endhasRole
                         <!-- {{-- End --}} -->
 
-
                     </ul>
                 </div>
                 <!-- sidebar menu end-->
@@ -289,9 +298,7 @@ use Illuminate\Support\Facades\Session;
             <!-- Phan Body -->
             <section class="wrapper">
 
-                @yield('admin_content')
-
-            </section>
+                @yield('admin_content') </section>
             <!-- Phan Body -->
 
 
@@ -372,7 +379,6 @@ dateFormat:"yy-mm-dd"
                         to_date: to_date
                     },
                     success: function(response) {
-                        console.log(response);
                         chart.setData(response);
                     },
                     error: function(error) {
@@ -384,16 +390,16 @@ dateFormat:"yy-mm-dd"
         });
     </script>
 
-
-
-
     {{-- <script>
         new DataTable('#example', {
             search: {
                 return: true
             }
         });
+
     </script> --}}
+
+
 
     <!-- Khởi tạo CKEditor cho textarea có id là 'editor' -->
     <script>

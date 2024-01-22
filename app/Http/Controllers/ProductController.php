@@ -231,6 +231,7 @@ class ProductController extends Controller
         return view('pages.product.show_detail')
             ->with('category', $cate_product)
             ->with('product_detail', $detail_product)
+            ->with('id', $product_id)
             ->with('rating', $rating);
     }
 
