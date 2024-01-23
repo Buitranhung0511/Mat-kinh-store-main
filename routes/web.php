@@ -436,7 +436,7 @@ Route::get('all-user', [
 
 Route::get('add-user', [
     UserController::class, 'add_users'
-])->name('add-user')->middleware('auth.roles');
+])->name('add-user');
 
 Route::post ('assign-roles', [
     UserController::class, 'assign_roles'

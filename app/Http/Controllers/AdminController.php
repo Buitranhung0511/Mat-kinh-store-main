@@ -17,7 +17,7 @@ use ConsoleTVs\Charts\Facades\Charts;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 
-//  session_start();
+  session_start();
 
 
     // Hàm check login
@@ -32,11 +32,11 @@ class AdminController extends Controller
     // Hàm check login
     public function AuthLogin()
     {
-        $admin_id = Session::get('admin_id');
+        $admin_id = Auth::id();
         if ($admin_id == true) {
             return Redirect::to('dashboard');
         } else {
-            return Redirect::to('admin_login')->send();
+            return Redirect::to('admin')->send();
         }
     }
 //=========================HUNG============================
@@ -48,7 +48,7 @@ class AdminController extends Controller
 
     public function show_dashboard()
     {
-        // $this->AuthLogin();           // Nếu login thì trả về trang showDashboard
+         $this->AuthLogin();           // Nếu login thì trả về trang showDashboard
 
         $orders = DB::table('orders')->get();
 
@@ -112,14 +112,14 @@ class AdminController extends Controller
 
     // HÀM XỬ LÝ LOG_OUT
   
-    // public function logout(Request $request)
-    // {
-    //     $this->AuthLogin();           // Nếu login thì trả về trang logout CUA HUNG
-    //     Session::put('admin_name', null);
-    //     Session::put('admin_id', null);
+    public function logout(Request $request)
+    {
+        $this->AuthLogin();           // Nếu login thì trả về trang logout CUA HUNG
+        Session::put('admin_name', null);
+        Session::put('admin_id', null);
 
-    //     return Redirect::to('/admin_login');
-    // }
+        return Redirect::to('/admin_login');
+    }
 
     // /cap  nhat trang thai order 
     public function updateOrderStatus(Request $request)
