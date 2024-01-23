@@ -519,6 +519,43 @@
         // 1. what is API
         // 2. How do I call API
         // 3. Explain code
+
+        //  render prodcut by category by id
+        $('#accordian').on('click', '.category_product', function(event) {
+            event.preventDefault();
+            let urlProduct = $(this).data('urlcategory');
+            let id = $(this).data('id');
+            getProductByCatergoryId(id, urlProduct)
+
+
+        })
+
+        function getProductByCatergoryId(id, urlProduct) {
+
+            // Your AJAX request
+            $.ajax({
+                type: 'GET',
+                dataType: 'json',
+                url: urlProduct + '/' + id,
+                data: {
+                    id: id
+                },
+                success: function(response) {
+                    console.log(response);
+                    if (response.code === 200) {
+                        $('.product_parent').html(response.data);
+
+
+
+                    }
+                },
+                error: function() {
+                    // Handle errors here
+                }
+            });
+        }
+
+
         const host = "https://provinces.open-api.vn/api/";
         var callAPI = (api) => {
             $.ajax({
@@ -596,9 +633,8 @@
         }
 
         // add toCart
-        function addToCard(event) {
-            event.preventDefault();
-            let urlProduct = $(this).data('url');
+        function addToCard(urlProduct) {
+
 
             $.ajax({
                 type: "GET",
@@ -619,9 +655,21 @@
 
             });
 
-        }
+        } <<
+        << << < HEAD
         // get function add to cart
-        $('.add_to_card').on('click', addToCard);
+        $('.add_to_card').on('click', addToCard); ===
+        === =
+        // get function add to cart
+
+        $('.product_parent').on('click', '.add_to_card', function() {
+            let urlProduct = $(this).data('url');
+            console.log(urlProduct);
+            addToCard(urlProduct);
+        });
+
+        >>>
+        >>> > 1106499 f0e7e1f88968efe0d37949ecafb909bd0
 
 
         // Function to update the cart

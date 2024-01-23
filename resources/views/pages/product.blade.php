@@ -5,16 +5,15 @@
             <div class="col-sm-3">
                 <div class="left-sidebar">
 
-                    <h2 style="color: rgb(92, 188, 225);">Category Products</h2>
-                    <div class="panel-group
-                        category-products" id="accordian"><!--category-product-->
+                    <h2>Danh Mục Sản Phẩm</h2>
+                    <div class="panel-group category-products" id="accordian"><!--category-product-->
                         @foreach ($category as $key => $cate)
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <h5 class="panel-title" style="color: rgb(92, 188, 225);">
-                                        <a href="{{ URL::to('/danh-muc-san-pham/' . $cate->category_id) }}"
-                                            style="color: rgb(92, 188, 225);">{{ $cate->category_name }}</a>
-                                    </h5>
+                                    <h4 class="panel-title">
+                                        <a class="category_product" data-urlCategory="{{ URL::to('/danh-muc-san-pham/') }}"
+                                            data-id="{{ $cate->category_id }}">{{ $cate->category_name }}</a>
+                                    </h4>
                                 </div>
                             </div>
                         @endforeach
@@ -23,7 +22,7 @@
 
                     <!-- price-range-->
                     <div class="price-range">
-                        <h2 style="color: rgb(92, 188, 225);">Price Range</h2>
+                        <h2>Price Range</h2>
                         <div class="well text-center">
                             <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="600"
                                 data-slider-step="5" data-slider-value="[250,450]" id="sl2"><br />
@@ -43,44 +42,43 @@
             {{-- Body Home --}}
             <div class="col-sm-9 padding-right">
                 <!--features_items-->
-                <div class="features_items">
-                    <h2 class="title text-center" style="color: rgb(92, 188, 225);">NEWEST PRODUCT</h2>
 
-                    @foreach ($all_product as $key => $product)
-                        <a href="{{ URL::to('chi-tiet-san-pham/' . $product->product_id) }}">
-                            <div class="col-sm-4">
-                                <div class="product-image-wrapper">
-                                    <div class="single-products">
-                                        <div class="productinfo text-center">
-                                            <img src="{{ URL::to('public/uploads/product/' . $product->product_image) }}"
-                                                alt="" />
-                                            <h2 style="color: rgb(92, 188, 225);">
-                                                {{ number_format($product->product_price) }}
-                                            </h2>
-                                            <h3>
-                                                {{ $product->product_name }}
-                                            </h3>
-                                            <a href="#" class="btn btn-warning cart_edit update_cart_url"><i
-                                                    class="fa fa-shopping-cart"></i>Add to
-                                                cart</a>
+                <div class="product_parent">
+
+                    <div class="features_items">
+                        <h2 class="title text-center">Sản Phảm Mới Nhất</h2>
+
+                        @foreach ($all_product as $key => $product)
+                            <a href="{{ URL::to('chi-tiet-san-pham/' . $product->product_id) }}">
+                                <div class="col-sm-4">
+                                    <div class="product-image-wrapper">
+                                        <div class="single-products">
+                                            <div class="productinfo text-center">
+                                                <img src="{{ URL::to('public/uploads/product/' . $product->product_image) }}"
+                                                    alt="" />
+                                                <h2>{{ number_format($product->product_price) . ' ' . '$' }}</h2>
+                                                <p>{{ $product->product_name }}</p>
+                                                <a data-url="{{ route('addToCard', ['id' => $product->product_id]) }}"
+                                                    class="btn btn-default add_to_card"><i
+                                                        class="fa fa-shopping-cart"></i>Add to
+                                                    cart</a>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="choose">
+                                            <ul class="nav nav-pills ">
+                                                <li><a href="#"><i class="fa fa-plus-square"></i>Thêm Yêu Thích</a>
+                                                </li>
+                                                <li><a href="#"><i class="fa fa-plus-square"></i>So Sánh</a></li>
+                                            </ul>
                                         </div>
                                     </div>
-
-
-                                    <div class="choose">
-                                        <ul class="nav nav-pills"
-                                            style="display: flex; flex-wrap: wrap; justify-content: space-around;">
-                                            <li><a href="#"><i class="fa fa-plus-square"></i>Thêm Yêu
-                                                    Thích</a></li>
-                                            <li><a href="#"><i class="fa fa-plus-square"></i>So Sánh</a></li>
-                                        </ul>
-                                    </div>
                                 </div>
-                            </div>
-                        </a>
-                    @endforeach
-
-                </div><!--features_items-->
+                            </a>
+                        @endforeach
+                    </div><!--features_items-->
+                </div>
             </div>
             {{-- And Body Home --}}
         </div>

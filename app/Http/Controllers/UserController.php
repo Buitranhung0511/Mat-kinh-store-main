@@ -20,12 +20,10 @@ class UserController extends Controller
         return view('admin.users.all_users')->with(compact('admin'));
     }
 
-
     public function add_users()
     {
         return view('admin.users.add_users');
     }
-
 
     public function assign_roles(Request $request)
     {
