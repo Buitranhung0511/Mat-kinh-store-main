@@ -30,6 +30,7 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
 </head><!--/head-->
 
 <body>
@@ -64,9 +65,9 @@
             <div class="container">
                 <div class="row">
                     <div class="col-sm-4">
-                        <div class="logo pull-left">
-                            <a href="index.html"><img src="{{ asset('frontend/images/tiger.jpg') }}" alt=""
-                                    width="10%" height="10%"></a>
+                        <div class="companyinfo">
+                            <h2><span>HLTL</span>-shop</h2>
+
                         </div>
 
                     </div>
@@ -214,7 +215,7 @@
                 <div class="row">
                     <div class="col-sm-2">
                         <div class="companyinfo">
-                            <h2><span>e</span>-shopper</h2>
+                            <h2><span>HLTL</span>-shop</h2>
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,sed do eiusmod tempor</p>
                         </div>
                     </div>

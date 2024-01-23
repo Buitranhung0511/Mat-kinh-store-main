@@ -15,7 +15,7 @@ body {
 
 ul li {
   list-style: none;
- 
+
 }
 
 a:hover {
@@ -356,9 +356,9 @@ ul.sub-menu {
   padding-bottom: 20px;
 }
 
-.companyinfo {
+/* .companyinfo {
   margin-top: 57px;
-}
+} */
 
 .companyinfo h2 {
   color: #B4B1AB;
@@ -1017,7 +1017,7 @@ h2.title {
 }
 
 .category-tab ul  li  a:hover{
-	background:#FE980F;
+	background: rgb(92, 188, 225);
 	color:#fff;
 }
 
@@ -1026,7 +1026,7 @@ h2.title {
   -moz-border-left-colors: none;
   -moz-border-right-colors: none;
   -moz-border-top-colors: none;
-  background-color: #FE980F;
+  background-color: rgb(92, 188, 225);;
   border:0px;
   color: #FFFFFF;
   cursor: default;
@@ -1219,8 +1219,8 @@ h2.title {
   border: 1px solid #F7F7F0;
   overflow: hidden;
   padding-bottom: 60px;
-  padding-left: 60px;
-  padding-top: 60px;
+  padding-left: 10px;
+  padding-top: 10px;
   position: relative;
 }
 
