@@ -1,4 +1,3 @@
-
 <?php
 use Illuminate\Support\Facades\Session;
 ?>
@@ -61,9 +60,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             </form>
 
 
-            <p>Don't Have an Account ?<a href="{{url('/register-auth')}}">Create an Auth</a></p>
-            <a href="{{url('/login-auth')}}">Login an Auth</a>
-            
+            <p>Don't Have an Account ?<a href="{{ url('/register-auth') }}">Create an Auth</a></p>
+            <a href="{{ url('/login-auth') }}">Login an Auth</a>
+
         </div>
     </div>
     <script src="{{ asset('backend/js/bootstrap.js') }}"></script>
@@ -72,6 +71,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <script src="{{ asset('backend/js/jquery.slimscroll.js') }}"></script>
     <script src="{{ asset('backend/js/jquery.nicescroll.js') }}"></script>
     <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/flot-chart/excanvas.min.js"></script><![endif]-->
+
+    <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/flot-chart/excanvas.min.js"></script><![endif]..-->
+
+    <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/flot-chart/excanvas.min.js"></script><![endif]..-->
 
     <script src="{{ asset('backend/js/jquery.scrollTo.js') }}"></script>
 </body>

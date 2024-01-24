@@ -17,10 +17,13 @@
     <link href="{{ asset('frontend/css/sb-admin-2.min.css') }}" rel="stylesheet">
     <link href="{{ asset('frontend/css/animate.css') }}" rel="stylesheet">
     <link href="{{ asset('frontend/css/bootstrap.min copy.css') }}" rel="stylesheet">
-   
+
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
-   
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
     <link rel="shortcut icon" href="{{ asset('frontend/images/ico/favicon.ico') }}">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
@@ -44,7 +47,7 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="social-icons pull-right">
-                            <ul class="nav  nav-pills">
+                            <ul class="nav navbar-nav" style="display: inline-block;">
                                 <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                                 <li><a href="#"><i class="fa fa-twitter"></i></a></li>
                                 <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
@@ -57,14 +60,62 @@
             </div>
         </div><!--/header_top-->
 
-      
+        <div class="header-middle"><!--header-middle-->
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="logo pull-left">
+                            <a href="index.html"><img src="{{ asset('frontend/images/logo.png') }}"
+                                    alt="" /></a>
+                        </div>
+                        <div class="btn-group pull-right">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default dropdown-toggle usa"
+                                    data-toggle="dropdown">
+                                    USA
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Canada</a></li>
+                                    <li><a href="#">UK</a></li>
+                                </ul>
+                            </div>
+
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default dropdown-toggle usa"
+                                    data-toggle="dropdown">
+                                    DOLLAR
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Canadian Dollar</a></li>
+                                    <li><a href="#">Pound</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="shop-menu pull-right">
+                            <ul class="nav navbar-nav" style="display: inline-block;">
+                                <li><a href="#"><i class="fa fa-user"></i> Account</a></li>
+                                <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
+                                <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
+                                <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+                                <li><a href="login.html"><i class="fa fa-lock"></i> Login</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!--/header-middle-->
 
         <div class="header-bottom"><!--header-bottom-->
             <div class="container">
                 <div class="row">
                     <div class="col-sm-9">
                         <div class="navbar-header">
-                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                                data-target=".navbar-collapse">
                                 <span class="sr-only">Toggle navigation</span>
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
@@ -73,41 +124,53 @@
                         </div>
                         <div class="mainmenu pull-left">
                             <ul class="nav navbar-nav collapse navbar-collapse">
-                                <li><a href="{{ URL::to('/trang-chu') }} " class="active">Trang Chu</a></li>
-                                <li class="dropdown"><a href="{{ URL::to('/san-pham') }}">Product<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
-                                        <li><a href="shop.html">Products</a></li>
-                                        <li><a href="product-details.html">Product Details</a></li>
-                                        <li><a href="checkout.html">Checkout</a></li>
-                                        <li><a href="cart.html">Cart</a></li>
-                                        <li><a href="login.html">Login</a></li>
-                                    </ul>
+                                {{-- Menu Home --}}
+                                <li><a href="{{ URL::to('/trang-chu') }} " class="active">Home</a></li>
+
+                                {{-- Menu Product --}}
+                                <li><a href="{{ URL::to('/san-pham') }}">Product</i></a>
                                 </li>
-                                <li class="dropdown"><a href="#">Tin Tức<i class="fa fa-angle-down"></i></a>
+
+                                {{-- Menu News --}}
+                                <li class="dropdown">
+                                    <a href="{{ URL::to('/category-post') }}">News<i
+                                            class="fa fa-angle-down"></i></a>
+                                    {{-- <ul role="menu" class="sub-menu">
+                                        @foreach ($category_post as $key => $catepost)
+                                            <li>
+                                                <a href="">
+                                                    {{ $catepost->category_posts_name }}
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    </ul> --}}
                                 </li>
                                 @php
-                                // session_start();
-                                $cart = session()->get('cart', []);
-                                $totalQuantity = 0;
-                            
-                                if (!empty($cart)) {
-                                    foreach ($cart as $item) {
-                                        $totalQuantity += $item['quantity'];
-                                    }
-                                } else {
+
+                                    $cart = session()->get('cart', []);
+                                    // if ($cart) {
+                                    //     // session_start();
+                                    // }
                                     $totalQuantity = 0;
-                                }
-                            @endphp
-                            
+
+                                    if (!empty($cart)) {
+                                        foreach ($cart as $item) {
+                                            $totalQuantity += $item['quantity'];
+                                        }
+                                    } else {
+                                        $totalQuantity = 0;
+                                    }
+                                @endphp
+
                                 <li>
                                     <a href="{{ route('cartDetail') }}">
-                                        Giỏ Hàng
+                                        Cart
                                         <span id="cart-quantity" class="badge badge-pill badge-danger">
                                             {{ $totalQuantity }}
                                         </span>
                                     </a>
                                 </li>
-                                
+
                                 <li><a href="contact-us.html">liên Hệ</a></li>
                             </ul>
                         </div>
@@ -127,55 +190,38 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div id="slider-carousel" class="carousel slide" data-ride="carousel">
-                        <ol class="carousel-indicators">
+                        {{-- <ol class="carousel-indicators">
                             <li data-target="#slider-carousel" data-slide-to="0" class="active"></li>
                             <li data-target="#slider-carousel" data-slide-to="1"></li>
                             <li data-target="#slider-carousel" data-slide-to="2"></li>
-                        </ol>
+                        </ol> --}}
 
-                        <!-- <div class="carousel-inner">
-                            <div class="item active">
-                                <div class="col-sm-6">
-                                    <h1><span>E</span>-SHOPPER</h1>
-                                    <h2>Free E-Commerce Template</h2>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua. </p>
-                                    <button type="button" class="btn btn-default get">Get it now</button>
-                                </div>
-                                <div class="col-sm-6">
-                                    <img src="{{ asset('frontend/images/girl1.jpg') }}" class="girl img-responsive" alt="" />
-                                    <img src="{{ asset('frontend/images/pricing.png') }}" class="pricing" alt="" />
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="col-sm-6">
-                                    <h1><span>E</span>-SHOPPER</h1>
-                                    <h2>100% Responsive Design</h2>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua. </p>
-                                    <button type="button" class="btn btn-default get">Get it now</button>
-                                </div>
-                                <div class="col-sm-6">
-                                    <img src="{{ asset('frontend/images/girl2.jpg') }}" class="girl img-responsive" alt="" />
-                                    <img src="{{ asset('frontend/images/pricing.png') }}" class="pricing" alt="" />
-                                </div>
-                            </div>
+                        <div class="carousel-inner">
+                            @php
+                                // khai báo biến toàn cục để sử dụng foreach không bị xung đột với những biến khác
+                                global $slider;
+                                $slider = DB::table('slider')
+                                    ->orderBy('id', 'DESC')
+                                    ->where('slider_status', '0')
+                                    ->take(4)
+                                    ->get();
+                                $i = 0;
+                            @endphp
+                            @foreach ($slider as $key => $sli)
+                                @php
+                                    $i++;
+                                @endphp
+                                <div class="item {{ $i == 1 ? 'active' : '' }}">
 
-                            <div class="item">
-                                <div class="col-sm-6">
-                                    <h1><span>E</span>-SHOPPER</h1>
-                                    <h2>Free Ecommerce Template</h2>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua. </p>
-                                    <button type="button" class="btn btn-default get">Get it now</button>
-                                </div>
-                                <div class="col-sm-6">
-                                    <img src="{{ asset('frontend/images/girl3.jpg') }}" class="girl img-responsive" alt="" />
-                                    <img src="{{ asset('frontend/images/pricing.png') }}" class="pricing" alt="" />
-                                </div>
-                            </div>
+                                    <div class="col-sm-12" style="margin-left: -46px;">
+                                        <img alt="{{ $sli->slider_image }}"
+                                            src="public/uploads/slider/{{ $sli->slider_image }}" width="1200px"
+                                            height="450px" alt="">
 
-                        </div> -->
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
 
                     </div>
 
@@ -185,11 +231,7 @@
     </section><!--/slider-->
 
 
-    <section>
-
-        @yield('content')
-
-    </section>
+    @yield('content');
 
     <footer id="footer"><!--Footer-->
         <div class="footer-top">
@@ -328,7 +370,8 @@
                             <h2>About Shopper</h2>
                             <form action="#" class="searchform">
                                 <input type="text" placeholder="Your email address" />
-                                <button type="submit" class="btn btn-default"><i class="fa fa-arrow-circle-o-right"></i></button>
+                                <button type="submit" class="btn btn-default"><i
+                                        class="fa fa-arrow-circle-o-right"></i></button>
                                 <p>Get the most recent updates from <br />our site and be updated your self...</p>
                             </form>
                         </div>
@@ -342,7 +385,8 @@
             <div class="container">
                 <div class="row">
                     <p class="pull-left">Copyright © 2013 E-SHOPPER Inc. All rights reserved.</p>
-                    <p class="pull-right">Designed by <span><a target="_blank" href="http://www.themeum.com">Themeum</a></span></p>
+                    <p class="pull-right">Designed by <span><a target="_blank"
+                                href="http://www.themeum.com">Themeum</a></span></p>
                 </div>
             </div>
         </div>
@@ -362,7 +406,7 @@
 
 <script type="text/javascript">
     function remove_background(product_id) {
-        
+
         for (var count = 1; count <= 5; count++) {
             $('#' + product_id + '-' + count).css('color', '#ccc');
         }
@@ -400,7 +444,7 @@
         var _token = $('input[name="_token"]').val();
 
         $.ajax({
-            url: "{{url('insert-rating')}}",
+            url: "{{ url('insert-rating') }}",
             method: "GET",
             data: {
                 index: index,
@@ -429,7 +473,7 @@
             var product_id = $('.product_id').val();
             var _token = $('input[name="_token"]').val();
             $.ajax({
-                url: "{{url('/load-comment')}}",
+                url: "{{ url('/load-comment') }}",
                 method: "GET",
                 data: {
                     product_id: product_id,
@@ -442,13 +486,13 @@
         }
 
         $('.send-comment').click(function() {
-            var product_id = $('.product_id').val();     
+            var product_id = $('.product_id').val();
             var _token = $('input[name="_token"]').val();
             var comment_name = $('.comment_name').val();
             var comment_email = $('.comment_email').val();
-            var comment_content = $('.comment_content').val();        
+            var comment_content = $('.comment_content').val();
             $.ajax({
-                url: "{{url('/send-comment')}}",
+                url: "{{ url('/send-comment') }}",
                 method: "GET",
                 data: {
                     product_id: product_id,
@@ -458,7 +502,9 @@
                     _token: _token
                 },
                 success: function(data) {
-                    $('#notify_comment').html('<span class="text text-success">Them Binh Luan Thanh Cong</span>');
+                    $('#notify_comment').html(
+                        '<span class="text text-success">Them Binh Luan Thanh Cong</span>'
+                    );
                     load_comment();
                     $('#notify_comment').fadeOut(5000);
                     $('.comment_name').val('');
@@ -481,7 +527,7 @@
 <!-- Bootstrap theme -->
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css" />
 
-<!-- 
+<!--
       RTL version
   -->
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.rtl.min.css" />
@@ -492,10 +538,6 @@
 <!-- Bootstrap theme -->
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.rtl.min.css" />
 <Script>
- 
-
-
-
     $(document).ready(function() {
         // render country
         // 1. what is API
@@ -591,9 +633,6 @@
                         // alertify.notify( message, 'success', [wait, callback]);
                         alertify.success('Success Addcart');
                         $('#cart-quantity').text(response.totalQuantity);
-                        
-
-
 
                     }
                 },
@@ -605,14 +644,14 @@
             });
 
         }
-     // get function add to cart
+        // get function add to cart
         $('.add_to_card').on('click', addToCard);
 
 
         // Function to update the cart
-        function upDateCart(id, quantity,urlUpdateCart) {
-            
-            console.log(urlUpdateCart);  
+        function upDateCart(id, quantity, urlUpdateCart) {
+
+            console.log(urlUpdateCart);
             // Your AJAX request
             $.ajax({
                 type: 'GET',
@@ -652,7 +691,7 @@
                     if (response.code === 200) {
                         $('.cart_wapper').html(response.cart_Component);
                         $('#cart-quantity').text(response.totalQuantity);
-                       
+
 
                     }
                 },
@@ -661,7 +700,8 @@
                 }
             });
         }
-        //update Cart 
+
+        //update Cart
         $('.cart_wapper').on('click', '.cart-edit', function(event) {
             event.preventDefault();
             let urlUpdateCart = $('.cart_wapper .update_cart_url').data('url');
@@ -670,18 +710,18 @@
             let quantity = $('.cart_wapper #' + id).val();
 
             // Call the upDateCart function with id and quantity
-            upDateCart(id, quantity,urlUpdateCart);
+            upDateCart(id, quantity, urlUpdateCart);
         });
         //update car blade Show_detail
         $('.cart_edit').click(function() {
             let urlUpdateCart = $('.update_cart_url').data('url');
 
-        // Retrieve id and quantity
-        let id = $(this).data('id');
-        let quantity = $('#' + id).val();
-        
-        upDateCart(id, quantity,urlUpdateCart);
-     });
+            // Retrieve id and quantity
+            let id = $(this).data('id');
+            let quantity = $('#' + id).val();
+
+            upDateCart(id, quantity, urlUpdateCart);
+        });
 
         //delet cart
         $('.cart_wapper').on('click', '.cart-delete', function(event) {
@@ -775,7 +815,8 @@
             return true;
         };
 
-        function setModalFields(nameProduct, quantity, subtotal, nameUser, email, phone, address, city, district, ward) {
+        function setModalFields(nameProduct, quantity, subtotal, nameUser, email, phone, address, city,
+            district, ward) {
             $('#nameProduct').val(nameProduct);
             $('#quantity').val(quantity);
 
@@ -790,7 +831,8 @@
 
         function openModal(data) {
             // Set modal fields with the provided data
-            setModalFields(data.product, data.quantity, data.subtotal, data.fullname, data.email, data.phone, data.address, data.city, data.district, data.ward);
+            setModalFields(data.product, data.quantity, data.subtotal, data.fullname, data.email, data.phone,
+                data.address, data.city, data.district, data.ward);
 
             // Show the modal
             $('#myModal').modal('show');

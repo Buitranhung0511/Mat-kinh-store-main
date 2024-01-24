@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Http\Requests;
 use App\Models\Rating ;
 use App\Models\Product;
 use Illuminate\Support\Facades\Session;
@@ -37,7 +36,6 @@ class ProductController extends Controller
 
         $cate_product = DB::table('category_product')->orderby('category_id', 'desc')->paginate(10);
         return view('admin.add_product')->with('cate_product', $cate_product);
-        
     }
 
     public function all_product()
@@ -70,7 +68,20 @@ class ProductController extends Controller
 
         // Lấy CSDL
         $data = array();
-        $data['product_name'] = $request->product_name;
+
+        // Kiểm tra đầu vào có trùng tên hay không
+        $checkProduct = DB::table('product')
+            ->where('product_name', $request->product_name)
+            ->where('product_id', $request->product_id)
+            ->exists();
+
+        if ($checkProduct == true) {
+            Session::put('message', '<h4 style="color:red;">Product_name already exits ? Please input again!</h4>');
+            return Redirect()->back();
+        } else {
+            $data['product_name'] = $request->product_name;
+        }
+
         $data['product_quantity'] = $request->product_quantity;
         $data['product_price'] = $request->product_price;
         $data['product_desc'] = $request->product_desc;
@@ -154,7 +165,7 @@ class ProductController extends Controller
             ->exists();
 
         if ($checkProductName == true) {
-            Session::put('message', '<h3 style="color:red;">Product_name already exits ? Please input again!</h3>');
+            Session::put('message', '<h4 style="color:red;">Product_name already exits ? Please input again!</h4>');
             return Redirect()->back();
         } else {
             $data['product_name'] = $request->product_name;
@@ -183,7 +194,6 @@ class ProductController extends Controller
         return Redirect::to('all-product');
     }
 
-    // Hàm xử lý Delete product ,
     // Hàm xử lý Delete product ..
     public function delete_product($product_id)
     {
@@ -216,12 +226,12 @@ class ProductController extends Controller
                 ->where('product.product_id', '<>', $product_id)
                 ->get();
         }
-        $rating = Rating::where('product_id',$product_id)->avg('rating');
+        $rating = Rating::where('product_id', $product_id)->avg('rating');
         $rating = round($rating);
         return view('pages.product.show_detail')
             ->with('category', $cate_product)
             ->with('product_detail', $detail_product)
-            ->with('id',$product_id)
+            ->with('id', $product_id)
             ->with('rating', $rating);
     }
 
@@ -239,7 +249,7 @@ class ProductController extends Controller
     {
         $product_id = $request->product_id;
         $comment  = Comment::where('product_id', $product_id)->where('comment_status', 0)->get();
-       
+
         $output = '';
         foreach ($comment as $key => $comm) {
             $output .= '<div class="row style_comment">
@@ -260,7 +270,7 @@ class ProductController extends Controller
     public function send_comment(Request $request)
     {
         $product_id = $request->product_id;
-       
+
         $comment_name = $request->comment_name;
         $comment_content = $request->comment_content;
         $comment_email = $request->comment_email;

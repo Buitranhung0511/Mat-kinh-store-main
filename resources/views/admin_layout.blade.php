@@ -10,16 +10,15 @@ use Illuminate\Support\Facades\Session;
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-    
     <script type="application/x-javascript">
-      
+
 
         function hideURLbar() {
             window.scrollTo(0, 1);
         }
     </script>
-     <link href="{{ asset('frontend/css/sb-admin-2.min.css') }}" rel="stylesheet">
-     
+    <link href="{{ asset('frontend/css/sb-admin-2.min.css') }}" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
 
     <!-- bootstrap-css -->
     <link rel="stylesheet" href="{{ asset('backend/css/bootstrap.min.css') }}">
@@ -30,12 +29,16 @@ use Illuminate\Support\Facades\Session;
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
     <link href="{{ asset('backend/css/style-responsive.css') }}" rel="stylesheet" />
     <!-- font CSS -->
-    <link href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+    <link
+        href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic'
+        rel='stylesheet' type='text/css'>
     <!-- Custom CSS.. -->
     <link href="{{ asset('backend/css/style.css') }}" rel='stylesheet' type='text/css' />
     <link href="{{ asset('backend/css/style-responsive.css') }}" rel="stylesheet" />
     <!-- font CSS -->
-    
+    <link
+        href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic'
+        rel='stylesheet' type='text/css'>
     <!-- font-awesome icons -->
     <link rel="stylesheet" href="{{ asset('backend/css/font.css') }}" type="text/css" />
     <link href="{{ asset('backend/css/font-awesome.css') }}" rel="stylesheet">
@@ -44,10 +47,10 @@ use Illuminate\Support\Facades\Session;
     <link rel="stylesheet" href="{{ asset('backend/css/monthly.css') }}">
     <!-- //calendar -->
     <!-- //font-awesome icons -->
- 
+
     <script src="{{ asset('backend/js/raphael-min.js') }}"></script>
     <script src="{{ asset('backend/js/morris.js') }}"></script>
-    
+
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <!-- Include jQuery UI library -->
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -65,7 +68,7 @@ use Illuminate\Support\Facades\Session;
 
         i.styling-edit {
             font-size: 25px
-        } 
+        }
     </style>
 </head>
 
@@ -93,8 +96,8 @@ use Illuminate\Support\Facades\Session;
 
                     {{-- luongth --}}
                     <!-- user login dropdown start-->
-                   {{-- <li class="dropdown">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                    <li class="dropdown">
+                        {{-- <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <img alt="" src="{{ 'backend/images/2.png' }}">
 
                             <span class="username">
@@ -107,13 +110,13 @@ use Illuminate\Support\Facades\Session;
                                 ?>
                             </span>
                             <b class="caret"></b>
-                        </a>
+                        </a> --}}
                         <ul class="dropdown-menu extended logout">
                             <li><a href="#"><i class=" fa fa-suitcase"></i>Profile</a></li>
                             <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
                             <li><a href="{{ URL::to('/logout-auth') }}"><i class="fa fa-key"></i> Log Out</a></li>
                         </ul>
-                    </li>  --}}
+                    </li>
 
 
                     <!-- user login dropdown end -->
@@ -147,16 +150,23 @@ use Illuminate\Support\Facades\Session;
                         </li>
 
 
-           
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-book"></i>
+
+
                         <li class="sub-menu">
                             <a href="javascript:;">
                                 <i class="fa fa-book"></i>
                                 <span>Category products list</span>
+                                >>>>>>> origin/master
                                 <span>Category products</span>
                             </a>
                             <ul class="sub">
-                                <li><a href="{{ URL::to('/add-category-product/') }}">Add Category product</a></li>
-                                <li><a href="{{ URL::to('/all-category-product/') }}">Show Category list</a></li>
+                                <li><a href="{{ URL::to('/add-category-product/') }}">Add Category product</a>
+                                </li>
+                                <li><a href="{{ URL::to('/all-category-product/') }}">Show Category list</a>
+                                </li>
                             </ul>
                         </li>
                         {{-- End --}}
@@ -226,18 +236,52 @@ use Illuminate\Support\Facades\Session;
                         </li>
                         {{-- End --}}
 
-                        <!-- {{-- user Dashboard --}} -->
-                        @hasRole(['admin','author'])
-                        <li class="sub-menu">
+                        {{-- Category News Dashboard --}} <li class="sub-menu">
                             <a href="javascript:;">
                                 <i class="fa fa-book"></i>
-                                <span>User</span>
+                                <span>Category News</span>
                             </a>
                             <ul class="sub">
-                                <li><a href="{{ URL::to('/all-user/') }}">User List</a></li>
-                                <li><a href="{{ URL::to('/add-user/') }}">Add User</a></li>
+                                <li><a href="{{ URL::to('/add-category-post/') }}">Add Category News</a></li>
                             </ul>
+                            <ul class="sub">
+                                <li><a href="{{ URL::to('/all-category-post/') }}">Show Category news list</a>
+                                </li>
+                            </ul>
+
+
                         </li>
+                        {{-- End --}}
+
+                        {{-- News Dashboard --}} <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-book"></i>
+                                <span> News</span>
+                            </a>
+                            <ul class="sub">
+                                <li><a href="{{ URL::to('/add-post/') }}">Add News</a></li>
+                            </ul>
+                            <ul class="sub">
+                                <li><a href="{{ URL::to('/all-post/') }}">Show News list</a></li>
+                            </ul>
+
+
+                        </li>
+                        {{-- End --}}
+
+
+                        <!-- {{-- user Dashboard --}} -->
+                        @hasRole(['admin', 'author'])
+                            <li class="sub-menu">
+                                <a href="javascript:;">
+                                    <i class="fa fa-book"></i>
+                                    <span>User</span>
+                                </a>
+                                <ul class="sub">
+                                    <li><a href="{{ URL::to('/all-user/') }}">User List</a></li>
+                                    <li><a href="{{ URL::to('/add-user/') }}">Add User</a></li>
+                                </ul>
+                            </li>
                         @endhasRole
                         <!-- {{-- End --}} -->
 
@@ -254,9 +298,7 @@ use Illuminate\Support\Facades\Session;
             <!-- Phan Body -->
             <section class="wrapper">
 
-                @yield('admin_content')
-              
-            </section>
+                @yield('admin_content') </section>
             <!-- Phan Body -->
 
 
@@ -270,6 +312,7 @@ use Illuminate\Support\Facades\Session;
         </section>
         <!--main content end-->
     </section>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="{{ asset('backend/js/bootstrap.js') }}"></script>
     <script src="{{ asset('backend/js/jquery.dcjqaccordion.2.7.js') }}"></script>
     <script src="{{ asset('backend/js/scripts.js') }}"></script>
@@ -280,122 +323,72 @@ use Illuminate\Support\Facades\Session;
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
- <!-- Custom styles for this template-->
- 
-   {{-- luongth functions order --}}
+    {{-- luongth functions order --}}
 
-   
+    <script  type="application/x-javascript">
+    $( function() {
 
-<script>
-    $(document).ready(function () {
-        $( "#datepicker" ).datepicker({
+      $( "#datepicker" ).datepicker({
+
+
         dateFormat:"yy-mm-dd"
       });
       $( "#datepicker2" ).datepicker({
-        dateFormat:"yy-mm-dd"
-});
- var chart = new Morris.Bar({
-  // ID of the element in which to draw the chart.
-  element: 'myfirstchart',
-  barColors: ['#00a65a', '#32c5d2', '#5cb85c', '#8cc152'],
- parseTime:false,
- hideHover:'auto',
-  
-  // The name of the data record attribute that contains x-values.
-  xkey: 'perifod',
-  // A list of names of data record attributes that contain y-values.
-  ykeys: ['order','sales','profit','quantity'],
-  // Labels for the ykeys -- will be displayed when you hover over the
-  labels:['đơn hàng','doanh số','lợi nhuận','số lượng']
-  // chart.
-});
 
-    // filter submit
-        $('#filterForm').submit(function (event) {
-            event.preventDefault(); // Prevent the default form submission
 
-            // Your AJAX request code goes here
-            var _token = $('input[name="_token"]').val();
-            var from_date = $('#datepicker').val();
-            var to_date = $('#datepicker2').val();
-            performAjaxRequest(from_date, to_date);
-           
+dateFormat:"yy-mm-dd"
+});
+    } );
+    </script>
+
+    <script>
+        $(document).ready(function() {
+
+            var chart = new Morris.Bar({
+                // ID of the element in which to draw the chart.
+                element: 'myfirstchart',
+                barColors: ['#00a65a', '#32c5d2', '#5cb85c', '#8cc152'],
+                parseTime: false,
+                hideHover: 'auto',
+                // Chart data records -- each entry in this array corresponds to a point on
+                // the chart.
+
+                // The name of the data record attribute that contains x-values.
+                xkey: 'perifod',
+                // A list of names of data record attributes that contain y-values.
+                ykeys: ['order', 'sales', 'profit', 'quantity'],
+                // Labels for the ykeys -- will be displayed when you hover over the
+                labels: ['đơn hàng', 'doanh số', 'lợi nhuận', 'số lượng']
+                // chart.
+            });
+
+            $('#filterForm').submit(function(event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                // Your AJAX request code goes here
+                var _token = $('input[name="_token"]').val();
+                var from_date = $('#datepicker').val();
+                var to_date = $('#datepicker2').val();
+
+                $.ajax({
+                    type: 'GET',
+                    url: '/filter_by_date', // Replace with the actual endpoint URL
+                    data: {
+                        // _token: _token,
+                        from_date: from_date,
+                        to_date: to_date
+                    },
+                    success: function(response) {
+                        chart.setData(response);
+                    },
+                    error: function(error) {
+                        console.error(error);
+                        // Handle the error or show a message to the user
+                    }
+                });
+            });
         });
-//funtion get data theo select
-$('#selectOption').change(function () {
-        var selectedValue = $(this).val();
-        var from_date, to_date;
-
-        switch (selectedValue) {
-            case '1':
-                // If value is 1, subtract 30 days from the current date
-                var currentDate = new Date();
-                var thirtyDaysAgo = new Date(currentDate);
-                thirtyDaysAgo.setDate(currentDate.getDate() - 30);
-
-                // Format dates as needed
-                from_date = formatDate(thirtyDaysAgo);
-                to_date = formatDate(currentDate);
-                break;
-
-            case '2':
-                // If value is 2, get the first day of the current month
-                var currentDate = new Date();
-                from_date = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-
-                // Get the last day of the current month
-                var lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
-                to_date = formatDate(lastDay);
-                break;
-
-            case '3':
-                // If value is 3, get the first day of the current year
-                var currentYear = new Date().getFullYear();
-                from_date = currentYear + '-01-01';
-
-                // Get the last day of the current year
-                to_date = currentYear + '-12-31';
-                break;
-
-            // Add more cases if needed
-
-            default:
-                // Handle other cases if needed
-                break;
-        }
-        performAjaxRequest(from_date, to_date);
-        formatDate(date)
-    })
-// hàm gọi data table theo ngày 
-function performAjaxRequest(from_date, to_date) {
-    $.ajax({
-        type: 'GET',
-        url: '/filter_by_date', // Replace with the actual endpoint URL
-        data: { from_date: from_date, to_date: to_date },
-        success: function (response) {
-            console.log(response);
-            
-            chart.setData(response);
-        },
-        error: function (error) {
-            console.error(error);
-            // Handle the error or show a message to the user
-        }
-    });
-}
-// Function to format date as "YYYY-MM-DD"
-function formatDate(date) {
-    if (!date) return null;
-    var year = date.getFullYear();
-    var month = ('0' + (date.getMonth() + 1)).slice(-2);
-    var day = ('0' + date.getDate()).slice(-2);
-    return year + '-' + month + '-' + day;
-}
-    });
-</script>
-
-
-
+    </script>
 
     {{-- <script>
         new DataTable('#example', {
@@ -403,7 +396,10 @@ function formatDate(date) {
                 return: true
             }
         });
-    </script>  --}}
+
+    </script> --}}
+
+
 
     <!-- Khởi tạo CKEditor cho textarea có id là 'editor' -->
     <script>
@@ -487,140 +483,6 @@ function formatDate(date) {
     <script src="{{ asset('backend/js/jquery.scrollTo.js') }}"></script>
     <!-- morris JavaScript -->
 
-
-
-    <script>
-        $(document).ready(function() {
-            //BOX BUTTON SHOW AND CLOSE
-            jQuery('.small-graph-box').hover(function() {
-                jQuery(this).find('.box-button').fadeIn('fast');
-            }, function() {
-                jQuery(this).find('.box-button').fadeOut('fast');
-            });
-            jQuery('.small-graph-box .box-close').click(function() {
-                jQuery(this).closest('.small-graph-box').fadeOut(200);
-                return false;
-            });
-
-            //CHARTS
-            function gd(year, day, month) {
-                return new Date(year, month - 1, day).getTime();
-            }
-            
-           
-            // graphArea2 = Morris.Area({
-            //     element: 'hero-area',
-            //     padding: 10,
-            //     behaveLikeLine: true,
-            //     gridEnabled: false,
-            //     gridLineColor: '#dddddd',
-            //     axes: true,
-            //     resize: true,
-            //     smooth: true,
-            //     pointSize: 0,
-            //     lineWidth: 0,
-            //     fillOpacity: 0.85,
-            //     data: [{
-            //             period: '2015 Q1',
-            //             iphone: 2668,
-            //             ipad: null,
-            //             itouch: 2649
-            //         },
-            //         {
-            //             period: '2015 Q2',
-            //             iphone: 15780,
-            //             ipad: 13799,
-            //             itouch: 12051
-            //         },
-            //         {
-            //             period: '2015 Q3',
-            //             iphone: 12920,
-            //             ipad: 10975,
-            //             itouch: 9910
-            //         },
-            //         {
-            //             period: '2015 Q4',
-            //             iphone: 8770,
-            //             ipad: 6600,
-            //             itouch: 6695
-            //         },
-            //         {
-            //             period: '2016 Q1',
-            //             iphone: 10820,
-            //             ipad: 10924,
-            //             itouch: 12300
-            //         },
-            //         {
-            //             period: '2016 Q2',
-            //             iphone: 9680,
-            //             ipad: 9010,
-            //             itouch: 7891
-            //         },
-            //         {
-            //             period: '2016 Q3',
-            //             iphone: 4830,
-            //             ipad: 3805,
-            //             itouch: 1598
-            //         },
-            //         {
-            //             period: '2016 Q4',
-            //             iphone: 15083,
-            //             ipad: 8977,
-            //             itouch: 5185
-            //         },
-            //         {
-            //             period: '2017 Q1',
-            //             iphone: 10697,
-            //             ipad: 4470,
-            //             itouch: 2038
-            //         },
-
-            //     ],
-            //     lineColors: ['#eb6f6f', '#926383', '#eb6f6f'],
-            //     xkey: 'period',
-            //     redraw: true,
-            //     ykeys: ['iphone', 'ipad', 'itouch'],
-            //     labels: ['All Visitors', 'Returning Visitors', 'Unique Visitors'],
-            //     pointSize: 2,
-            //     hideHover: 'auto',
-            //     resize: true
-            // });
-        
-
-    });
-    </script>
-    <!-- calendar -->
-    <script type="text/javascript" src="{{ asset('/backend/js/monthly.js') }}"></script>
-    <script type="text/javascript">
-        $(window).on(function() {
-
-            $('#mycalendar').monthly({
-                mode: 'event',
-
-            });
-
-            $('#mycalendar2').monthly({
-                mode: 'picker',
-                target: '#mytarget',
-                setWidth: '250px',
-                startHidden: true,
-                showTrigger: '#mytarget',
-                stylePast: true,
-                disablePast: true
-            });
-
-            switch (window.location.protocol) {
-                case 'http:':
-                case 'https:':
-                    // running on a server, should be good.
-                    break;
-                case 'file:':
-                    alert('Just a heads-up, events will not work when run locally.');
-            }
-
-        });
-    </script>
-    <!-- //calendar -->
 </body>
 
 

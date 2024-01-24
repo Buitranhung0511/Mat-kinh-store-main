@@ -21,7 +21,6 @@ class DiscountController extends Controller
         // Lấy CSDL
         $data = array();
         $data['discount_name'] = $request->discount_name;
-        $data['product_id'] = $request->product_id;
         $data['discount_code'] = $request->discount_code;
         $data['discount_percent'] = $request->discount_percent;
         $data['discount_status'] = $request->discount_status;

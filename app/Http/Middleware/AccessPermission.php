@@ -18,11 +18,16 @@ class AccessPermission
     public function handle(Request $request, Closure $next): Response 
     {
         // if(Auth::user()->hasRole('admin')){
-        // return $next($request);
+        //     return $next($request);
         // }
         // return redirect('/dashboard');
 
-        if (optional(auth()->user())->hasRole('admin')) {
+        // if (optional(auth()->user())->hasRole('admin')) {
+        //     return $next($request);
+        // }
+        // return redirect('/dashboard');
+
+        if (optional(Auth::user())->hasRole('admin')) {
             return $next($request);
         }
         return redirect('/dashboard');

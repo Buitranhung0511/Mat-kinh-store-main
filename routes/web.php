@@ -15,8 +15,13 @@ use App\Http\Controllers\CartsController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\CommentController;
+
+use App\Http\Controllers\CategoryPostController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\UserController;
+
+
+
 
 
 /*
@@ -42,9 +47,6 @@ Route::get('/trang-chu', [
 Route::get('/san-pham', [
     HomeController::class, 'product'
 ])->name('product');
-
-
-
 
 
 //Danh mục sản phẩm - Trang Chủ "Hung"============
@@ -180,9 +182,6 @@ Route::post('/save-category-product', [
     CategoryProductController::class, 'save_category_product'
 ])->name('save-category-product');
 
-// END :  XỬ LÝ CATEGORY-PRODUCT (DASHBOARD)
-
-//=====================================================================================
 Route::get('/search-category-product', [
     CategoryProductController::class, 'search_category_product'
 ])->name('search-category-product');
@@ -324,7 +323,7 @@ Route::get('/search-discount', [
     DiscountController::class, 'search_discount'
 ])->name('search-discount');
 
-Route::post('/check-discount', [ DiscountController::class, 'checkDiscountCode'])->name('check-discount');
+Route::post('/check-discount', [DiscountController::class, 'checkDiscountCode'])->name('check-discount');
 // XỬ LÝ Member (DASHBOARD)
 
 Route::post('/register-member', [
@@ -428,10 +427,90 @@ Route::get('delete-comment/{comment_id}', [
     CommentController::class, 'delete_comment'
 ])->name('delete-comment');
 
+//============================================================================================================
+
+// MANAGER CATEGORY_POST
+Route::get('add-category-post', [
+    CategoryPostController::class, 'add_category_post'
+])->name('add-category-post');
+
+Route::get('all-category-post', [
+    CategoryPostController::class, 'all_category_post'
+])->name('all-category-post');
+
+Route::post('/save-category-post', [
+    CategoryPostController::class, 'save_category_post'
+])->name('save-category-post');
+
+Route::get('unactive-cate-post/{category_posts_id}', [
+    CategoryPostController::class, 'unactive_cate_post'
+])->name('unactive-cate-post');
+
+Route::get('active-cate-post/{category_posts_id}', [
+    CategoryPostController::class, 'active_cate_post'
+])->name('active-cate-post');
+
+Route::get('/edit-cate-post/{category_posts_id}', [
+    CategoryPostController::class, 'edit_category_post'
+])->name('edit-cate-post');
+
+Route::post('/update-cate-post/{category_posts_id}', [
+    CategoryPostController::class, 'update_category_post'
+])->name('update-cate-post');
+
+Route::get('/delete-cate-post/{category_posts_id}', [
+    CategoryPostController::class, 'delete_category_post'
+])->name('delete-cate-post');
+
+Route::get('/search-cate-post', [
+    CategoryPostController::class, 'search_cate_post'
+])->name('search-cate-post');
+
+// Hiển thị page home
+Route::get('/category-post', [
+    CategoryPostController::class, 'category_post'
+])->name('category-post');
 
 //============================================================================================================
 
+// MANAGER POST
+Route::get('/add-post', [
+    PostController::class, 'add_post'
+])->name('add-post');
 
+Route::post('/save-post', [
+    PostController::class, 'save_post'
+])->name('save-post');
+
+Route::get('/all-post', [
+    PostController::class, 'all_post'
+])->name('all-post');
+
+Route::get('unactive-post/{posts_id}', [
+    PostController::class, 'unactive_post'
+])->name('unactive-post');
+
+Route::get('active-post/{posts_id}', [
+    PostController::class, 'active_post'
+])->name('active-post');
+
+Route::get('/edit-post/{posts_id}', [
+    PostController::class, 'edit_post'
+])->name('edit-post');
+
+Route::post('/update-post/{posts_id}', [
+    PostController::class, 'update_post'
+])->name('update-post');
+
+Route::get('/delete-post/{posts_id}', [
+    PostController::class, 'delete_post'
+])->name('delete-post');
+
+Route::get('/search-post', [
+    PostController::class, 'search_post'
+])->name('search-post');
+
+//========================================================================================
 //Authentication roles
 Route::get('register-auth', [
     AuthController::class, 'register_auth'

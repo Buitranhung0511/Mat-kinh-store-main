@@ -1,10 +1,7 @@
-
 <?php
 
 use Illuminate\Support\Facades\Session;
 ?>
-
-
 
 @extends('admin_layout')
 @section('admin_content')
@@ -29,8 +26,6 @@ use Illuminate\Support\Facades\Session;
                         {{-- End Message --}}
 
                         @foreach ($edit_category_product as $key => $edit_value)
-                            <form role="form" action="{{ URL::to('/update-category-product/' . $edit_value->category_id) }}"
-                                method="post">
                             <form role="form"
                                 action="{{ URL::to('/update-category-product/' . $edit_value->category_id) }}" method="post">
 
@@ -39,25 +34,15 @@ use Illuminate\Support\Facades\Session;
                                     <label for="exampleInputEmail1">Category name :</label>
                                     <input type="text" class="form-control" name="category_product_name"
                                         id="exampleInputEmail1" value="{{ $edit_value->category_name }}"
-                                        placeholder="Enter email">
+                                        placeholder="Enter category name">
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Discription</label>
                                     <textarea style='resize: none;' rows='8' class="form-control" name="category_product_desc"
                                         id="exampleInputPassword1">{{ $edit_value->category_desc }}</textarea>
-                                    <input type="text" class="form-control" name="category_name" id="exampleInputEmail1"
-                                        value="{{ $edit_value->category_name }}" placeholder="Enter email" required>
                                 </div>
-                                <div class="form-group">
-                                    <label for="exampleInputPassword1">Discription</label>
-                                    <textarea style='resize: none;' rows='8' class="form-control" name="category_desc" id="exampleInputPassword1">{{ $edit_value->category_desc }}</textarea>
-
-                                </div>
-
-
 
                                 <button type="submit" name="update-category-product" class="btn btn-info ">Update</button>
-
                                 <button type="cancel" name="cancel-product" class="btn btn-warning ">Cancel</button>
 
                             </form>

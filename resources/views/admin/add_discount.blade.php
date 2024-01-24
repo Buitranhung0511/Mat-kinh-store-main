@@ -32,13 +32,6 @@ use Illuminate\Support\Facades\Session;
                             </div>
 
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Product_id</label>
-                                <input type="text" class="form-control" name="product_id" id="exampleInputEmail1"
-                                    data-validation="length" data-validation-length = "min3">
-                            </div>
-
-
-                            <div class="form-group">
                                 <label for="exampleInputEmail1">Discount_code</label>
                                 <input type="text" class="form-control" name="discount_code" id="exampleInputEmail1">
                             </div>

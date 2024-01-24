@@ -17,29 +17,30 @@ use ConsoleTVs\Charts\Facades\Charts;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 
+
+
 //  session_start();
 
 
-    // Hàm check login
-   
+// Hàm check login
 
-  
-        // dd(Auth::user());  // xuất ra array
+
+// dd(Auth::user());  // xuất ra array
 
 
 class AdminController extends Controller
 {
     // Hàm check login
-    public function AuthLogin()
+    public function AuthLogin() // sửa lại chỗ này 22/1
     {
-        $admin_id = Session::get('admin_id');
-        if ($admin_id == true) {
+        $admin_id = Auth::id();
+        if ($admin_id) {
             return Redirect::to('dashboard');
         } else {
-            return Redirect::to('admin_login')->send();
+            return Redirect::to('admin')->send();
         }
     }
-//=========================HUNG============================
+    //=========================HUNG============================
 
     public function index()
     {
@@ -48,26 +49,26 @@ class AdminController extends Controller
 
     public function show_dashboard()
     {
-        // $this->AuthLogin();           // Nếu login thì trả về trang showDashboard
+        $this->AuthLogin();           // Nếu login thì trả về trang showDashboard
 
         $orders = DB::table('orders')->get();
 
 
         $totalStock = DB::table('product')->sum('product_quantity');
-        // tính tổng sản lượng product bán theo tháng 
+        // tính tổng sản lượng product bán theo tháng
         $soldThisMonth = DB::table('orders')
-        ->whereMonth('created_at', Carbon::now()->month)
-        ->whereYear('created_at', Carbon::now()->year)
-        ->sum('quantity');
+            ->whereMonth('created_at', Carbon::now()->month)
+            ->whereYear('created_at', Carbon::now()->year)
+            ->sum('quantity');
         //    best sale in month
 
         $bestSellingProduct = DB::table('orders')
-        ->join('product', 'orders.product_id', '=', 'products.id')
-        ->select('product.product_id', 'product.product_content', DB::raw('SUM(orders.quantity) as total_quantity'))
-        ->whereMonth('orders.created_at', Carbon::now()->month)
-        ->whereYear('orders.created_at',  Carbon::now()->year)
-        ->groupBy('products.product_id', 'products.product.product_content')
-        ->orderBy('total_quantity', 'desc');
+            ->join('product', 'orders.product_id', '=', 'products.id')
+            ->select('product.product_id', 'product.product_content', DB::raw('SUM(orders.quantity) as total_quantity'))
+            ->whereMonth('orders.created_at', Carbon::now()->month)
+            ->whereYear('orders.created_at',  Carbon::now()->year)
+            ->groupBy('products.product_id', 'products.product.product_content')
+            ->orderBy('total_quantity', 'desc');
         // ->first(); //
         //chart larvel
         $stockProducts = $totalStock - $soldThisMonth;
@@ -82,7 +83,8 @@ class AdminController extends Controller
         $admin_email = $request->admin_email;
         $admin_password = $request->admin_password;
 
-        $result = DB::table('admin')->where('admin_email', $admin_email)->where('admin_password', $admin_password)->first(); // first() : lấy giới hạn 1 user
+        $result = DB::table('admin')->where('admin_email', $admin_email)->where('admin_password', $admin_password)->first();
+        // first() : lấy giới hạn 1 user
         // echo '<pre>';
         // print_r($result);
         // echo '</pre>';
@@ -94,10 +96,10 @@ class AdminController extends Controller
         if ($result) {
             Session::put('admin_name', $result->admin_name);
             Session::put('admin_id', $result->admin_id);
-           // Tạo biểu đồ
-     
-          
-          
+            // Tạo biểu đồ
+
+
+
             //  return view('admin.dashboard');
 
 
@@ -109,17 +111,18 @@ class AdminController extends Controller
     }
 
     // HÀM XỬ LÝ LOG_OUT
+
   
-    // public function logout(Request $request)
-    // {
-    //     $this->AuthLogin();           // Nếu login thì trả về trang logout CUA HUNG
-    //     Session::put('admin_name', null);
-    //     Session::put('admin_id', null);
+    public function logout(Request $request)
+    {
+        // $this->AuthLogin();           // Nếu login thì trả về trang logout CUA HUNG // Choõ này xóa đi
+        Session::put('admin_name', null);
+        Session::put('admin_id', null);
 
-    //     return Redirect::to('/admin_login');
-    // }
+        return Redirect::to('/admin_login');
+    }
 
-    // /cap  nhat trang thai order 
+    // /cap  nhat trang thai order
     public function updateOrderStatus(Request $request)
     {
         $orderId = $request->input('orderId');
@@ -127,7 +130,7 @@ class AdminController extends Controller
 
         // Retrieve the order
         $order = Order::find($orderId);
-       
+
         if (!$order) {
             return response()->json(['error' => 'Order not found'], 404);
         }
@@ -143,11 +146,11 @@ class AdminController extends Controller
         $data = $request->all();
         $from_date = $data['from_date'];
         $to_date = $data['to_date'];
-    
+
         $statistics = StatirticModel::whereBetween('order_date', [$from_date, $to_date])
             ->orderBy('order_date', 'ASC')
             ->get();
-    
+
         $chart_data = [];
         foreach ($statistics as $value) {
             $chart_data[] = array(
@@ -158,9 +161,8 @@ class AdminController extends Controller
                 'quantity' => $value->quantity,
             );
         }
-    
+
         // Explicitly setting the HTTP status code to 200
         return response()->json($chart_data, 200);
     }
-    
 }
