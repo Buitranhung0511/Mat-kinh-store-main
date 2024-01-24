@@ -8,17 +8,18 @@ use App\Models\Slider;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 
 class SliderController extends Controller
 {
     // Hàm check login..
     public function AuthLogin()
     {
-        $admin_id = Session::get('admin_id');
+        $admin_id = Auth::id();
         if ($admin_id == true) {
             return Redirect::to('dashboard');
         } else {
-            return Redirect::to('admin_login')->send();
+            return Redirect::to('admin')->send();
         }
     }
 

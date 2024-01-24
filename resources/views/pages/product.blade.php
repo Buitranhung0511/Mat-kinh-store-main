@@ -65,7 +65,7 @@
 
                                     <div class="choose">
                                         <ul class="nav nav-pills"
-                                            style="display: flex; flex-wrap: wrap; justify-content: space-around;"">
+                                            style="display: flex; flex-wrap: wrap; justify-content: space-around;">
                                             <li><a href="#"><i class="fa fa-plus-square"></i>Thêm Yêu
                                                     Thích</a></li>
                                             <li><a href="#"><i class="fa fa-plus-square"></i>So Sánh</a></li>
@@ -75,6 +75,7 @@
                             </div>
                         </a>
                     @endforeach
+
                 </div><!--features_items-->
             </div>
             {{-- And Body Home --}}

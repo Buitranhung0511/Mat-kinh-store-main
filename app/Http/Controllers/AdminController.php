@@ -2,31 +2,17 @@
 
 namespace App\Http\Controllers;
 
-
 use Illuminate\Support\Facades\DB;
 use App\Models\Order;
 use App\Models\StatirticModel;
 use Illuminate\Http\Request;
-
-
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
-
 use ConsoleTVs\Charts\Facades\Charts;
-
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 
-
-
 //  session_start();
-
-
-// Hàm check login
-
-
-// dd(Auth::user());  // xuất ra array
-
 
 class AdminController extends Controller
 {
@@ -34,7 +20,7 @@ class AdminController extends Controller
     public function AuthLogin() // sửa lại chỗ này 22/1
     {
         $admin_id = Auth::id();
-        if ($admin_id) {
+        if ($admin_id == true) {
             return Redirect::to('dashboard');
         } else {
             return Redirect::to('admin')->send();

@@ -15,10 +15,6 @@ class AuthController extends Controller
         return view('admin.custom-Auth.register');
     }
 
-
-
-
-
     //=============Dang Ky Auth=============
 
     public function register(Request $request)

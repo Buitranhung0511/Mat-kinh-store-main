@@ -10,6 +10,7 @@ use App\Models\CategoryProduct;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 
 session_start();
 
@@ -18,11 +19,11 @@ class CategoryProductController extends Controller
     // Hàm check login
     public function AuthLogin()
     {
-        $admin_id = Session::get('admin_id');
+        $admin_id = Auth::id();
         if ($admin_id == true) {
             return Redirect::to('dashboard');
         } else {
-            return Redirect::to('admin_login')->send();
+            return Redirect::to('admin')->send();
         }
     }
 
@@ -134,6 +135,15 @@ class CategoryProductController extends Controller
         DB::table('category_product')->where('category_id', $category_product_id)->delete();
         Session::put('message', 'Delete category successfully');
         return Redirect::to('all-category-product');
+    }
+
+    public function search_category_product(Request $request)
+    {
+        // Lấy danh sach sản phẩm
+        $all_category_product = CategoryProduct::where('category_name', 'like', '%' . $request->search_category_product . '%')->paginate(10);
+
+        // Trả về view hiển thị sau khi lọc
+        return view('admin.all_category_product', ['all_category_product' => $all_category_product->isEmpty() ? null : $all_category_product]);
     }
 
     //============== END FUNCTION ADMIN PAGES ==================

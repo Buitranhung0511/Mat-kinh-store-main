@@ -65,42 +65,18 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="logo pull-left">
-                            <a href="index.html"><img src="{{ asset('frontend/images/logo.png') }}"
-                                    alt="" /></a>
+                            <a href="index.html"><img src="{{ asset('frontend/images/tiger.jpg') }}" alt=""
+                                    width="10%" height="10%"></a>
                         </div>
-                        <div class="btn-group pull-right">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-default dropdown-toggle usa"
-                                    data-toggle="dropdown">
-                                    USA
-                                    <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">Canada</a></li>
-                                    <li><a href="#">UK</a></li>
-                                </ul>
-                            </div>
 
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-default dropdown-toggle usa"
-                                    data-toggle="dropdown">
-                                    DOLLAR
-                                    <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">Canadian Dollar</a></li>
-                                    <li><a href="#">Pound</a></li>
-                                </ul>
-                            </div>
-                        </div>
                     </div>
                     <div class="col-sm-8">
                         <div class="shop-menu pull-right">
                             <ul class="nav navbar-nav" style="display: inline-block;">
-                                <li><a href="#"><i class="fa fa-user"></i> Account</a></li>
+                                {{-- <li><a href="#"><i class="fa fa-user"></i> Account</a></li>
                                 <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
                                 <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-                                <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+                                <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li> --}}
                                 <li><a href="login.html"><i class="fa fa-lock"></i> Login</a></li>
                             </ul>
                         </div>
@@ -133,8 +109,7 @@
 
                                 {{-- Menu News --}}
                                 <li class="dropdown">
-                                    <a href="{{ URL::to('/category-post') }}">News<i
-                                            class="fa fa-angle-down"></i></a>
+                                    <a href="{{ URL::to('/category-post') }}">News</a>
                                     {{-- <ul role="menu" class="sub-menu">
                                         @foreach ($category_post as $key => $catepost)
                                             <li>
@@ -171,7 +146,7 @@
                                     </a>
                                 </li>
 
-                                <li><a href="contact-us.html">liên Hệ</a></li>
+                                <li><a href="contact-us.html">Contact</a></li>
                             </ul>
                         </div>
                     </div>
@@ -712,6 +687,7 @@
             // Call the upDateCart function with id and quantity
             upDateCart(id, quantity, urlUpdateCart);
         });
+
         //update car blade Show_detail
         $('.cart_edit').click(function() {
             let urlUpdateCart = $('.update_cart_url').data('url');
@@ -719,9 +695,10 @@
             // Retrieve id and quantity
             let id = $(this).data('id');
             let quantity = $('#' + id).val();
-
+            console.log(quantity);
             upDateCart(id, quantity, urlUpdateCart);
         });
+
 
         //delet cart
         $('.cart_wapper').on('click', '.cart-delete', function(event) {

@@ -296,6 +296,15 @@ class HistoryController extends Controller
             'city' => $validatedData['city'],
             'email' => $validatedData['email'],
             'fullname' => $validatedData['fullname'],
+            'address' => $validatedData['address'],
+            'phone' => $validatedData['phone'],
+            'district' => $validatedData['district'],
+            'ward' => $validatedData['ward'],
         ]);
+
+        // Perform database operations, validation, etc.
+        $address = session()->get('address');
+
+        return response()->json(['message' => 'Request processed successfully', 'code' => 200, compact('address')], 200);
     }
 }

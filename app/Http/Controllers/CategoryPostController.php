@@ -13,17 +13,18 @@ use App\Models\Post;
 use App\Models\Slider;
 use App\Models\CategoryProduct;
 use App\Models\Product;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryPostController extends Controller
 {
     // Hàm check login
     public function AuthLogin()
     {
-        $admin_id = Session::get('admin_id');
+        $admin_id = Auth::id();
         if ($admin_id == true) {
             return Redirect::to('dashboard');
         } else {
-            return Redirect::to('admin_login')->send();
+            return Redirect::to('admin')->send();
         }
     }
 
