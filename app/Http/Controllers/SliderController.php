@@ -14,11 +14,11 @@ class SliderController extends Controller
     // Hàm check login..
     public function AuthLogin()
     {
-        $admin_id = Session::get('admin_id');
+        $admin_id = Auth::id();
         if ($admin_id == true) {
             return Redirect::to('dashboard');
         } else {
-            return Redirect::to('admin_login')->send();
+            return Redirect::to('admin')->send();
         }
     }
 

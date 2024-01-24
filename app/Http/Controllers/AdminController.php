@@ -61,21 +61,20 @@ class AdminController extends Controller
         ->sum('quantity');
         //    best sale in month
 
-        $bestSellingProduct = DB::table('orders')
-        ->join('product', 'orders.product_id', '=', 'products.id')
-        ->select('product.product_id', 'product.product_content', DB::raw('SUM(orders.quantity) as total_quantity'))
-        ->whereMonth('orders.created_at', Carbon::now()->month)
-        ->whereYear('orders.created_at',  Carbon::now()->year)
-        ->groupBy('products.product_id', 'products.product.product_content')
-        ->orderBy('total_quantity', 'desc');
-        // ->first(); //
+        $bestSellingProducts = DB::table('order_details')
+    ->select('product_name', DB::raw('SUM(quantity) as total_quantity'))
+    ->groupBy('product_name')
+    ->orderBy('total_quantity', 'desc')
+    ->limit(3)
+    ->get();
+
         //chart larvel
         $stockProducts = $totalStock - $soldThisMonth;
 
       
     
 
-        return view('admin.showDataOrder',compact('bestSellingProduct', 'stockProducts','soldThisMonth'));
+        return view('admin.showDataOrder',compact('bestSellingProducts', 'stockProducts','soldThisMonth'));
        
     }
 

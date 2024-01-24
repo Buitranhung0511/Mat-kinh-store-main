@@ -18,11 +18,11 @@ class CategoryProductController extends Controller
     // Hàm check login
     public function AuthLogin()
     {
-        $admin_id = Session::get('admin_id');
+        $admin_id = Auth::id();
         if ($admin_id == true) {
             return Redirect::to('dashboard');
         } else {
-            return Redirect::to('admin_login')->send();
+            return Redirect::to('admin')->send();
         }
     }
 
@@ -121,8 +121,7 @@ class CategoryProductController extends Controller
         $cate_product = DB::table('category_product')->where('category_status','0')->orderby('category_id','desc')->get();
 
 
-        $category_by_id = DB::table('product')->join('category_product','product.category_id','=','category_product.category_id')->where('product.category_id',$category_id)->get();
-
+        $category_by_id = DB::table('product')->join('category_product','product.category_id','=','category_product.category_id')->where('product.category_id',$category_id)->where('product_quantity', '>', 0)->get();
         $category_name = DB::table('category_product')->where('category_product.category_id',$category_id)->limit(1)->get();
 
 
