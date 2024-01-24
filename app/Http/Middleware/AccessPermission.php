@@ -5,7 +5,6 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
-
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -16,14 +15,10 @@ class AccessPermission
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next, ...$roles): Response
     {
-        // if(Auth::user()->hasRole('admin')){
-        // return $next($request);
-        // }
-        // return redirect('/dashboard');
-
-        if (optional(auth()->user())->hasRole('admin')) {
+        $allowedRoles = ['admin', 'other_role']; // Add other roles as needed
+        if (optional(Auth::user())->hasAnyRole($allowedRoles)) {
             return $next($request);
         }
         return redirect('/dashboard');

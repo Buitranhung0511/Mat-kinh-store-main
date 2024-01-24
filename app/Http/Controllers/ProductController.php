@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Log;
 use App\Models\Rating;
 use App\Models\Comment;
 use file;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
 
 session_start();
@@ -120,6 +121,7 @@ class ProductController extends Controller
         $this->AuthLogin();
 
         DB::table('product')->where('product_id', $product_id)->update(['product_status' => 1]);
+
         Session::put('message1', 'Deactivated product successfully');
         Log::info('Redirecting to all-product after activation.'); // Thêm log kiểm tra lỗi
         return Redirect::to('all-product');

@@ -5,14 +5,14 @@
             <div class="col-sm-3">
                 <div class="left-sidebar">
 
-                    <h2>Danh Mục Sản Phẩm</h2>
+                    <h2 style="color: skyblue">Product Catalog</h2>
                     <div class="panel-group category-products" id="accordian"><!--category-product-->
                         @foreach ($category as $key => $cate)
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
                                         <a class="category_product" data-urlCategory="{{ URL::to('/danh-muc-san-pham/') }}"
-                                            data-id="{{ $cate->category_id }}">{{ $cate->category_name }}</a>
+                                            data-id="{{ $cate->category_id }}" style=" ">{{ $cate->category_name }}</a>
                                     </h4>
                                 </div>
                             </div>
@@ -45,8 +45,8 @@
 
                 <div class="product_parent">
 
-                    <div class="features_items">
-                        <h2 class="title text-center">Sản Phảm Mới Nhất</h2>
+                    <div class="features_items ">
+                        <h2 class="title text-center">New Products</h2>
 
                         @foreach ($all_product as $key => $product)
                             <a href="{{ URL::to('chi-tiet-san-pham/' . $product->product_id) }}">
@@ -56,10 +56,10 @@
                                             <div class="productinfo text-center">
                                                 <img src="{{ URL::to('public/uploads/product/' . $product->product_image) }}"
                                                     alt="" />
-                                                <h2>{{ number_format($product->product_price) . ' ' . '$' }}</h2>
-                                                <p>{{ $product->product_name }}</p>
+                                                <h2>{{ number_format($product->product_price) }}</h2>
+                                                <h3>{{ $product->product_name }}</h3>
                                                 <a data-url="{{ route('addToCard', ['id' => $product->product_id]) }}"
-                                                    class="btn btn-default add_to_card"><i
+                                                    class="btn btn-warning cart_edit update_cart_url"><i
                                                         class="fa fa-shopping-cart"></i>Add to
                                                     cart</a>
                                             </div>
@@ -67,7 +67,8 @@
 
 
                                         <div class="choose">
-                                            <ul class="nav nav-pills ">
+                                            <ul class="nav nav-pills "
+                                                style="display: flex; flex-wrap: wrap; justify-content: space-around">
                                                 <li><a href="#"><i class="fa fa-plus-square"></i>Thêm Yêu Thích</a>
                                                 </li>
                                                 <li><a href="#"><i class="fa fa-plus-square"></i>So Sánh</a></li>
@@ -77,7 +78,13 @@
                                 </div>
                             </a>
                         @endforeach
+
                     </div><!--features_items-->
+
+                    <!-- Phân trang -->
+                    {{-- <div class="text-center" id="pagination" style="color: skyblue">
+                        {{ $all_product->links() }}
+                    </div> --}}
                 </div>
             </div>
             {{-- And Body Home --}}

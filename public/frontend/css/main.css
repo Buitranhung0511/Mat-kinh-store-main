@@ -661,7 +661,7 @@ ul.sub-menu {
   padding-top: 15px;
 }
 .left-sidebar h2, .brands_products h2 {
-  color: #FE980F;
+  color: skyblue;
   font-family: 'Roboto', sans-serif;
   font-size: 18px;
   font-weight: 700;
@@ -722,12 +722,17 @@ h2.title:before{
   padding: 5px 20px;
 }
 
+.category-products .panel-default .panel-heading:hover{
+    background-color: #ffc107;
+}
+
 .category-products .panel-default .panel-heading .panel-title a {
-  color: #696763;
+  color:  skyblue;;
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
   text-decoration: none;
   text-transform: uppercase;
+  cursor: pointer;
 }
 
 .panel-group .panel-heading + .panel-collapse .panel-body {
@@ -836,7 +841,7 @@ h2.title:before{
 
 
 h2.title {
-  color: #FE980F;
+  color: skyblue;
   font-family: 'Roboto', sans-serif;
   font-size: 18px;
   font-weight: 700;
@@ -863,7 +868,7 @@ h2.title {
 }
 
 .productinfo h2{
-	color: #FE980F;
+	color: skyblue;
 	font-family: 'Roboto', sans-serif;
 	font-size: 24px;
 	font-weight: 700;

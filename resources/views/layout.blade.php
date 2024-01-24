@@ -31,6 +31,8 @@
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
 </head><!--/head-->
 
 <body>
@@ -224,7 +226,8 @@
                             <div class="video-gallery text-center">
                                 <a href="#">
                                     <div class="iframe-img">
-                                        <img src="{{ asset('frontend/images/iframe1.png') }}" alt="" />
+                                        <img src="{{ asset('public/uploads/product/avata_chat_2.jpg') }}"
+                                            alt="" />
                                     </div>
                                     <div class="overlay-icon">
                                         <i class="fa fa-play-circle-o"></i>
@@ -239,7 +242,8 @@
                             <div class="video-gallery text-center">
                                 <a href="#">
                                     <div class="iframe-img">
-                                        <img src="{{ asset('frontend/images/iframe2.png') }}" alt="" />
+                                        <img src="{{ asset('public/uploads/product/avatar-chat-1-400x400.jpg') }}"
+                                            alt="" />
                                     </div>
                                     <div class="overlay-icon">
                                         <i class="fa fa-play-circle-o"></i>
@@ -254,7 +258,8 @@
                             <div class="video-gallery text-center">
                                 <a href="#">
                                     <div class="iframe-img">
-                                        <img src="{{ asset('frontend/images/iframe3.png') }}" alt="" />
+                                        <img src="{{ asset('public/uploads/product/hinh-anh-avatar-nam-1.jpg') }}"
+                                            alt="" />
                                     </div>
                                     <div class="overlay-icon">
                                         <i class="fa fa-play-circle-o"></i>
@@ -269,7 +274,8 @@
                             <div class="video-gallery text-center">
                                 <a href="#">
                                     <div class="iframe-img">
-                                        <img src="{{ asset('frontend/images/iframe4.png') }}" alt="" />
+                                        <img src="{{ asset('public/uploads/product/avata_chat_3.jpg') }}"
+                                            alt="" />
                                     </div>
                                     <div class="overlay-icon">
                                         <i class="fa fa-play-circle-o"></i>
@@ -513,6 +519,24 @@
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.rtl.min.css" />
 <!-- Bootstrap theme -->
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.rtl.min.css" />
+
+
+{{-- XỬ LÝ PHÂN TRANG --}}
+{{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
+<script>
+    $(document).on('click', '#pagination a', function(e) {
+        e.preventDefault();
+        var url = $(this).attr('href');
+        $.ajax({
+            url: url,
+            type: 'GET',
+            success: function(data) {
+                $('#paginate').find('#pagination').html(data);
+            }
+        });
+    });
+</script>
+
 <Script>
     $(document).ready(function() {
         // render country
@@ -655,11 +679,10 @@
 
             });
 
-        } <<
-        << << < HEAD
+        }
         // get function add to cart
-        $('.add_to_card').on('click', addToCard); ===
-        === =
+        $('.add_to_card').on('click', addToCard);
+
         // get function add to cart
 
         $('.product_parent').on('click', '.add_to_card', function() {
@@ -667,9 +690,6 @@
             console.log(urlProduct);
             addToCard(urlProduct);
         });
-
-        >>>
-        >>> > 1106499 f0e7e1f88968efe0d37949ecafb909bd0
 
 
         // Function to update the cart

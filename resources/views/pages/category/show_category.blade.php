@@ -16,15 +16,16 @@
                         <div class="productinfo text-center">
                             <img src="{{ URL::to('public/uploads/product/' . $product->product_image) }}"
                                 alt="" />
-                            <h2>{{ number_format($product->product_price) . ' ' . '$' }}</h2>
-                            <p>{{ $product->product_name }}</p>
+                            <h2>{{ number_format($product->product_price) }}</h2>
+                            <h3>{{ $product->product_name }}</h3>
                             <a data-url="{{ route('addToCard', ['id' => $product->product_id]) }}"
-                                class="btn btn-default add_to_card"><i class="fa fa-shopping-cart"></i>Add to
+                                class="btn btn-warning cart_edit update_cart_url"><i class="fa fa-shopping-cart"></i>Add
+                                to
                                 cart</a>
                         </div>
                     </div>
                     <div class="choose">
-                        <ul class="nav nav-pills">
+                        <ul class="nav nav-pills" style="display: flex; flex-wrap: wrap; justify-content: space-around">
                             <li><a href="#"><i class="fa fa-plus-square"></i>Thêm Yêu Thích</a>
                             </li>
                             <li><a href="#"><i class="fa fa-plus-square"></i>So Sánh</a></li>
@@ -36,4 +37,10 @@
     @endforeach
 
 
+
+
 </div><!--features_items-->
+<!-- Phân trang -->
+{{-- <div class="text-center" id="pagination">
+    {{ $all_product->links() }}
+</div> --}}

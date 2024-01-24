@@ -54,7 +54,7 @@
 
 
                     <div class="mt-3">
-                        <a data-id="{{ $id }}" class="btn btn-primary cart_edit update_cart_url"
+                        <a data-id="{{ $id }}" class="btn btn-warning cart_edit update_cart_url"
                             data-url="{{ route('updateCart') }}">
                             <i class="fa fa-shopping-cart"></i> Add to cart
                         </a>
