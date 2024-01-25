@@ -58,7 +58,10 @@ class AdminController extends Controller
         //chart larvel
         $stockProducts = $totalStock - $soldThisMonth;
 
-        return view('admin.showDataOrder', compact('bestSellingProduct', 'stockProducts', 'soldThisMonth'));
+
+
+
+        return view('admin.showDataOrder', compact('bestSellingProducts', 'stockProducts', 'soldThisMonth'));
     }
 
     public function dashboard(Request $request)

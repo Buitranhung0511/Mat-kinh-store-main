@@ -78,7 +78,50 @@ Route::get('/send-comment', [
 
 
 
-// BACK-END..
+
+// BACK-END
+// Route::get('/', [
+//     HomeController::class, 'index'
+// ])->name('home');
+
+// Route::get('/trang-chu', [
+//     HomeController::class, 'index'
+// ])->name('home');
+
+
+
+// GROUP ADMIN
+Route::group(['middleware' => 'auth.roles'], function () {
+    Route::get('all-user', [
+        UserController::class, 'index'
+    ])->name('all-user');
+
+    Route::get('add-user', [
+        UserController::class, 'add_users'
+    ])->name('add-user');
+
+    Route::post('assign-roles', [
+        UserController::class, 'assign_roles'
+    ])->name('assign-roles');
+
+    Route::get('/dashboard', [
+        AdminController::class, 'show_dashboard'
+    ])->name('dashboard');
+
+    Route::get('/add-product', [
+        ProductController::class, 'add_product'
+    ])->name('add-product');
+
+    Route::get('/edit-product/{product_id}', [
+        ProductController::class, 'edit_product'
+    ])->name('edit-product');
+
+    Route::get('/all-product', [
+        ProductController::class, 'all_product'
+    ])->name('all-product');
+});
+
+
 Route::get('/admin_login', [
     AdminController::class, 'index'
 ])->name('admin_login');
