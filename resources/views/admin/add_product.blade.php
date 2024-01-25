@@ -5,15 +5,6 @@ use Illuminate\Support\Facades\Session;
 
 @extends('admin_layout')
 @section('admin_content')
-<<<<<<< HEAD
-<div class="row">
-    <div class="col-lg-12">
-        <section class="panel">
-            <header class="panel-heading">
-                Add product
-            </header>
-            <div class="panel-body">
-=======
     <div class="row">
         <div class="col-lg-12">
             <section class="panel">
@@ -21,7 +12,6 @@ use Illuminate\Support\Facades\Session;
                     Add product
                 </header>
                 <div class="panel-body">
->>>>>>> b7599d06f3989b6e088fffd83b5bc5121051105f
 
                     <div class="position-center">
                         <!-- {{-- Message hiển thị thông báo thêm thành công hay thất bại --}} -->

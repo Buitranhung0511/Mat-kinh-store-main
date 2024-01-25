@@ -82,10 +82,25 @@
 
                     </div><!--features_items-->
 
-                    <!-- Phân trang -->
-                    {{-- <div class="text-center" id="pagination" style="color: skyblue">
-                        {{ $all_product->links() }}
-                    </div> --}}
+                    {{-- Phân trang  --}}
+                    <div class="col-sm-8"></div>
+                    <div class="col-sm-4 text-right text-center-xs">
+                        @if ($all_product && $all_product->count() > 0)
+                            <ul class="pagination pagination-sm m-t-none m-b-none">
+                                <li><a href="{{ $all_product->previousPageUrl() }}"><i class="fa fa-chevron-left"></i></a>
+                                </li>
+
+                                @for ($i = 1; $i <= $all_product->lastPage(); $i++)
+                                    <li class="{{ $all_product->currentPage() == $i ? 'active' : '' }}">
+                                        <a href="{{ $all_product->url($i) }}">{{ $i }}</a>
+                                    </li>
+                                @endfor
+
+                                <li><a href="{{ $all_product->nextPageUrl() }}"><i class="fa fa-chevron-right"></i></a>
+                                </li>
+                            </ul>
+                        @endif
+                    </div>
                 </div>
             </div>
             {{-- And Body Home --}}

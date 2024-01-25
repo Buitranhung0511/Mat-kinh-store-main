@@ -29,7 +29,7 @@
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                 bestSellingProduct</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $soldThisMonth }}</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -130,5 +130,24 @@
         </div>
     </div>
 
+    </div>
+    <div class="container mt-5">
+        <h2 style="color: #fff; text-align: center; margin-bottom: 15px">Best Selling Products</h2>
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Product Name</th>
+                    <th>Total Quantity Sold</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($bestSellingProducts as $product)
+                    <tr>
+                        <td>{{ $product->product_name }}</td>
+                        <td>{{ $product->total_quantity }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
     </div>
 @endsection

@@ -12,7 +12,7 @@ use ConsoleTVs\Charts\Facades\Charts;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 
-  session_start();
+session_start();
 
 class AdminController extends Controller
 {
@@ -35,7 +35,7 @@ class AdminController extends Controller
 
     public function show_dashboard()
     {
-         $this->AuthLogin();           // Nếu login thì trả về trang showDashboard
+        $this->AuthLogin();           // Nếu login thì trả về trang showDashboard
 
         $orders = DB::table('orders')->get();
 
@@ -48,20 +48,20 @@ class AdminController extends Controller
             ->sum('quantity');
         //    best sale in month
 
-        $bestSellingProduct = DB::table('orders')
-            ->join('product', 'orders.product_id', '=', 'products.id')
-            ->select('product.product_id', 'product.product_content', DB::raw('SUM(orders.quantity) as total_quantity'))
-            ->whereMonth('orders.created_at', Carbon::now()->month)
-            ->whereYear('orders.created_at',  Carbon::now()->year)
-            ->groupBy('products.product_id', 'products.product.product_content')
-            ->orderBy('total_quantity', 'desc');
-        // ->first(); //
+        $bestSellingProducts = DB::table('order_details')
+            ->select('product_name', DB::raw('SUM(quantity) as total_quantity'))
+            ->groupBy('product_name')
+            ->orderBy('total_quantity', 'desc')
+            ->limit(3)
+            ->get();
+
         //chart larvel
         $stockProducts = $totalStock - $soldThisMonth;
 
-      
-    
-        return view('admin.showDataOrder',compact('bestSellingProduct', 'stockProducts','soldThisMonth'));
+
+
+
+        return view('admin.showDataOrder', compact('bestSellingProducts', 'stockProducts', 'soldThisMonth'));
     }
 
     public function dashboard(Request $request)
@@ -74,7 +74,7 @@ class AdminController extends Controller
         // echo '<pre>';
         // print_r($result);
         // echo '</pre>';
-       return view('admin.dashboard');
+        return view('admin.dashboard');
 
 
 
@@ -97,7 +97,7 @@ class AdminController extends Controller
     }
 
     // HÀM XỬ LÝ LOG_OUT
-  
+
     public function logout(Request $request)
     {
         $this->AuthLogin();           // Nếu login thì trả về trang logout CUA HUNG
