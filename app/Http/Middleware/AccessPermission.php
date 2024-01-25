@@ -18,7 +18,7 @@ class AccessPermission
     public function handle(Request $request, Closure $next, ...$roles): Response
     {
         $allowedRoles = ['admin', 'other_role']; // Add other roles as needed
-        if (optional(Auth::user())->hasAnyRole($allowedRoles)) {
+        if (optional(Auth::user())->hasRole($allowedRoles)) {
             return $next($request);
         }
         return redirect('/dashboard');

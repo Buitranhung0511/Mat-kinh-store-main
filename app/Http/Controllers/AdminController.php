@@ -17,7 +17,7 @@ session_start();
 class AdminController extends Controller
 {
     // Hàm check login
-    public function AuthLogin()
+    public function AuthLogin() // sửa lại chỗ này 22/1
     {
         $admin_id = Auth::id();
         if ($admin_id == true) {
@@ -58,10 +58,7 @@ class AdminController extends Controller
         //chart larvel
         $stockProducts = $totalStock - $soldThisMonth;
 
-
-
-
-        return view('admin.showDataOrder', compact('bestSellingProducts', 'stockProducts', 'soldThisMonth'));
+        return view('admin.showDataOrder', compact('bestSellingProduct', 'stockProducts', 'soldThisMonth'));
     }
 
     public function dashboard(Request $request)

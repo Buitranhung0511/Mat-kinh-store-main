@@ -5,6 +5,14 @@
         "This file is @generated automatically"
     ],
 
+<<<<<<< HEAD
+    "content-hash": "9c491b8531eec05ba41a11d9276a5749",
+    "packages": [
+        {
+=======
+>>>>>>> 3c10d7d22552a6184b4b3d762175bcf4f612d035
+=======
+>>>>>>> b7599d06f3989b6e088fffd83b5bc5121051105f
     "content-hash": "10ab759c0fc85405628408edd1b1e548",
     "packages": [
         {
@@ -51,6 +59,10 @@
             "time": "2023-03-27T18:25:07+00:00"
         },
         {
+<<<<<<< HEAD
+
+=======
+>>>>>>> b7599d06f3989b6e088fffd83b5bc5121051105f
             "name": "brick/math",
             "version": "0.11.0",
             "source": {
@@ -8259,3 +8271,4 @@
     "platform-dev": [],
     "plugin-api-version": "2.6.0"
 }
+

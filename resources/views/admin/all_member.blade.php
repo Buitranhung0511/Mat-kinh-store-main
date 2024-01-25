@@ -1,5 +1,8 @@
 <!-- resources/views/show_members.blade.php -->
+<?php
+use Illuminate\Support\Facades\Session;
 
+?>
 @extends('admin_layout')
 @section('admin_content')
     <div class="table-agile-info">

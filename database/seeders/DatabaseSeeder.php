@@ -8,8 +8,12 @@ use App\Models\Admin;
 use Carbon\Factory;
 use Faker\Factory as FakerFactory;
 use Illuminate\Database\Seeder;
+<<<<<<< HEAD
+use App\Models\Rating;
+=======
 use Illuminate\Support\Facades\DB;
 
+>>>>>>> b7599d06f3989b6e088fffd83b5bc5121051105f
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -17,6 +21,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+<<<<<<< HEAD
+       
+=======
         Admin::trumcate();
         DB::table('admin_roles')->truncate();
 
@@ -24,6 +31,7 @@ class DatabaseSeeder extends Seeder
         $this->call(RolesTableSeeder::class); //gọi đến class của seeder Roles
         // sau đó chạy câu lên "php artisan db:seed" để đưa dữ liệu vào database
 
+>>>>>>> b7599d06f3989b6e088fffd83b5bc5121051105f
 
         $this->call(UsersTableSeeder::class); //gọi đến class của seeder Users
         // sau đó chạy câu lên "php artisan db:seed" để đưa dữ liệu vào database

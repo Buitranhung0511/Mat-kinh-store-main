@@ -15,12 +15,13 @@ use App\Http\Controllers\CartsController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\CommentController;
-use App\Http\Controllers\AuthController;
 
 use App\Http\Controllers\CategoryPostController;
 use App\Http\Controllers\PostController;
-
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
+
+
 
 
 /*
@@ -87,9 +88,6 @@ Route::get('/filter_by_date', [
 ])->name('filter_by_date');
 
 
-Route::get('/dashboard', [
-    AdminController::class, 'show_dashboard'
-])->name('dashboard');
 
 //XỬ LÝ LOG_OUT
 Route::get('/logout', [
@@ -106,6 +104,83 @@ Route::get('/update-order-status', [
 ])->name('/update-order-status');
 
 
+Route::get('/add-category-product', [
+    CategoryProductController::class, 'add_category_product'
+])->name('add-category-product');
+
+Route::get('/all-category-product', [
+    CategoryProductController::class, 'all_category_product'
+])->name('all-category-product');
+
+// Xử lý Hiden/Show của trang all_category_product
+Route::get('/unactive-category-product/{category_product_id}', [
+    CategoryProductController::class, 'unactive_category_product'
+])->name('unactive-category-product');
+
+Route::get('/active-category-product/{category_product_id}', [
+    CategoryProductController::class, 'active_category_product'
+])->name('active-category-product');
+
+// End
+
+// Xử lý trang UPDATE CATEGORY
+Route::get('/edit-category-product/{category_product_id}', [
+    CategoryProductController::class, 'edit_category_product'
+])->name('edit-category-product');
+
+Route::post('/update-category-product/{category_product_id}', [
+    CategoryProductController::class, 'update_category_product'
+])->name('update-category-product');
+
+Route::get('/delete-category-product/{category_product_id}', [
+    CategoryProductController::class, 'delete_category_product'
+])->name('delete-category-product');
+
+
+Route::post('/save-category-product', [
+    CategoryProductController::class, 'save_category_product'
+])->name('save-category-product');
+
+Route::get('/search-category-product', [
+    CategoryProductController::class, 'search_category_product'
+])->name('search-category-product');
+
+// END
+// END :  XỬ LÝ CATEGORY-PRODUCT (DASHBOARD)
+
+// ============================================================================================================
+
+// XỬ LÝ PRODUCT (DASHBOARD)
+
+
+
+
+// Xử lý Hiden/Show của trang product
+Route::get('/unactive-product/{product_id}', [
+    ProductController::class, 'unactive_product'
+])->name('unactive-product');
+
+Route::get('/active-product/{product_id}', [
+    ProductController::class, 'active_product'
+])->name('active-product');
+
+// End
+
+// Xử lý trang UPDATE Product
+
+
+Route::post('/update-product/{product_id}', [
+    ProductController::class, 'update_product'
+])->name('update-product');
+
+Route::get('/delete-product/{product_id}', [
+    ProductController::class, 'delete_product'
+])->name('delete-product');
+
+
+Route::post('/save-product', [
+    ProductController::class, 'save_product'
+])->name('save-product');
 
 // luongth check out
 // add tocard
