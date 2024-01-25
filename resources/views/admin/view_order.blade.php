@@ -4,7 +4,7 @@
 
         <div class="panel panel-default">
             <div class="panel-heading">
-                Thông tin đăng nhập
+                Login Information
             </div>
 
             <div class="table-responsive">
@@ -74,7 +74,7 @@
 
         <div class="panel panel-default">
             <div class="panel-heading">
-                Liệt kê chi tiết đơn hàng
+                Order Detail List
             </div>
 
             <div class="table-responsive">

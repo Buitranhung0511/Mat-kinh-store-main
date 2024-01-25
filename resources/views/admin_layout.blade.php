@@ -277,14 +277,11 @@ use Illuminate\Support\Facades\Session;
 
                     </ul>
                 </div>
-                <!-- sidebar menu end-->
             </div>
         </aside>
-        <!--sidebar end-->
+
         <!--main content start-->
         <section id="main-content">
-
-
             <!-- Phan Body -->
             <section class="wrapper">
 
@@ -295,7 +292,7 @@ use Illuminate\Support\Facades\Session;
             <!-- footer -->
             <div class="footer">
                 <div class="wthree-copyright">
-                    <p>© 2023 Vietnam. All rights reserved | Design by HTL</p>
+                    <p>© 2024 Vietnam. All rights reserved | Design by HLTL</p>
                 </div>
             </div>
             <!-- / footer -->
@@ -380,17 +377,6 @@ dateFormat:"yy-mm-dd"
         });
     </script>
 
-    {{-- <script>
-        new DataTable('#example', {
-            search: {
-                return: true
-            }
-        });
-
-    </script> --}}
-
-
-
     <!-- Khởi tạo CKEditor cho textarea có id là 'editor' -->
     <script>
         ClassicEditor
@@ -465,9 +451,6 @@ dateFormat:"yy-mm-dd"
             return true;
         }
     </script>
-
-
-
 
     <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/flot-chart/excanvas.min.js"></script><![endif]-->
     <script src="{{ asset('backend/js/jquery.scrollTo.js') }}"></script>
