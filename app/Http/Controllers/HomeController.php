@@ -45,7 +45,7 @@ class HomeController extends Controller
             ->where('product_quantity', '>', 0)
             ->orderBy('product_id', 'desc')
             ->limit(15)
-            ->get();
+            ->paginate(6);
 
         return view('pages.product')->with('category', $cate_product)->with('all_product', $all_product);
     }

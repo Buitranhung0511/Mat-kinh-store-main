@@ -37,10 +37,4 @@
     @endforeach
 
 
-
-
-</div><!--features_items-->
-<!-- Phân trang -->
-{{-- <div class="text-center" id="pagination">
-    {{ $all_product->links() }}
-</div> --}}
+</div>
