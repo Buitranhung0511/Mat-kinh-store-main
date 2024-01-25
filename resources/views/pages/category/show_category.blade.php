@@ -1,45 +1,4 @@
 <!--features_items-->
-
-
-<div class="container">
-    <div class="row">
-         <div class="col-sm-3">
-                <div class="left-sidebar">
-
-
-        @foreach ($category_name as $key => $name)
-            <h2 class="title text-center">{{ $name->category_name }}</h2>
-        @endforeach
-
-    
-
-        @foreach ($category_by_id as $key => $product)
-            <a href="{{ URL::to('chi-tiet-san-pham/' . $product->product_id) }}">
-                <div class="col-sm-4">
-                    <div class="product-image-wrapper">
-                        <div class="single-products">
-                            <div class="productinfo text-center">
-                                <img src="{{ URL::to('public/uploads/product/' . $product->product_image) }}"
-                                    alt="" />
-                                <h2>{{ number_format($product->product_price) . ' ' . '$' }}</h2>
-                                <p>{{ $product->product_name }}</p>
-                                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add
-                                    to
-                                    cart</a>
-
-                    <h2>Danh Mục Sản Phẩm</h2>
-                    <div class="panel-group category-products" id="accordian"><!--category-product-->
-                        @foreach ($category as $key => $cate)
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <a
-                                            href="{{ URL::to('/danh-muc-san-pham/' . $cate->category_id) }}">{{ $cate->category_name }}</a>
-                                    </h4>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div><!--/category-products-->
 <div class="features_items">
 
 
@@ -78,10 +37,4 @@
     @endforeach
 
 
-
-
-</div><!--features_items-->
-<!-- Phân trang -->
- <div class="text-center" id="pagination">
-    {{ $all_product->links() }}
-</div> 
+</div>
