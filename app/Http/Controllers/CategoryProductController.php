@@ -36,6 +36,7 @@ class CategoryProductController extends Controller
     public function all_category_product()
     {
         $this->AuthLogin();           // Nếu login thì trả về trang all_category_product
+
         $all_category_product = DB::table('category_product')->paginate(10); // Lấy dữ liệu bảng category_product
 
         $manage_category_product = view('admin.all_category_product')->with('all_category_product', $all_category_product);  // Hiển thị dữ liệu lên trang 'all_category_product'
@@ -137,10 +138,35 @@ class CategoryProductController extends Controller
         return Redirect::to('all-category-product');
     }
 
+    public function show_category_home($category_id)
+    {
+        $cate_product = DB::table('category_product')->where('category_status', '0')->orderby('category_id', 'desc')->get();
+
+
+        $category_by_id = DB::table('product')->join('category_product', 'product.category_id', '=', 'category_product.category_id')->where('product.category_id', $category_id)->where('product_quantity', '>', 0)->get();
+        $category_name = DB::table('category_product')->where('category_product.category_id', $category_id)->limit(1)->get();
+
+
+
+        //  render product them ren
+        $renderProduct = view(
+            'pages.category.show_category',
+            compact('category_by_id', 'category_name')
+        )->render();
+        return response()->json(
+            [
+                'data' => $renderProduct,
+                'code' => 200,
+            ],
+            200
+        );
+    }
     public function search_category_product(Request $request)
     {
         // Lấy danh sach sản phẩm
         $all_category_product = CategoryProduct::where('category_name', 'like', '%' . $request->search_category_product . '%')->paginate(10);
+
+
 
         // Trả về view hiển thị sau khi lọc
         return view('admin.all_category_product', ['all_category_product' => $all_category_product->isEmpty() ? null : $all_category_product]);
@@ -148,18 +174,4 @@ class CategoryProductController extends Controller
 
     //============== END FUNCTION ADMIN PAGES ==================
 
-
-
-    public function show_category_home($category_id)
-    {
-        $cate_product = DB::table('category_product')->where('category_status', '0')->orderby('category_id', 'desc')->get();
-
-
-        $category_by_id = DB::table('product')->join('category_product', 'product.category_id', '=', 'category_product.category_id')->where('product.category_id', $category_id)->get();
-
-        $category_name = DB::table('category_product')->where('category_product.category_id', $category_id)->limit(1)->get();
-
-
-        return view('pages.category.show_category')->with('category', $cate_product)->with('category_by_id', $category_by_id)->with('category_name', $category_name);
-    }
 }

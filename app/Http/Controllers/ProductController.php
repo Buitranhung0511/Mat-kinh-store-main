@@ -120,6 +120,7 @@ class ProductController extends Controller
         $this->AuthLogin();
 
         DB::table('product')->where('product_id', $product_id)->update(['product_status' => 1]);
+
         Session::put('message1', 'Deactivated product successfully');
         Log::info('Redirecting to all-product after activation.'); // Thêm log kiểm tra lỗi
         return Redirect::to('all-product');

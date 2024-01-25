@@ -7,8 +7,11 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Log;
+use App\Models\Product;
 use App\Models\Slider;
 use App\Models\Post;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Arr;
 
 class HomeController extends Controller
 {
@@ -37,10 +40,7 @@ class HomeController extends Controller
     {
         $cate_product = DB::table('category_product')->where('category_status', '0')->orderby('category_id', 'desc')->get();
 
-        // $cate_name = DB::table('category_product')->where('category_status', '0')->orderby('category_id', 'desc')->get();
-
-        $all_product = DB::table('product')->where('product_status', '0')->orderby('product_id', 'desc')->limit(6)->get();
-
+        $all_product = DB::table('product')->where('product_status', '0')->where('product_quantity', '>', 0)->orderby('product_id', 'desc')->limit(4)->get();
         return view('pages.product')->with('category', $cate_product)->with('all_product', $all_product);
     }
 }

@@ -30,6 +30,9 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
 </head><!--/head-->
 
 <body>
@@ -64,9 +67,9 @@
             <div class="container">
                 <div class="row">
                     <div class="col-sm-4">
-                        <div class="logo pull-left">
-                            <a href="index.html"><img src="{{ asset('frontend/images/tiger.jpg') }}" alt=""
-                                    width="10%" height="10%"></a>
+                        <div class="companyinfo">
+                            <h2><span>HLTL</span>-shop</h2>
+
                         </div>
 
                     </div>
@@ -214,7 +217,7 @@
                 <div class="row">
                     <div class="col-sm-2">
                         <div class="companyinfo">
-                            <h2><span>e</span>-shopper</h2>
+                            <h2><span>HLTL</span>-shop</h2>
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,sed do eiusmod tempor</p>
                         </div>
                     </div>
@@ -223,7 +226,8 @@
                             <div class="video-gallery text-center">
                                 <a href="#">
                                     <div class="iframe-img">
-                                        <img src="{{ asset('frontend/images/iframe1.png') }}" alt="" />
+                                        <img src="{{ asset('public/uploads/product/avata_chat_2.jpg') }}"
+                                            alt="" />
                                     </div>
                                     <div class="overlay-icon">
                                         <i class="fa fa-play-circle-o"></i>
@@ -238,7 +242,8 @@
                             <div class="video-gallery text-center">
                                 <a href="#">
                                     <div class="iframe-img">
-                                        <img src="{{ asset('frontend/images/iframe2.png') }}" alt="" />
+                                        <img src="{{ asset('public/uploads/product/avatar-chat-1-400x400.jpg') }}"
+                                            alt="" />
                                     </div>
                                     <div class="overlay-icon">
                                         <i class="fa fa-play-circle-o"></i>
@@ -253,7 +258,8 @@
                             <div class="video-gallery text-center">
                                 <a href="#">
                                     <div class="iframe-img">
-                                        <img src="{{ asset('frontend/images/iframe3.png') }}" alt="" />
+                                        <img src="{{ asset('public/uploads/product/hinh-anh-avatar-nam-1.jpg') }}"
+                                            alt="" />
                                     </div>
                                     <div class="overlay-icon">
                                         <i class="fa fa-play-circle-o"></i>
@@ -268,7 +274,8 @@
                             <div class="video-gallery text-center">
                                 <a href="#">
                                     <div class="iframe-img">
-                                        <img src="{{ asset('frontend/images/iframe4.png') }}" alt="" />
+                                        <img src="{{ asset('public/uploads/product/avata_chat_3.jpg') }}"
+                                            alt="" />
                                     </div>
                                     <div class="overlay-icon">
                                         <i class="fa fa-play-circle-o"></i>
@@ -512,12 +519,67 @@
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.rtl.min.css" />
 <!-- Bootstrap theme -->
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.rtl.min.css" />
+
+
+{{-- XỬ LÝ PHÂN TRANG --}}
+{{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
+<script>
+    $(document).on('click', '#pagination a', function(e) {
+        e.preventDefault();
+        var url = $(this).attr('href');
+        $.ajax({
+            url: url,
+            type: 'GET',
+            success: function(data) {
+                $('#paginate').find('#pagination').html(data);
+            }
+        });
+    });
+</script>
+
 <Script>
     $(document).ready(function() {
         // render country
         // 1. what is API
         // 2. How do I call API
         // 3. Explain code
+
+        //  render prodcut by category by id
+        $('#accordian').on('click', '.category_product', function(event) {
+            event.preventDefault();
+            let urlProduct = $(this).data('urlcategory');
+            let id = $(this).data('id');
+            getProductByCatergoryId(id, urlProduct)
+
+
+        })
+
+        function getProductByCatergoryId(id, urlProduct) {
+
+            // Your AJAX request
+            $.ajax({
+                type: 'GET',
+                dataType: 'json',
+                url: urlProduct + '/' + id,
+                data: {
+                    id: id
+                },
+                success: function(response) {
+                    console.log(response);
+                    if (response.code === 200) {
+                        $('.product_parent').html(response.data);
+
+
+
+                    }
+                },
+                error: function() {
+                    // Handle errors here
+                }
+            });
+        }
+
+
         const host = "https://provinces.open-api.vn/api/";
         var callAPI = (api) => {
             $.ajax({
@@ -595,9 +657,8 @@
         }
 
         // add toCart
-        function addToCard(event) {
-            event.preventDefault();
-            let urlProduct = $(this).data('url');
+        function addToCard(urlProduct) {
+
 
             $.ajax({
                 type: "GET",
@@ -621,6 +682,14 @@
         }
         // get function add to cart
         $('.add_to_card').on('click', addToCard);
+
+        // get function add to cart
+
+        $('.product_parent').on('click', '.add_to_card', function() {
+            let urlProduct = $(this).data('url');
+            console.log(urlProduct);
+            addToCard(urlProduct);
+        });
 
 
         // Function to update the cart

@@ -19,7 +19,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CategoryPostController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\AuthController;
-
+use App\Http\Controllers\UserController;
 
 
 
@@ -143,7 +143,6 @@ Route::get('/update-order-status', [
     AdminController::class, 'updateOrderStatus'
 ])->name('/update-order-status');
 
-// XỬ LÝ CATEGORY-PRODUCT (DASHBOARD)
 
 Route::get('/add-category-product', [
     CategoryProductController::class, 'add_category_product'
@@ -324,33 +323,7 @@ Route::get('/search-discount', [
 ])->name('search-discount');
 
 Route::post('/check-discount', [DiscountController::class, 'checkDiscountCode'])->name('check-discount');
-// XỬ LÝ Member (DASHBOARD)
 
-Route::post('/register-member', [
-    MemberController::class, 'store'
-])->name('register-member');
-
-Route::get('register-member', [
-    MemberController::class, 'create'
-])->name('register-member');
-
-Route::get('/all-member', [
-    MemberController::class, 'all_member'
-])->name('all-member');
-
-
-// Xử lý trang UPDATE member
-Route::post('/ban-member/{id}', [
-    MemberController::class, 'banMember'
-])->name('ban-member');
-
-Route::post('/unban-member/{id}', [
-    MemberController::class, 'unbanMember'
-])->name('unban-member');
-
-Route::get('/search', [
-    MemberController::class, 'search'
-])->name('search');
 
 // Route::post('/save-product', [
 //     MemberController::class, 'save_product'
@@ -394,10 +367,7 @@ Route::get('/search-slider', [
 //Quản lý Order
 
 
-// MANAGE ORDER
-Route::get('/view-order', [
-    OrderController::class, 'view_order'
-])->name('view-order');
+
 
 // Route::get('/delete-order/{id}', [
 //     OrderController::class, 'delete_order'
@@ -430,9 +400,9 @@ Route::get('delete-comment/{comment_id}', [
 //============================================================================================================
 
 // MANAGER CATEGORY_POST
-Route::get('add-category-post', [
-    CategoryPostController::class, 'add_category_post'
-])->name('add-category-post');
+// Route::get('add-category-post', [
+//     CategoryPostController::class, 'add_category_post'
+// ])->name('add-category-post');
 
 Route::get('all-category-post', [
     CategoryPostController::class, 'all_category_post'
@@ -474,9 +444,9 @@ Route::get('/category-post', [
 //============================================================================================================
 
 // MANAGER POST
-Route::get('/add-post', [
-    PostController::class, 'add_post'
-])->name('add-post');
+// Route::get('/add-post', [
+//     PostController::class, 'add_post'
+// ])->name('add-post');
 
 Route::post('/save-post', [
     PostController::class, 'save_post'
@@ -531,3 +501,178 @@ Route::post('register', [
 Route::post('login', [
     AuthController::class, 'login'
 ])->name('login');
+
+//======================================================================================
+// USER
+// Route::group(['middleware' => 'auth.roles:admin,author'], function () {
+//     Route::get('all-user', [
+//         UserController::class, 'index'
+//     ])->name('all-user');
+
+//     Route::get('add-user', [
+//         UserController::class, 'add_users'
+//     ])->name('add-user');
+// });
+
+
+Route::middleware(['checkAdmin'])->group(function () {
+    //Các route dành cho admin
+
+
+    Route::get('add-category-post', [
+        CategoryPostController::class, 'add_category_post'
+    ])->name('add-category-post');
+});
+Route::get('all-user', [
+    UserController::class, 'index'
+])->name('all-user');
+
+Route::get('add-user', [
+    UserController::class, 'add_users'
+])->name('add-user');
+
+Route::middleware(['checkAuthor'])->group(function () {
+    // Các route dành cho author
+
+    // MANAGE ORDER
+    Route::get('/view-order', [
+        OrderController::class, 'view_order'
+    ])->name('view-order');
+
+    // XỬ LÝ Member (DASHBOARD)
+
+    Route::post('/register-member', [
+        MemberController::class, 'store'
+    ])->name('register-member');
+
+    Route::get('register-member', [
+        MemberController::class, 'create'
+    ])->name('register-member');
+
+    Route::get('/all-member', [
+        MemberController::class, 'all_member'
+    ])->name('all-member');
+
+
+    // Xử lý trang UPDATE member
+    Route::post('/ban-member/{id}', [
+        MemberController::class, 'banMember'
+    ])->name('ban-member');
+
+    Route::post('/unban-member/{id}', [
+        MemberController::class, 'unbanMember'
+    ])->name('unban-member');
+
+    Route::get('/search', [
+        MemberController::class, 'search'
+    ])->name('search');
+
+    // XỬ LÝ CATEGORY-PRODUCT (DASHBOARD)
+
+    Route::get('/add-category-product', [
+        CategoryProductController::class, 'add_category_product'
+    ])->name('add-category-product');
+
+    Route::get('/all-category-product', [
+        CategoryProductController::class, 'all_category_product'
+    ])->name('all-category-product');
+
+    // Xử lý Hiden/Show của trang all_category_product
+    Route::get('/unactive-category-product/{category_product_id}', [
+        CategoryProductController::class, 'unactive_category_product'
+    ])->name('unactive-category-product');
+
+    Route::get('/active-category-product/{category_product_id}', [
+        CategoryProductController::class, 'active_category_product'
+    ])->name('active-category-product');
+
+    // End
+
+    // Xử lý trang UPDATE CATEGORY
+    Route::get('/edit-category-product/{category_product_id}', [
+        CategoryProductController::class, 'edit_category_product'
+    ])->name('edit-category-product');
+
+    Route::post('/update-category-product/{category_product_id}', [
+        CategoryProductController::class, 'update_category_product'
+    ])->name('update-category-product');
+
+    Route::get('/delete-category-product/{category_product_id}', [
+        CategoryProductController::class, 'delete_category_product'
+    ])->name('delete-category-product');
+
+
+    Route::post('/save-category-product', [
+        CategoryProductController::class, 'save_category_product'
+    ])->name('save-category-product');
+
+    Route::get('/search-category-product', [
+        CategoryProductController::class, 'search_category_product'
+    ])->name('search-category-product');
+
+    // END
+    // END :  XỬ LÝ CATEGORY-PRODUCT (DASHBOARD)
+
+    // ============================================================================================================
+
+    // XỬ LÝ PRODUCT (DASHBOARD)
+    Route::group(['middleware' => 'auth.roles', 'auth.roles' => ['admin', 'author']], function () {
+
+        Route::get('/add-product', [
+            ProductController::class, 'add_product'
+        ])->name('add-product');
+
+        Route::get('/edit-product/{product_id}', [
+            ProductController::class, 'edit_product'
+        ])->name('edit-product');
+    });
+
+
+    Route::get('/all-product', [
+        ProductController::class, 'all_product'
+    ])->name('all-product');
+
+    // Xử lý Hiden/Show của trang product
+    Route::get('/unactive-product/{product_id}', [
+        ProductController::class, 'unactive_product'
+    ])->name('unactive-product');
+
+    Route::get('/active-product/{product_id}', [
+        ProductController::class, 'active_product'
+    ])->name('active-product');
+
+    // End
+
+    // Xử lý trang UPDATE Product
+
+
+    Route::post('/update-product/{product_id}', [
+        ProductController::class, 'update_product'
+    ])->name('update-product');
+
+    Route::get('/delete-product/{product_id}', [
+        ProductController::class, 'delete_product'
+    ])->name('delete-product');
+
+
+    Route::post('/save-product', [
+        ProductController::class, 'save_product'
+    ])->name('save-product');
+});
+
+Route::middleware(['checkUser'])->group(function () {
+    // Các route dành cho user
+});
+
+
+
+
+
+
+Route::post('assign-roles', [
+    AuthController::class, 'assign_roles'
+])->name('assign-roles');
+
+Route::post('assign-roles', [
+    UserController::class, 'assign_roles'
+])->name('assign-roles')->middleware('auth.roles');
