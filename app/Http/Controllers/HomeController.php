@@ -40,7 +40,17 @@ class HomeController extends Controller
     {
         $cate_product = DB::table('category_product')->where('category_status', '0')->orderby('category_id', 'desc')->get();
 
-        $all_product = DB::table('product')->where('product_status', '0')->where('product_quantity', '>', 0)->orderby('product_id', 'desc')->limit(4)->get();
+        $all_product = DB::table('product')
+            ->where('product_status', '0')
+            ->where('product_quantity', '>', 0)
+            ->orderBy('product_id', 'desc')
+            ->limit(15)
+            ->get();
+
         return view('pages.product')->with('category', $cate_product)->with('all_product', $all_product);
+    }
+    public function getContact()
+    {
+        return view('client.Contact');
     }
 }

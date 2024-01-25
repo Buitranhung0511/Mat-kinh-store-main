@@ -46,6 +46,10 @@ Route::get('/trang-chu', [
 Route::get('/san-pham', [
     HomeController::class, 'product'
 ])->name('product');
+Route::get('/contact', [
+    HomeController::class, 'getContact'
+])->name('contact');
+
 
 
 //Danh mục sản phẩm - Trang Chủ "Hung"============
