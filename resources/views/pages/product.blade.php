@@ -12,7 +12,7 @@
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
                                         <a class="category_product" data-urlCategory="{{ URL::to('/danh-muc-san-pham/') }}"
-                                            data-id="{{ $cate->category_id }}" style="">{{ $cate->category_name }}</a>
+                                            data-id="{{ $cate->category_id }}" >{{ $cate->category_name }}</a>
                                     </h4>
                                 </div>
                             </div>
