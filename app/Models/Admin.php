@@ -27,9 +27,9 @@ class Admin extends Authenticatable
         return $this->admin_password;
     }
 
-    public function hasAnyRole($roles)
+    public function hasAnyRole(...$roles)
     {
-        return null !== $this->roles()->whereIn('name', $roles)->first();
+        return null !== $this->roles()->whereIn('name', ...$roles)->first();
     }
 
     public function hasRole($roles)
