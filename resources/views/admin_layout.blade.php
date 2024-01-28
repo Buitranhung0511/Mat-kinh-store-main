@@ -113,7 +113,7 @@ use Illuminate\Support\Facades\Session;
                         </a>
                         <ul class="dropdown-menu extended logout">
                             <li><a href="#"><i class=" fa fa-suitcase"></i>Profile</a></li>
-                            <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
+                            <li><a href="#"><i class="fa fa-cog"></i>Settings</a></li>
                             <li><a href="{{ URL::to('/logout') }}"><i class="fa fa-key"></i> Log Out</a></li>
                         </ul>
                     </li>
@@ -223,6 +223,18 @@ use Illuminate\Support\Facades\Session;
                             </a>
                             <ul class="sub">
                                 <li><a href="{{ URL::to('/all-comment/') }}">Show commnet list</a></li>
+                            </ul>
+                        </li>
+                        {{-- End --}}
+
+                        {{-- Message Contact Dashboard --}}
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-book"></i>
+                                <span>Contact message</span>
+                            </a>
+                            <ul class="sub">
+                                <li><a href="{{ URL::to('/show-contact/') }}">all message</a></li>
                             </ul>
                         </li>
                         {{-- End --}}

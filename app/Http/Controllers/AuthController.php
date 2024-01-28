@@ -57,16 +57,10 @@ class AuthController extends Controller
         ]);
         $data = $request->all(); // nếu ok rồi thì lấy tất cả các data trên request
         if (Auth::attempt(['admin_email' => $request->admin_email, 'admin_password' => $request->admin_password])) {
-            return redirect('/dashboard');
+            return view('admin.dashboard');
         } else {
             return redirect('/login-auth')->with('message', 'Lỗi Đăng Nhập');
         }
-
-        // if (Auth::attempt(['admin_email' => $request->admin_email, 'admin_password' => $request->admin_password], true)) {
-        //     return redirect('/dashboard');
-        // } else {
-        //     return redirect('/login-auth')->with('message', 'Lỗi Đăng Nhập');
-        // }
     }
 
     //=============Dang Xuat Auth=============
@@ -75,9 +69,4 @@ class AuthController extends Controller
         Auth::logout();
         return redirect('/login-auth')->with('message', 'Đăng Xuất Thành Công');
     }
-
-    //=============Dang Xuat Auth=============
-
-
-
 }

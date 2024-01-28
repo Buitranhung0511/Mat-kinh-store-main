@@ -20,7 +20,7 @@ use App\Http\Controllers\CategoryPostController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
-
+use App\Http\Controllers\ContactController;
 
 
 
@@ -47,6 +47,7 @@ Route::get('/trang-chu', [
 Route::get('/san-pham', [
     HomeController::class, 'product'
 ])->name('product');
+
 Route::get('/contact', [
     HomeController::class, 'getContact'
 ])->name('contact');
@@ -77,51 +78,6 @@ Route::get('/send-comment', [
 //Danh mục sản phẩm - Trang Chủ "Hung"============
 
 
-
-
-// BACK-END
-// Route::get('/', [
-//     HomeController::class, 'index'
-// ])->name('home');
-
-// Route::get('/trang-chu', [
-//     HomeController::class, 'index'
-// ])->name('home');
-
-
-
-// GROUP ADMIN
-Route::group(['middleware' => 'auth.roles'], function () {
-    Route::get('all-user', [
-        UserController::class, 'index'
-    ])->name('all-user');
-
-    Route::get('add-user', [
-        UserController::class, 'add_users'
-    ])->name('add-user');
-
-    Route::post('assign-roles', [
-        UserController::class, 'assign_roles'
-    ])->name('assign-roles');
-
-    Route::get('/dashboard', [
-        AdminController::class, 'show_dashboard'
-    ])->name('dashboard');
-
-    Route::get('/add-product', [
-        ProductController::class, 'add_product'
-    ])->name('add-product');
-
-    Route::get('/edit-product/{product_id}', [
-        ProductController::class, 'edit_product'
-    ])->name('edit-product');
-
-    Route::get('/all-product', [
-        ProductController::class, 'all_product'
-    ])->name('all-product');
-});
-
-
 Route::get('/admin_login', [
     AdminController::class, 'index'
 ])->name('admin_login');
@@ -130,6 +86,9 @@ Route::get('/filter_by_date', [
     AdminController::class, 'filterBydate'
 ])->name('filter_by_date');
 
+Route::post('/check-discount', [
+    DiscountController::class, 'checkDiscountCode'
+])->name('check-discount');
 
 
 //XỬ LÝ LOG_OUT
@@ -146,84 +105,11 @@ Route::get('/update-order-status', [
     AdminController::class, 'updateOrderStatus'
 ])->name('/update-order-status');
 
+// Show Dashboard
+Route::get('/dashboard', [
+    AdminController::class, 'show_dashboard'
+])->name('dashboard');
 
-Route::get('/add-category-product', [
-    CategoryProductController::class, 'add_category_product'
-])->name('add-category-product');
-
-Route::get('/all-category-product', [
-    CategoryProductController::class, 'all_category_product'
-])->name('all-category-product');
-
-// Xử lý Hiden/Show của trang all_category_product
-Route::get('/unactive-category-product/{category_product_id}', [
-    CategoryProductController::class, 'unactive_category_product'
-])->name('unactive-category-product');
-
-Route::get('/active-category-product/{category_product_id}', [
-    CategoryProductController::class, 'active_category_product'
-])->name('active-category-product');
-
-// End
-
-// Xử lý trang UPDATE CATEGORY
-Route::get('/edit-category-product/{category_product_id}', [
-    CategoryProductController::class, 'edit_category_product'
-])->name('edit-category-product');
-
-Route::post('/update-category-product/{category_product_id}', [
-    CategoryProductController::class, 'update_category_product'
-])->name('update-category-product');
-
-Route::get('/delete-category-product/{category_product_id}', [
-    CategoryProductController::class, 'delete_category_product'
-])->name('delete-category-product');
-
-
-Route::post('/save-category-product', [
-    CategoryProductController::class, 'save_category_product'
-])->name('save-category-product');
-
-Route::get('/search-category-product', [
-    CategoryProductController::class, 'search_category_product'
-])->name('search-category-product');
-
-// END
-// END :  XỬ LÝ CATEGORY-PRODUCT (DASHBOARD)
-
-// ============================================================================================================
-
-// XỬ LÝ PRODUCT (DASHBOARD)
-
-
-
-
-// Xử lý Hiden/Show của trang product
-Route::get('/unactive-product/{product_id}', [
-    ProductController::class, 'unactive_product'
-])->name('unactive-product');
-
-Route::get('/active-product/{product_id}', [
-    ProductController::class, 'active_product'
-])->name('active-product');
-
-// End
-
-// Xử lý trang UPDATE Product
-
-
-Route::post('/update-product/{product_id}', [
-    ProductController::class, 'update_product'
-])->name('update-product');
-
-Route::get('/delete-product/{product_id}', [
-    ProductController::class, 'delete_product'
-])->name('delete-product');
-
-
-Route::post('/save-product', [
-    ProductController::class, 'save_product'
-])->name('save-product');
 
 // luongth check out
 // add tocard
@@ -502,7 +388,7 @@ Route::middleware(['checkAuthor'])->group(function () {
         DiscountController::class, 'delete_discount'
     ])->name('delete-discount');
 
-    Route::post('/check-discount', [DiscountController::class, 'checkDiscountCode'])->name('check-discount');
+
 
 
     //==================================================================
@@ -621,7 +507,7 @@ Route::middleware(['checkUser'])->group(function () {
         CategoryPostController::class, 'all_category_post'
     ])->name('all-category-post');
 
-    // =========================================================================
+    // =========================POST================================================
     //Add Post
     Route::get('/add-post', [
         PostController::class, 'add_post'
@@ -661,4 +547,22 @@ Route::middleware(['checkUser'])->group(function () {
     Route::get('/search-post', [
         PostController::class, 'search_post'
     ])->name('search-post');
+
+    //========================CONTACT=========================================
+    // Show Contact Message
+    Route::get('/show-contact', [
+        ContactController::class, 'show_contact'
+    ])->name('show-contact');
+
+    Route::post('/submit-form', [
+        ContactController::class, 'submitForm'
+    ])->name('submit-form');
+
+    Route::get('/delete-message/{contact_id}', [
+        ContactController::class, 'delete_message'
+    ])->name('delete-message');
+
+    Route::get('/search-message', [
+        ContactController::class, 'search_message'
+    ])->name('search-message');
 });

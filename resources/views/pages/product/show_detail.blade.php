@@ -22,7 +22,7 @@
             </div>
             <div class="col-sm-7">
                 <div class="product-information">
-                    <img src="images/product-details/new.jpg" class="newarrival" alt="" />
+                    {{-- <img src="images/product-details/new.jpg" class="newarrival" alt="" /> --}}
 
                     <h1 class="my-3"> Product name :{{ $value->product_name }}</h1>
                     <img src="images/product-details/rating.png" alt="" />

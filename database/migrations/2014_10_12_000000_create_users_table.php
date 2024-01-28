@@ -12,17 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email');
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->renameColumn('id', 'user_id');
-            $table->renameColumn('name', 'user_name');
-            $table->renameColumn('email', 'user_email');
-            $table->renameColumn('phone', 'user_phone', 30)->unique()->nullable();
-            $table->renameColumn('email_verified_at', 'user_email_verified_at')->nullable();
-            $table->renameColumn('password', 'user_password');
+
+            $table->increments('user_id');
+            $table->string('user_name');
+            $table->string('user_email')->unique();
+            $table->string('user_phone', 30)->unique()->nullable();
+            $table->string('user_password');
             $table->rememberToken();
             $table->timestamps();
         });
@@ -35,13 +30,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->renameColumn('user_id', 'id');
-            $table->renameColumn('user_name', 'name');
-            $table->renameColumn('user_email', 'email');
-            $table->renameColumn('user_phone', 'phone');
-            $table->renameColumn('user_email_verified_at', 'email_verified_at');
-            $table->renameColumn('user_password', 'password');
-        });
+        Schema::dropIfExists('users');
     }
 };

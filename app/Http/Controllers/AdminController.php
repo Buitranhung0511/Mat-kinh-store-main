@@ -70,10 +70,6 @@ class AdminController extends Controller
         $admin_password = $request->admin_password;
 
         $result = DB::table('admin')->where('admin_email', $admin_email)->where('admin_password', $admin_password)->first();
-        // first() : lấy giới hạn 1 user
-        // echo '<pre>';
-        // print_r($result);
-        // echo '</pre>';
         return view('admin.dashboard');
 
 

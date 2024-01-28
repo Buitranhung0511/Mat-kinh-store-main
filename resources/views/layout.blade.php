@@ -149,7 +149,7 @@
                                     </a>
                                 </li>
 
-                                <li><a href="contact-us.html">Contact</a></li>
+                                <li><a href="{{ route('contact') }}">Contact</a></li>
                             </ul>
                         </div>
                     </div>
@@ -301,38 +301,50 @@
                 <div class="row">
                     <div class="col-sm-2">
                         <div class="single-widget">
-                            <h2>Service</h2>
-                            <ul class="nav nav-pills nav-stacked">
-                                <li><a href="#">Online Help</a></li>
-                                <li><a href="#">Contact Us</a></li>
-                                <li><a href="#">Order Status</a></li>
-                                <li><a href="#">Change Location</a></li>
-                                <li><a href="#">FAQ’s</a></li>
-                            </ul>
+
+                            <div class="mb-4 mb-sm-0">
+                                <div>
+                                    <h2 class="mb-2">Phone</h2>
+                                    <p class="mb-2">Please speak with us directly.</p>
+                                    <hr class="w-75 mb-3 border-dark-subtle">
+                                    <p class="mb-0">
+                                        <a class="link-secondary text-decoration-none" href="tel:+15057922430">(505)
+                                            792-2430</a>
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-sm-2">
                         <div class="single-widget">
-                            <h2>Quock Shop</h2>
-                            <ul class="nav nav-pills nav-stacked">
-                                <li><a href="#">T-Shirt</a></li>
-                                <li><a href="#">Mens</a></li>
-                                <li><a href="#">Womens</a></li>
-                                <li><a href="#">Gift Cards</a></li>
-                                <li><a href="#">Shoes</a></li>
-                            </ul>
+                            <div class="mb-4 mb-sm-0">
+                                <div>
+                                    <h2 class="mb-2">Email</h2>
+                                    <p class="mb-2">Please write to us directly.</p>
+                                    <hr class="w-75 mb-3 border-dark-subtle">
+                                    <p class="mb-0">
+                                        <a class="link-secondary text-decoration-none"
+                                            href="mailto:demo@yourdomain.com">demo@yourdomain.com</a>
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-sm-2">
                         <div class="single-widget">
-                            <h2>Policies</h2>
-                            <ul class="nav nav-pills nav-stacked">
-                                <li><a href="#">Terms of Use</a></li>
-                                <li><a href="#">Privecy Policy</a></li>
-                                <li><a href="#">Refund Policy</a></li>
-                                <li><a href="#">Billing System</a></li>
-                                <li><a href="#">Ticket System</a></li>
-                            </ul>
+                            <div>
+                                <h2 class="mb-2">Opening Hours</h2>
+                                <p class="mb-2">Explore our business opening hours.</p>
+                                <hr class="w-50 mb-3 border-dark-subtle">
+                                <div class="d-flex mb-1">
+                                    <p class="text-secondary fw-bold mb-0 me-5">Mon - Fri</p>
+                                    <p class="text-secondary mb-0">9am - 5pm</p>
+                                </div>
+                                <div class="d-flex">
+                                    <p class="text-secondary fw-bold mb-0 me-5">Sat - Sun</p>
+                                    <p class="text-secondary mb-0">9am - 2pm</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-sm-2">
@@ -366,7 +378,7 @@
         <div class="footer-bottom">
             <div class="container">
                 <div class="row">
-                    <p class="pull-left">Copyright © 2013 E-SHOPPER Inc. All rights reserved.</p>
+                    <p class="pull-left">Copyright © 2024 HLTL Inc. All rights reserved.</p>
                     <p class="pull-right">Designed by <span><a target="_blank"
                                 href="http://www.themeum.com">Themeum</a></span></p>
                 </div>
@@ -498,6 +510,34 @@
     });
 </script>
 
+{{-- Phần script cho phần Contact --}}
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#contactForm').submit(function(e) {
+            e.preventDefault(); // Ngăn chặn form gửi dữ liệu mặc định
+            var formData = $(this).serialize(); // Lấy dữ liệu từ form
+            var submitUrl = $('#contactForm').data('submit-url');
+            // Gửi dữ liệu
+            $.ajax({
+                url: submitUrl,
+                method: "POST",
+                data: formData,
+                success: function(response) {
+                    $('#responseMessage').html('<div class="success">' + response.success +
+                        '</div>');
+                    $('#contactForm')[0]
+                        .reset(); // Xóa dữ liệu trong form sau khi gửi thành công
+                },
+                error: function(xhr) {
+                    $('#responseMessage').html('<p >' + xhr.responseJSON
+                        .message + '</p>');
+                }
+            })
+        })
+    })
+</script>
+
+
 
 <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
 <!-- CSS -->
@@ -520,22 +560,6 @@
 <!-- Bootstrap theme -->
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.rtl.min.css" />
 
-
-{{-- XỬ LÝ PHÂN TRANG --}}
-{{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
-<script>
-    $(document).on('click', '#pagination a', function(e) {
-        e.preventDefault();
-        var url = $(this).attr('href');
-        $.ajax({
-            url: url,
-            type: 'GET',
-            success: function(data) {
-                $('#paginate').find('#pagination').html(data);
-            }
-        });
-    });
-</script>
 
 <Script>
     $(document).ready(function() {
@@ -685,7 +709,7 @@
 
         // get function add to cart
 
-        $('.product_parent').on('click', '.add_to_card', function() {
+        $('.product_parent').on('click', '.cart_edit', function() {
             let urlProduct = $(this).data('url');
             console.log(urlProduct);
             addToCard(urlProduct);

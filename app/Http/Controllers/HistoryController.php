@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\Mail as MailMail;
 use Illuminate\Http\Request;
 use App\Models\Payment;
 use App\Models\OrderDetail;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\StatirticModel;
+
+use Illuminate\Support\Facades\Mail;
+
 
 use Illuminate\Support\Facades\Log;
 
@@ -278,6 +282,8 @@ class HistoryController extends Controller
     }
     public function getDataCheckOut(Request $request)
     {
+        // $mail = Mail::to('linhnqt1s2303008@fpt.edu.vn')->send(new Mails);
+
         // Handle the POST request logic here
 
         $validatedData = $request->validate([

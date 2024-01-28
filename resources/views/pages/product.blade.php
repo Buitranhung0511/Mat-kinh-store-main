@@ -19,7 +19,7 @@
                         @endforeach
                     </div><!--/category-products-->
 
-              
+
 
                     <!-- price-range-->
                     <div class="price-range">
@@ -60,7 +60,7 @@
                                                 <h2>{{ number_format($product->product_price) }}</h2>
                                                 <h3>{{ $product->product_name }}</h3>
                                                 <a data-url="{{ route('addToCard', ['id' => $product->product_id]) }}"
-                                                    class="btn btn-warning cart_edit update_cart_url"><i
+                                                    class="btn btn-warning cart_edit "><i
                                                         class="fa fa-shopping-cart"></i>Add to
                                                     cart</a>
                                             </div>
