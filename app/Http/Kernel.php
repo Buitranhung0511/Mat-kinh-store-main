@@ -68,4 +68,6 @@ class Kernel extends HttpKernel
         'auth.roles' => \App\Http\Middleware\AccessPermission::class,
 
     ];
+
+
 }

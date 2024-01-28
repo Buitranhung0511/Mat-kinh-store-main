@@ -2,50 +2,67 @@
 
 namespace Database\Factories;
 
+use App\Models\Team;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use App\Models\Admin;
-use App\Models\Roles;
-use Faker\Generator as Faker;
-use Illuminate\Support\Testing\Fakes\Fake;
+use Laravel\Jetstream\Features;
 
-
+/**
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
+ */
 class UserFactory extends Factory
 {
-  
-    protected static ?string $password;
-
-  
-    
-     public function definition()
-     {
-         return [
-             'admin_name' => $this->faker->name(),
-             'admin_email' => $this->faker->unique()->safeEmail(),
-             'admin_phone' => '0799218799',
-             'admin_password' => 'e10adc3949ba59abbe56e057f20f883e',
-         ];
-     }
-
-
-     public function configure()
-     {
-         return $this->afterCreating(function (Admin $admin, Faker $faker) {
-             $roles = Roles::where('name', 'user')->get();
-             $admin->roles()->sync($roles->pluck('id_roles')->toArray());
-         });
-     }
-
-
+    /**
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
+     */
+    public function definition(): array
+    {
+        return [
+            'name' => $this->faker->name(),
+            'email' => $this->faker->unique()->safeEmail(),
+            'email_verified_at' => now(),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'two_factor_secret' => null,
+            'two_factor_recovery_codes' => null,
+            'remember_token' => Str::random(10),
+            'profile_photo_path' => null,
+            'current_team_id' => null,
+        ];
+    }
 
     /**
      * Indicate that the model's email address should be unverified.
      */
-    // public function unverified(): static
-    // {
-    //     return $this->state(fn (array $attributes) => [
-    //         'email_verified_at' => null,
-    //     ]);
-    // }
+    public function unverified(): static
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'email_verified_at' => null,
+            ];
+        });
+    }
+
+    /**
+     * Indicate that the user should have a personal team.
+     */
+    public function withPersonalTeam(callable $callback = null): static
+    {
+        if (! Features::hasTeamFeatures()) {
+            return $this->state([]);
+        }
+
+        return $this->has(
+            Team::factory()
+                ->state(fn (array $attributes, User $user) => [
+                    'name' => $user->name.'\'s Team',
+                    'user_id' => $user->id,
+                    'personal_team' => true,
+                ])
+                ->when(is_callable($callback), $callback),
+            'ownedTeams'
+        );
+    }
 }

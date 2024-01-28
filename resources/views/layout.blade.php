@@ -17,6 +17,7 @@
     <link href="{{ asset('frontend/css/sb-admin-2.min.css') }}" rel="stylesheet">
     <link href="{{ asset('frontend/css/animate.css') }}" rel="stylesheet">
     <link href="{{ asset('frontend/css/bootstrap.min copy.css') }}" rel="stylesheet">
+
     {{-- <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet"> --}}
 
     <!--[if lt IE 9]>
@@ -96,11 +97,50 @@
                     <div class="col-sm-8">
                         <div class="shop-menu pull-right">
                             <ul class="nav navbar-nav" style="display: inline-block;">
-                                <li><a href="#"><i class="fa fa-user"></i> Account</a></li>
-                                <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
-                                <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-                                <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-                                <li><a href="login.html"><i class="fa fa-lock"></i> Login</a></li>
+                                <li><a href="#"><i class="fa fa-star"></i> Yêu Thích</a></li>
+
+                                <?php
+                                $customer_id = Session::get('customer_id');
+                                $customer_id = Session::get('shipping_id');
+                                if($customer_id!=NULL){
+                              ?>
+                                <li><a href="{{ URL::to('/sign_in') }}"><i class="fa fa-crosshairs"></i> Thanh
+                                        Toán</a>
+                                </li>
+                                <?php
+}elseif ($customer_id!=NULL && $shipping_id!=NULL) {
+    ?>
+                                <li><a href="{{ URL::to('/payment') }}"><i class="fa fa-crosshairs"></i> Thanh
+                                        Toán</a>
+                                </li>
+                                <?php}
+                                {
+                                ?> ?>
+                                <?php
+                         }else{
+                              ?>
+                                <li><a href="{{ URL::to('/login') }}"><i class="fa fa-crosshairs"></i> Thanh Toán</a>
+                                </li>
+                                <?php
+                          }
+                              ?>
+                                <li><a href="{{ URL::to('/Cart') }}"><i class="fa fa-shopping-cart"></i> Giỏ Hàng</a>
+                                </li>
+                                <?php
+                                $customer_id = Session::get('customer_id');
+                                if($customer_id!=NULL){
+                              ?>
+                               <li><a href="{{ URL::to('/profile') }}"><i class="fa fa-user"></i> {{ session('customer_name') }}</a></li>
+                                <li><a href="{{ URL::to('/logout') }}"><i class="fa fa-lock"></i> Đăng xuất</a></li>
+
+                                <?php
+                         }else{
+                              ?>
+                                <li><a href="{{ URL::to('/login') }}"><i class="fa fa-lock"></i> Đăng nhập</a></li>
+                                <?php
+                          }
+                              ?>
+
                             </ul>
                         </div>
                     </div>
@@ -111,7 +151,7 @@
         <div class="header-bottom"><!--header-bottom-->
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-9">
+                    <div class="col-sm-7">
                         <div class="navbar-header">
                             <button type="button" class="navbar-toggle" data-toggle="collapse"
                                 data-target=".navbar-collapse">
@@ -148,11 +188,18 @@
                                 <li><a href="contact-us.html">Contact</a></li>
                             </ul>
                         </div>
+
                     </div>
-                    <div class="col-sm-3">
-                        <div class="search_box pull-right">
-                            <input type="text" placeholder="Search" />
-                        </div>
+                    <div class="col-sm-5">
+                        <form action="{{ URL::to('/tim-kiem') }}" method="POST">
+                            @csrf
+                            <div class="search_box pull-right">
+                                <input type="text" name="keywords_submit" placeholder="Search" />
+                                <input type="submit" style="margin-top:0;color:#666" name="search_item"
+                                    class="btn btn-primary btn-sm" placeholder="Search" />
+                            </div>
+                        </form>
+
                     </div>
                 </div>
             </div>
@@ -506,7 +553,7 @@
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css" />
 <!-- Bootstrap theme -->
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css" />
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 <!--
       RTL version
   -->

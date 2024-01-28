@@ -21,8 +21,10 @@ use App\Http\Controllers\CategoryPostController;
 use App\Http\Controllers\PostController;
 
 use App\Http\Controllers\UserController;
-
-
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Auth\RegisterController;
+use Illuminate\Auth\Events\Login;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +45,10 @@ Route::get('/', [
 Route::get('/trang-chu', [
     HomeController::class, 'index'
 ])->name('home');
+
+Route::post('/tim-kiem', [
+    HomeController::class, 'search'
+])->name('tim-kiem');
 
 Route::get('/san-pham', [
     HomeController::class, 'product'
@@ -543,3 +549,56 @@ Route::post('assign-roles', [
 Route::post('assign-roles', [
     UserController::class, 'assign_roles'
 ])->name('assign-roles')->middleware('auth.roles');
+
+
+
+
+// login-logout
+
+Route::get('/login', [
+    LoginController::class, 'login'
+])->name('login');
+
+Route::get('/register', [
+    LoginController::class, 'register'
+])->name('register');
+
+Route::post('/add-customer', [
+    LoginController::class, 'add_customer'
+])->name('add-customer');
+
+Route::get('/logout', [
+    LoginController::class, 'logout'
+])->name('logout');
+
+
+Route::post('/login-customer', [
+    LoginController::class, 'login_customer'
+])->name('login-customer');
+
+
+Route::get('/profile', [
+    LoginController::class, 'profile'
+])->name('profile');
+
+
+// Route cho trang cập nhật
+Route::get('/update', [UserController::class, 'showUpdateForm']);
+
+// Route cho xử lý cập nhật thông tin
+Route::post('/update', [UserController::class, 'update']);
+
+
+
+Route::get('/change-password', [
+    AuthController::class, 'showChangePasswordForm'
+])->name('change.password');
+
+
+Route::post('/change-password1', [
+    AuthController::class, 'changePassword1'
+])->name('change-password1');
+
+Route::post('/update-avatar', [LoginController::class, 'updateAvatar'])->name('update-avatar');
+
+

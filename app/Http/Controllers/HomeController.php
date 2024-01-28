@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Log;
 use App\Models\Slider;
 use App\Models\Post;
-
+use App\Models\CategoryProduct;
+use App\Http\Controllers\CategoryProductController;
 class HomeController extends Controller
 {
 
@@ -39,5 +40,21 @@ class HomeController extends Controller
 
         $all_product = DB::table('product')->where('product_status', '0')->orderby('product_id', 'desc')->limit(6)->get();
         return view('pages.product')->with('category', $cate_product)->with('all_product', $all_product);
+    }
+
+
+    ///search
+    public function search(Request $request)
+    {
+        $keywords = $request->keywords_submit;
+        $cate_product = DB::table('category_product')->where('category_status', '0')->orderby('category_id', 'desc')->get();
+
+        $all_product = DB::table('product')->where('product_status', '0')->orderby('product_id', 'desc')->limit(6)->get();
+        $search_product = DB::table('product')->where('product_name', 'like','%'.$keywords.'%')->get();
+
+        return view('pages.product.search')
+        ->with('category', $cate_product)
+        ->with('all_product', $all_product)
+        ->with('search_product',   $search_product);
     }
 }

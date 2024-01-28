@@ -159,8 +159,8 @@ return [
         /*
          * Package Service Providers...
          */
-       
-     
+
+
         /*
          * Application Service Providers...
          */
@@ -169,6 +169,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\FortifyServiceProvider::class,
+
         App\Providers\AppServiceProvider::class,
         //Moiw
         App\Providers\BladeServiceProvider::class,
@@ -188,7 +190,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
-       
+
     ])->toArray(),
 
 ];

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Rating extends Model{
+class rating extends Model{
     public $timestamps = false; // set time to false
     protected $fillable =[
         'rating_id','product_id','rating'
