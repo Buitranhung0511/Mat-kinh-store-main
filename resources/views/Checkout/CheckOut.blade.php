@@ -126,128 +126,131 @@
 
                                     <div class="col-sm-4 mb-3">
                                         <p class="mb-0">City</p>
-                                        <select id="province">
+                                        {{-- <select id="province">
 
-                                        </select>
-
+                                        </select> --}}
+                                        <input type="text" id="porvince" placeholder="Type here" class="form-control" />
                                     </div>
 
-                                    <div class="col-sm-4 mb-3">
-                                        <p class="mb-0">District</p>
-                                        <select name="" id="district">
+                                </div>
+
+                                <div class="col-sm-4 mb-3">
+                                    <p class="mb-0">District</p>
+                                    {{-- <select name="" id="district">
                                             <option value="">chọn quận</option>
-                                        </select>
+                                        </select> --}}
 
-                                    </div>
+                                    <input type="text" id="district" placeholder="Type here" class="form-control" />
+                                </div>
 
-                                    <div class="col-sm-4  mb-3">
-                                        <p class="mb-0">Ward</p>
-                                        <select id="ward">
+                                <div class="col-sm-4  mb-3">
+                                    <p class="mb-0">Ward</p>
+                                    {{-- <select id="ward">
                                             <option value="">chọn phường</option>
-                                        </select>
-                                    </div>
-
-
+                                        </select> --}}
+                                    <input type="text" id="ward" placeholder="Type here" class="form-control" />
                                 </div>
 
-                                <div class="form-check mb-3">
-                                    <input class="form-check-input" type="checkbox" value=""
-                                        id="flexCheckDefault1" />
-                                    <label class="form-check-label" for="flexCheckDefault1">Save this address</label>
-                                </div>
 
-                                <div class="mb-3">
-                                    <p class="mb-0">Message to seller</p>
-                                    <div class="form-outline">
-                                        <textarea class="form-control" id="textAreaExample1" rows="2"></textarea>
-                                    </div>
-                                </div>
+                            </div>
 
-                                <div class="float-end">
-                                    <button type="button" class="btn btn-light border" id="cancelBtn">Cancel</button>
-                                    <button type="button" id="showModalButton" class="btn btn-primary contineu"
-                                        data-toggle="modal">
-                                        Contineu
-                                    </button>
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1" />
+                                <label class="form-check-label" for="flexCheckDefault1">Save this address</label>
+                            </div>
+
+                            <div class="mb-3">
+                                <p class="mb-0">Message to seller</p>
+                                <div class="form-outline">
+                                    <textarea class="form-control" id="textAreaExample1" rows="2"></textarea>
                                 </div>
                             </div>
+
+                            <div class="float-end">
+                                <button type="button" class="btn btn-light border" id="cancelBtn">Cancel</button>
+                                <button type="button" id="showModalButton" class="btn btn-primary contineu"
+                                    data-toggle="modal">
+                                    Contineu
+                                </button>
+                            </div>
                         </div>
-                    </form>
-                    <!-- Checkout -->
                 </div>
+                </form>
+                <!-- Checkout -->
+            </div>
 
+            @php
+                $subTotal = 0;
+                $netTotal = 0;
+                $allProductNames = [];
+            @endphp
+            @foreach ($carts as $id => $cart)
                 @php
-                    $subTotal = 0;
-                    $netTotal = 0;
-                    $allProductNames = [];
+                    $subTotal += $cart['price'] * $cart['quantity'];
+                    $allProductNames[] = $cart['name'];
                 @endphp
-                @foreach ($carts as $id => $cart)
-                    @php
-                        $subTotal += $cart['price'] * $cart['quantity'];
-                        $allProductNames[] = $cart['name'];
-                    @endphp
-                @endforeach
+            @endforeach
 
-                <div class="col-xl-4 col-lg-4 d-flex justify-content-center justify-content-lg-end">
-                    <div class="ms-lg-4 mt-4 mt-lg-0" style="max-width: 320px;">
-                        <h4 class="mb-3" style="font-size: 20px; ">Summary</h4>
-                        <div class="d-flex justify-content-between">
-                            <p class="mb-2">nameProduct:</p>
-                            <p class="mb-2">
-                                @foreach ($allProductNames as $productName)
-                                    {{ $productName }},
-                                @endforeach
-                            </p>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <p class="mb-2">Total price:</p>
-                            <p class="mb-2">{{ $subTotal }}</p>
-                        </div>
-                        <div class="d-flex justify-content-between">
-
-
-                            @php
-                                $discount = Session::get('discount');
-                                $discountPercent = 0;
-                            @endphp
-
-                            @if ($discount)
-                                @foreach ($discount as $key => $cout)
-                                    @if ($cout['counbon_status'] == 0 && is_numeric($cout['counbon_percent']))
-                                        @php
-                                            $discountPercent = $subTotal * ($cout['counbon_percent'] / 100);
-                                        @endphp
-                                        <p class="mb-2">Discount:</p>
-                                        <p class="mb-2 text-danger">- {{ $discountPercent }}</p>
-                                    @endif
-                                @endforeach
-                            @endif
-
-
-
-
-
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <p class="mb-2">Shipping cost:</p>
-                            <p class="mb-2">+ $14.00</p>
-                        </div>
-                        <hr />
-                        <div class="d-flex justify-content-between">
-                            <p class="mb-2">Total price:</p>
-                            <p class="mb-2 fw-bold">{{ $netTotal = $subTotal - $discountPercent }}</p>
-                        </div>
-
-
-                        <form action="{{ route('check-discount') }}" method="POST" id="discountForm">
-                            @csrf
-                            <!-- Trường input chứa giá trị mã giảm giá -->
-                            <input type="text" name="code" id="discountCodeInput" class="form-control border">
-                            <input type="hidden" name="timeNow" value="{{ now() }}">
-                            <!-- Nút submit -->
-                            <button type="submit" class="btn btn-light text-primary border">Discount</button>
-                        </form>
+            <div class="col-xl-4 col-lg-4 d-flex justify-content-center justify-content-lg-end">
+                <div class="ms-lg-4 mt-4 mt-lg-0" style="max-width: 320px;">
+                    <h4 class="mb-3" style="font-size: 20px; ">Summary</h4>
+                    <div class="d-flex justify-content-between">
+                        <p class="mb-2">nameProduct:</p>
+                        <p class="mb-2">
+                            @foreach ($allProductNames as $productName)
+                                {{ $productName }},
+                            @endforeach
+                        </p>
                     </div>
+                    <div class="d-flex justify-content-between">
+                        <p class="mb-2">Total price:</p>
+                        <p class="mb-2">{{ $subTotal }}</p>
+                    </div>
+                    <div class="d-flex justify-content-between">
+
+
+                        @php
+                            $discount = Session::get('discount');
+                            $discountPercent = 0;
+                        @endphp
+
+                        @if ($discount)
+                            @foreach ($discount as $key => $cout)
+                                @if ($cout['counbon_status'] == 0 && is_numeric($cout['counbon_percent']))
+                                    @php
+                                        $discountPercent = $subTotal * ($cout['counbon_percent'] / 100);
+                                    @endphp
+                                    <p class="mb-2">Discount:</p>
+                                    <p class="mb-2 text-danger">- {{ $discountPercent }}</p>
+                                @endif
+                            @endforeach
+                        @endif
+
+
+
+
+
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <p class="mb-2">Shipping cost:</p>
+                        <p class="mb-2">+ $14.00</p>
+                    </div>
+                    <hr />
+                    <div class="d-flex justify-content-between">
+                        <p class="mb-2">Total price:</p>
+                        <p class="mb-2 fw-bold">{{ $netTotal = $subTotal - $discountPercent }}</p>
+                    </div>
+
+
+                    <form action="{{ route('check-discount') }}" method="POST" id="discountForm">
+                        @csrf
+                        <!-- Trường input chứa giá trị mã giảm giá -->
+                        <input type="text" name="code" id="discountCodeInput" class="form-control border">
+                        <input type="hidden" name="timeNow" value="{{ now() }}">
+                        <!-- Nút submit -->
+                        <button type="submit" class="btn btn-light text-primary border">Discount</button>
+                    </form>
+                </div>
     </section>
     {{-- modal buill --}}
     <div class="modal " id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"

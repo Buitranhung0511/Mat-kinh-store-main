@@ -21,7 +21,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ContactController;
-
+use App\Http\Controllers\LoginController;
 
 
 /*
@@ -51,6 +51,11 @@ Route::get('/san-pham', [
 Route::get('/contact', [
     HomeController::class, 'getContact'
 ])->name('contact');
+
+//Search home page
+Route::get('/tim-kiem', [
+    HomeController::class, 'search'
+])->name('tim-kiem');
 
 
 
@@ -227,10 +232,29 @@ Route::middleware(['checkAdmin'])->group(function () {
     ])->name('add-user');
 });
 
+
 //********************************************************************************************************* */
 // CÁC ROUTE DÀNH CHO AUTHOR
 Route::middleware(['checkAuthor'])->group(function () {
 
+    Route::post('assign-roles', [
+        AuthController::class, 'assign_roles'
+    ])->name('assign-roles');
+
+    // Phân quyền chức năng
+    Route::post('assign-roles', [
+        UserController::class, 'assign_roles'
+    ])->name('assign-roles')->middleware('auth.roles');
+
+    // User List
+    Route::get('all-user', [
+        UserController::class, 'index'
+    ])->name('all-user');
+
+    // Add User
+    Route::get('add-user', [
+        UserController::class, 'add_users'
+    ])->name('add-user');
     // SLIDER MANAGEMENT
     Route::get('add-slider', [
         sliderController::class, 'add_slider'
@@ -566,3 +590,74 @@ Route::middleware(['checkUser'])->group(function () {
         ContactController::class, 'search_message'
     ])->name('search-message');
 });
+
+
+// login-logout
+
+Route::get('/login', [
+    LoginController::class, 'login'
+])->name('login');
+
+Route::get('/register', [
+    LoginController::class, 'register'
+])->name('register');
+
+Route::post('/add-customer', [
+    LoginController::class, 'add_customer'
+])->name('add-customer');
+
+Route::get('/logout', [
+    LoginController::class, 'logout'
+])->name('logout');
+
+
+Route::post('/login-customer', [
+    LoginController::class, 'login_customer'
+])->name('login-customer');
+
+
+Route::get('/profile', [
+    LoginController::class, 'profile'
+])->name('profile');
+
+
+// Route cho trang cập nhật
+Route::get('/update', [UserController::class, 'showUpdateForm']);
+
+// Route cho xử lý cập nhật thông tin
+Route::post('/update', [UserController::class, 'update']);
+
+
+
+Route::get('/change-password', [
+    AuthController::class, 'showChangePasswordForm'
+])->name('change.password');
+
+
+Route::post('/change-password1', [
+    AuthController::class, 'changePassword1'
+])->name('change-password1');
+
+Route::post('/update-avatar', [
+    LoginController::class, 'updateAvatar'
+])->name('update-avatar');
+
+
+Route::get('/forgot-password', [
+    LoginController::class, 'showpageforgotpass'
+])->name('forgot-password');
+
+Route::post('/recover-pass', [
+    LoginController::class, 'recover_pass'
+])->name('recover-pass');
+
+Route::post('/update-new-pass', [
+    LoginController::class, 'update_new_pass'
+])->name('update-new-pass');
+
+Route::post('/reset-new-pass', [
+    LoginController::class, 'reset_new_pass'
+])->name('reset-new-pass');
+
+
+//đóng login-logout

@@ -53,4 +53,17 @@ class HomeController extends Controller
     {
         return view('client.Contact');
     }
+
+    // product search
+    public function search(Request $request)
+    {
+        $keywords = $request->keywords_submit;
+
+        $all_product = DB::table('product')->where('product_status', '0')->orderby('product_id', 'desc')->limit(6)->get();
+        $search_product = DB::table('product')->where('product_name', 'like', '%' . $keywords . '%')->get();
+
+        return view('pages.product.search_home')
+            ->with('all_product', $all_product)
+            ->with('search_product',   $search_product);
+    }
 }

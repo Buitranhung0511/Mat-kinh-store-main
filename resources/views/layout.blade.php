@@ -76,11 +76,30 @@
                     <div class="col-sm-8">
                         <div class="shop-menu pull-right">
                             <ul class="nav navbar-nav" style="display: inline-block;">
-                                {{-- <li><a href="#"><i class="fa fa-user"></i> Account</a></li>
-                                <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
-                                <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-                                <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li> --}}
-                                <li><a href="login.html"><i class="fa fa-lock"></i> Login</a></li>
+                                <?php
+                                $customer_id = Session::get('customer_id');
+                                if($customer_id!=NULL){
+                                    ?>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        <i class="fa fa-user"></i> {{ session('customer_name') }} <span
+                                            class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="{{ URL::to('/profile') }}"><i class="fa fa-gear"></i> Profile</a>
+                                        </li>
+                                        <li><a href="{{ URL::to('/logout') }}"><i class="fa fa-sign-out"></i>
+                                                Logout</a></li>
+                                    </ul>
+                                </li>
+
+                                <?php
+                               }else{
+                                    ?>
+                                <li><a href="{{ URL::to('/login') }}"><i class="fa fa-lock"></i>Login</a></li>
+                                <?php
+                                }
+                                    ?>
                             </ul>
                         </div>
                     </div>
@@ -91,7 +110,7 @@
         <div class="header-bottom"><!--header-bottom-->
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-9">
+                    <div class="col-sm-8">
                         <div class="navbar-header">
                             <button type="button" class="navbar-toggle" data-toggle="collapse"
                                 data-target=".navbar-collapse">
@@ -153,10 +172,17 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="col-sm-3">
-                        <div class="search_box pull-right">
-                            <input type="text" placeholder="Search" />
-                        </div>
+                    <div class="col-sm-4">
+                        <form action="{{ URL::to('/tim-kiem') }}" method="get">
+                            @csrf
+                            <div class="search_box pull-right">
+                                <input type="text" name="keywords_submit" placeholder="Search" />
+                                <input type="submit" style="margin-top:0;color:#666; width: 70px; border-radius: 5px"
+                                    name="search_item" class="btn btn-primary" placeholder="Search" />
+                                {{-- <button type="submit" class="btn btn-primary btn-sm">Search</button> --}}
+                            </div>
+                        </form>
+
                     </div>
                 </div>
             </div>
@@ -168,12 +194,6 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div id="slider-carousel" class="carousel slide" data-ride="carousel">
-                        {{-- <ol class="carousel-indicators">
-                            <li data-target="#slider-carousel" data-slide-to="0" class="active"></li>
-                            <li data-target="#slider-carousel" data-slide-to="1"></li>
-                            <li data-target="#slider-carousel" data-slide-to="2"></li>
-                        </ol> --}}
-
                         <div class="carousel-inner">
                             @php
                                 // khai báo biến toàn cục để sử dụng foreach không bị xung đột với những biến khác
@@ -537,6 +557,23 @@
     })
 </script>
 
+{{-- Phần script Change password --}}
+<script>
+    $(document).ready(function() {
+        $('.pass_show').append('<span class="ptxt">Show</span>');
+    });
+
+
+    $(document).on('click', '.pass_show .ptxt', function() {
+
+        $(this).text($(this).text() == "Show" ? "Hide" : "Show");
+
+        $(this).prev().attr('type', function(index, attr) {
+            return attr == 'password' ? 'text' : 'password';
+        });
+
+    });
+</script>
 
 
 <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>

@@ -19,8 +19,6 @@
                         @endforeach
                     </div><!--/category-products-->
 
-
-
                     <!-- price-range-->
                     <div class="price-range">
                         <h2>Price Range</h2>

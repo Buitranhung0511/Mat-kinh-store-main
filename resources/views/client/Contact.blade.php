@@ -5,7 +5,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 col-md-10 col-lg-12">
-                    <h2 class="display-5 mb-4 mb-md-5 mb-xl-8">CONTACT</h2>
+                    <h2 style="text-align: center" class="display-5 mb-4 mb-md-5 mb-xl-8">CONTACT</h2>
                 </div>
             </div>
         </div>

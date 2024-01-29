@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\Rating ;
+use App\Models\Rating;
 use App\Models\Product;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
@@ -255,7 +255,7 @@ class ProductController extends Controller
         foreach ($comment as $key => $comm) {
             $output .= '<div class="row style_comment">
             <div class="col-md-2">
-                <img width="50%" src="/frontend/images/batman_icon.png" class="img img-responsive img-thumbnail">
+                <img width="35%" src="/public/uploads/product/avatar.jpg" class="img img-responsive img-thumbnail">
             </div>
             <div class="col-md-10">
                 <p style="color: blue;">@' . $comm->comment_name . '</p>

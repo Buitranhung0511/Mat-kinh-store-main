@@ -2398,11 +2398,11 @@ h2.title {
 }
 
 .btn.btn-primary {
-  background:#FE980F;
+  background:skyblue;
   border: 0 none;
   border-radius: 0;
   margin-top: 16px;
-  font-size: 20px;
+  font-size: 15px;
   color: #fff;
 }
 
