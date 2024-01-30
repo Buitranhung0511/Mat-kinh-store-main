@@ -1,7 +1,7 @@
 @extends('layout')
 @section('content')
     <div class="features_items">
-        <h2 class="title text-center">Kết quả tìm kiếm</h2>
+        <h2 class="title text-center">Search results</h2>
         @foreach ($search_product as $key => $product)
             <a href="{{ URL::to('chi-tiet-san-pham/' . $product->product_id) }}">
                 <div class="col-sm-4">
@@ -19,10 +19,9 @@
                         </div>
                         <div class="choose">
                             <ul class="nav nav-pills"
-                                style="display: flex; flex-wrap: wrap; justify-content: space-around;"">
-                                <li><a href="#"><i class="fa fa-plus-square"></i>Thêm Yêu
-                                        Thích</a></li>
-                                <li><a href="#"><i class="fa fa-plus-square"></i>So Sánh</a></li>
+                                style="display: flex; flex-wrap: wrap; justify-content: space-around;">
+                                <li><a href="#"><i class="fa fa-plus-square"></i>Additional favorite</a></li>
+                                <li><a href="#"><i class="fa fa-plus-square"></i>Comparison</a></li>
                             </ul>
                         </div>
                     </div>

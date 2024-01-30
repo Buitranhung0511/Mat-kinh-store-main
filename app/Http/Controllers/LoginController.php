@@ -34,6 +34,7 @@ class LoginController extends Controller
     {
         return view('pages.login.register');
     }
+
     public function add_customer(Request $request)
     {
 
@@ -41,19 +42,20 @@ class LoginController extends Controller
         // Validate dữ liệu
         $request->validate([
             'customer_name' => 'required',
-            'customer_email' => 'required|email|unique:customers', // Thay 'users' bằng tên bảng của người dùng trong CSDL
-            'customer_password' => 'required|min:6',
+            'customer_email' => 'required|email|unique:customers',
+            'customer_password' => 'required|string|min:6|confirmed',
             'customer_address' => 'required',
             'customer_phone' => 'required',
             'customer_gender' => 'required',
             'customer_dob' => 'required|date',
         ], [
-            'customer_name.required' => 'Vui lòng nhập têns của bạn.',
+            'customer_name.required' => 'Vui lòng nhập tên của bạn.',
             'customer_email.required' => 'Vui lòng nhập địa chỉ email của bạn.',
             'customer_email.email' => 'Địa chỉ email không hợp lệ.',
             'customer_email.unique' => 'Email đã tồn tại. Vui lòng sử dụng email khác.',
             'customer_password.required' => 'Vui lòng nhập mật khẩu.',
             'customer_password.min' => 'Mật khẩu phải có ít nhất 6 ký tự.',
+            'customer_password.confirmed' => 'Mật khẩu xác nhận không khớp.',
             'customer_address.required' => 'Vui lòng nhập địa chỉ của bạn.',
             'customer_phone.required' => 'Vui lòng nhập số điện thoại của bạn.',
             'customer_gender.required' => 'Vui lòng chọn giới tính của bạn.',
@@ -68,6 +70,13 @@ class LoginController extends Controller
         if ($existingCustomer) {
             return redirect('/register')->with('error', 'Email đã tồn tại. Vui lòng sử dụng email khác.');
         }
+        // Kiểm tra xem số điện thoại đã tồn tại trong cơ sở dữ liệu chưa
+        $existingCustomerPhone = UserProfile::where('customer_phone', $request->customer_phone)->first();
+
+        // Nếu số điện thoại đã tồn tại, trả về thông báo lỗi
+        if ($existingCustomerPhone) {
+            return redirect('/register')->with('error', 'Số điện thoại đã tồn tại. Vui lòng sử dụng số điện thoại khác.');
+        }
         $data = array();
         $data['customer_name'] = $request->customer_name;
         $data['customer_phone'] = $request->customer_phone;
@@ -76,7 +85,6 @@ class LoginController extends Controller
         $data['customer_address'] = $request->customer_address;
         $data['customer_gender'] = $request->customer_gender; // Lấy giá trị giới tính từ yêu cầu
         $data['customer_dob'] = $request->customer_dob;
-
         $customer_id = DB::table('customers')->insertGetId($data);
 
         // Lưu thông tin đăng nhập vào session
@@ -89,7 +97,7 @@ class LoginController extends Controller
         session::put('customer_dob', $request->customer_dob);
 
 
-        Session::flash('success', 'Đăng ký thành công!');
+        Session::flash('success', 'Xin Chào,Chúc Mừng Bạn Đã Đăng ký thành công!');
         return Redirect('/profile');
     }
 

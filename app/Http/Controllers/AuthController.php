@@ -45,6 +45,26 @@ class AuthController extends Controller
         ]);
     }
 
+    public function assign_roles(Request $request)
+    {
+        $data = $request->all();
+        $user = Admin::where('admin_email', $data['admin_email'])->first();
+        $user->roles()->detach();
+
+        if ($request['author_role']) {
+            $user->roles()->attach(Roles::where('name', 'author')->first());
+        }
+
+        if ($request['user_role']) {
+            $user->roles()->attach(Roles::where('name', 'user')->first());
+        }
+
+        if ($request['admin_role']) {
+            $user->roles()->attach(Roles::where('name', 'admin')->first());
+        }
+        return redirect()->back()->with('messsage', 'Cap Quyen Thanh Cong');
+    }
+
     //=============Dang Nhap Auth=============
     public function login_auth()
     {

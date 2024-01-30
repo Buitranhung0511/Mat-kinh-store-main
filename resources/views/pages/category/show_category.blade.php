@@ -6,7 +6,7 @@
         <h2 class="title text-center">{{ $name->category_name }}</h2>
     @endforeach
 
-
+    `
 
     @foreach ($category_by_id as $key => $product)
         <a href="{{ URL::to('chi-tiet-san-pham/' . $product->product_id) }}">
@@ -26,9 +26,9 @@
                     </div>
                     <div class="choose">
                         <ul class="nav nav-pills" style="display: flex; flex-wrap: wrap; justify-content: space-around">
-                            <li><a href="#"><i class="fa fa-plus-square"></i>Thêm Yêu Thích</a>
+                            <li><a href="#"><i class="fa fa-plus-square"></i>Additional favorite</a>
                             </li>
-                            <li><a href="#"><i class="fa fa-plus-square"></i>So Sánh</a></li>
+                            <li><a href="#"><i class="fa fa-plus-square"></i>Comparison</a></li>
                         </ul>
                     </div>
                 </div>

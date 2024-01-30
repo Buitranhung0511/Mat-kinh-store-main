@@ -122,7 +122,7 @@
                 </div>
             </div>
         @else
-            <p>Giỏ hàng của bạn đang trống. Hãy <a>quay lại trang sản phẩm</a>.</p>
+            <p>Your shopping cart is empty. Please return to the <a href="/san-pham">Product page</a></p>
             @endif
         </section>
 

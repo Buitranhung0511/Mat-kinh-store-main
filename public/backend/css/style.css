@@ -126,7 +126,7 @@ ul.sidebar-menu li ul.sub li {
     margin-right:0;
 }
 ul.sidebar-menu li ul.sub li a {
-    font-size:12px;
+    /* font-size:12px; */
     padding-top:13px;
     padding-bottom:13px;
     -webkit-transition:all 0.3s ease;
@@ -163,7 +163,7 @@ ul.sidebar-menu li a {
     text-decoration:none;
     display:block;
     padding:18px 0 18px 25px;
-    font-size:12px;
+    /* font-size:12px; */
     outline:none;
     -webkit-transition:all 0.3s ease;
     -moz-transition:all 0.3s ease;
@@ -2386,7 +2386,7 @@ input.ggg{
     font-size: 16px;
     color: #fff;
     float: left;
-    width: 32%;
+    /* width: 32%; */
 	margin-top: 8px;
 }
 .w3layouts-main h6 {

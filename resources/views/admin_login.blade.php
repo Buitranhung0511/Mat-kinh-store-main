@@ -37,33 +37,33 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </head>
 
 <body>
-    <div class="log-w3">
-        <div class="w3layouts-main">
-            <h2>Sign In </h2>
+    {{-- <div class="log-w3"> --}}
+    <div class="w3layouts-main">
+        <h2>Sign In </h2>
 
-            <?php
-            $message = Session::get('message');
-            if ($message) {
-                echo '<p class="text-alert ">' . $message . '</p>';
-                Session::put('message', null);
-            }
-            ?>
+        <?php
+        $message = Session::get('message');
+        if ($message) {
+            echo '<p class="text-alert ">' . $message . '</p>';
+            Session::put('message', null);
+        }
+        ?>
 
-            <form action="{{ URL::to('/admin-dashboard') }}" method="post">
-                {{ csrf_field() }}
-                <input type="text" class="ggg" name="admin_email" placeholder="E-MAIL" required="">
-                <input type="password" class="ggg" name="admin_password" placeholder="PASSWORD" required="">
-                <span><input type="checkbox" />Remember Me</span>
-                <h6><a href="#">Forgot Password?</a></h6>
-                <div class="clearfix"></div>
-                <input type="submit" value="Sign In" name="login">
-            </form>
+        <form action="{{ URL::to('/admin-dashboard') }}" method="post">
+            {{ csrf_field() }}
+            <input type="text" class="ggg" name="admin_email" placeholder="E-MAIL" required="">
+            <input type="password" class="ggg" name="admin_password" placeholder="PASSWORD" required="">
+            <span><input type="checkbox" />Remember Me</span>
+            <h6><a href="#">Forgot Password?</a></h6>
+            <div class="clearfix"></div>
+            <input type="submit" value="Sign In" name="login">
+        </form>
 
 
-            <p>Don't Have an Account ?<a href="{{ url('/register-auth') }}">Create an Auth</a></p>
-            <a href="{{ url('/login-auth') }}">Login an Auth</a>
+        <p>Don't Have an Account ?<a href="{{ url('/register-auth') }}">Create an Auth</a></p>
+        <a href="{{ url('/login-auth') }}">Login an Auth</a>
 
-        </div>
+    </div>
     </div>
     <script src="{{ asset('backend/js/bootstrap.js') }}"></script>
     <script src="{{ asset('backend/js/jquery.dcjqaccordion.2.7.js') }}"></script>

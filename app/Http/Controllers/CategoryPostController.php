@@ -147,10 +147,6 @@ class CategoryPostController extends Controller
 
     public function category_post(Request $request)
     {
-        // Xử lý lấy dữ liệu
-        // $slider = Slider::orderBy('id', 'DESC')->where('slider_status', '0')->limit(4)->get();
-        // $cate_product = CategoryProduct::where('category_status', '0')->orderBy('category_id', 'desc')->get();
-        // $all_product = Product::where('product_status', '0')->orderBy('product_id', 'desc')->limit(6)->get();
 
         // Xử lý logic
         $category_post = CategoryPost::orderBy('category_posts_id', 'DESC')->get();
@@ -173,9 +169,6 @@ class CategoryPostController extends Controller
 
         // Trả về view
         return view('pages.post_home.category_post', compact(
-            // 'slider',
-            // 'cate_product',
-            // 'all_product',
             'category_post',
             'post',
             'meta_title',

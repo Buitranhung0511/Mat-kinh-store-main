@@ -177,7 +177,7 @@
                             @csrf
                             <div class="search_box pull-right">
                                 <input type="text" name="keywords_submit" placeholder="Search" />
-                                <input type="submit" style="margin-top:0;color:#666; width: 70px; border-radius: 5px"
+                                <input type="submit" style="margin-top:0; width: 70px; border-radius: 5px"
                                     name="search_item" class="btn btn-primary" placeholder="Search" />
                                 {{-- <button type="submit" class="btn btn-primary btn-sm">Search</button> --}}
                             </div>
@@ -641,81 +641,74 @@
         }
 
 
-        const host = "https://provinces.open-api.vn/api/";
-        var callAPI = (api) => {
-            $.ajax({
-                url: api,
-                type: 'GET',
-                success: function(response) {
-
-                    renderData(response, "province");
-                },
-                error: function(error) {
-                    console.log("Error:", error);
-                }
-            });
-        };
-        callAPI('https://provinces.open-api.vn/api/?depth=1');
-        var callApiDistrict = (api) => {
-            $.ajax({
-                url: api,
-                type: 'GET',
-                success: function(response) {
-                    console.log(response)
-                    renderData(response.districts, "district");
-                },
-                error: function(error) {
-                    console.log("Error:", error);
-                }
-            });
-        };
-
-        var callApiWard = (api) => {
-            $.ajax({
-                url: api,
-                type: 'GET',
-                success: function(response) {
-                    console.log(response)
-                    renderData(response.wards, "ward");
-                },
-                error: function(error) {
-                    console.log("Error:", error);
-                }
-            });
-        };
-
-
-        var renderData = (array, select) => {
-            let row = ' <option disable value="">chọn</option>';
-            array.forEach(element => {
-                row += `<option value="${element.code}">${element.name}</option>`
-            });
-            $("#" + select).html(row);
-
-        }
-
-        $("#province").change(() => {
-            callApiDistrict(host + "p/" + $("#province").val() + "?depth=2");
-            printResult();
-        });
-        $("#district").change(() => {
-            callApiWard(host + "d/" + $("#district").val() + "?depth=2");
-            printResult();
-        });
-        $("#ward").change(() => {
-            printResult();
-        })
-
-        var printResult = () => {
-            if ($("#district").val() != "" && $("#province").val() != "" &&
-                $("#ward").val() != "") {
-                let result = $("#province option:selected").text() +
-                    " | " + $("#district option:selected").text() + " | " +
-                    $("#ward option:selected").text();
-                $("#result").text(result)
+        // API ĐỊA CHỈ
+        //Tải danh sách tỉnh khi trang web được tải
+        $.ajax({
+            url: '/provinces',
+            type: 'GET',
+            dataType: 'json',
+            success: function(provinces) {
+                provinces.forEach(function(province) {
+                    var option = new Option(province._name, province.province_id);
+                    option.value = province.province_id; // Gán giá trị cho tùy chọn
+                    $('#provinceSelect').append(option);
+                    console.log(province);
+                });
             }
+        });
 
-        }
+        // Khi tỉnh được chọn
+        $('#provinceSelect').change(function() {
+            console.log('test');
+            var provinceId = $(this).val();
+            // $('#districtSelect').empty().append(new Option('Chọn Quận/Huyện', ''));
+            // $('#wardSelect').empty().append(new Option('Chọn Xã/Phường', ''));
+
+            if (provinceId) {
+                $.ajax({
+                    url: '/provinces/' + provinceId + '/districts',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(districts) {
+                        districts.forEach(function(district) {
+                            $('#districtSelect').append(new Option(
+                                district._name, district.district_id));
+
+                        });
+                    }
+                });
+            }
+        });
+
+        // Khi quận/huyện được chọn
+        $('#districtSelect').on('change', function() {
+            var districtId = $(this).val();
+            console.log(districtId);
+            // $('#wardSelect').empty().append(new Option('Chọn Xã/Phường', ''));
+
+            if (districtId) {
+                $.ajax({
+                    url: '/districts/' + districtId + '/wards',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(wards) {
+                        wards.forEach(function(ward) {
+                            var option = new Option(ward._name, ward
+                                .ward_id);
+                            option.value = ward.ward_id;
+                            $('#wardSelect').append(option);
+                            console.log(wards);
+                        });
+
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error loading wards:", status, error);
+                    }
+                });
+            }
+        });
+
+
 
         // add toCart
         function addToCard(urlProduct) {
@@ -848,9 +841,9 @@
                 phone: $("#inputPhone").val(),
                 email: $("#inputEmail").val(),
                 address: $("#inputAddress").val(),
-                city: $("#province option:selected").text(),
-                district: $("#district option:selected").text(),
-                ward: $("#ward option:selected").text(),
+                city: $("#provinceSelect option:selected").text(),
+                district: $("#districtSelect option:selected").text(),
+                ward: $("#wardSelect option:selected").text(),
 
                 checkbox1: $("#flexCheckDefault").prop("checked"),
                 checkbox2: $("#flexCheckDefault1").prop("checked")
@@ -901,9 +894,6 @@
                 alert("Please fill in the Postal Code field");
                 return false;
             }
-
-
-
 
             // Validate Checkbox 1
             if (!values.checkbox1) {

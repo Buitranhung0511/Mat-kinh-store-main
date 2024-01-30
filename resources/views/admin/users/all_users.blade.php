@@ -70,6 +70,7 @@ use Illuminate\Support\Facades\Session;
                                             value="{{ $user->admin_email }}"></td>
                                     <td>{{ $user->admin_phone }}</td>
                                     <td>{{ $user->admin_password }}</td>
+
                                     <td><input type="checkbox" name="author_role"
                                             {{ $user->hasRole('author') ? 'checked' : '' }}></td>
                                     <td><input type="checkbox" name="admin_role"

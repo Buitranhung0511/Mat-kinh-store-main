@@ -5,7 +5,7 @@
             <div class="col-sm-3">
                 <div class="left-sidebar">
 
-                    <h2 style="color: skyblue">Product Catalog</h2>
+                    <h2 style="color: #2394c2">Product Catalog</h2>
                     <div class="panel-group category-products" id="accordian"><!--category-product-->
                         @foreach ($category as $key => $cate)
                             <div class="panel panel-default">
@@ -18,18 +18,6 @@
                             </div>
                         @endforeach
                     </div><!--/category-products-->
-
-                    <!-- price-range-->
-                    <div class="price-range">
-                        <h2>Price Range</h2>
-                        <div class="well text-center">
-                            <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="600"
-                                data-slider-step="5" data-slider-value="[250,450]" id="sl2"><br />
-                            <b class="pull-left">$ 0</b> <b class="pull-right">$ 600</b>
-                        </div>
-                    </div>
-                    <!--/price-range -->
-
 
                     <div class="shipping text-center"><!--shipping-->
                         <img src="images/home/shipping.jpg" alt="" />
@@ -68,9 +56,10 @@
                                         <div class="choose">
                                             <ul class="nav nav-pills "
                                                 style="display: flex; flex-wrap: wrap; justify-content: space-around">
-                                                <li><a href="#"><i class="fa fa-plus-square"></i>Thêm Yêu Thích</a>
+                                                <li><a href="#"><i class="fa fa-plus-square"></i>Additional
+                                                        favorite</a>
                                                 </li>
-                                                <li><a href="#"><i class="fa fa-plus-square"></i>So Sánh</a></li>
+                                                <li><a href="#"><i class="fa fa-plus-square"></i>Comparison</a></li>
                                             </ul>
                                         </div>
                                     </div>

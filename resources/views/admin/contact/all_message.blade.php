@@ -56,6 +56,7 @@ use Illuminate\Support\Facades\Session;
                         <th>Phone</th>
                         <th>Message</th>
                         <th>Status</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -69,6 +70,13 @@ use Illuminate\Support\Facades\Session;
                                 <td>{{ $mess->contact_phone }}</td>
                                 <td>{{ $mess->contact_message }}</td>
                                 <td>{{ $mess->contact_status }}</td>
+                                <td>
+                                    {{-- Reply button --}}
+                                    <a href="{{ route('reply-message', $mess->contact_id) }}" class="active"
+                                        ui-toggle-class="">
+                                        <i class="fa fa-reply text-success text"></i> Reply
+                                    </a>
+                                </td>
 
                                 <td>
                                     <a onclick="return confirm('Are you sure to delete?')"

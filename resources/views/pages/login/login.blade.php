@@ -15,14 +15,14 @@
                         </div>
                     @endif
                     @if (session()->has('ok'))
-                            <div class="alert alert-success">
-                                {{ session()->get('ok') }}
-                            </div>
-                        @elseif (session()->has('fail'))
-                            <div class="alert alert-danger">
-                                {{ session()->get('fail') }}
-                            </div>
-                        @endif
+                        <div class="alert alert-success">
+                            {{ session()->get('ok') }}
+                        </div>
+                    @elseif (session()->has('fail'))
+                        <div class="alert alert-danger">
+                            {{ session()->get('fail') }}
+                        </div>
+                    @endif
                     <form action="{{ URL::to('/login-customer') }}" method="POST">
                         @csrf
                         <!-- Email input -->
@@ -47,6 +47,7 @@
                             </div>
                             <a href="{{ URL::to('/register') }}">Register</a>
                             <a href="{{ URL::to('/forgot-password') }}">Forgot-Password</a>
+                            <a href="{{ url('/login-auth') }}">Login an Auth</a>
                         </div>
 
                         <!-- Submit button -->

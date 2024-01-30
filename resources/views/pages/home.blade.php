@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="features_items">
-                        <h2 class="title text-center" style="color: rgb(92, 188, 225);">Newest Product</h2>
+                        <h2 class="title text-center">Newest Product</h2>
 
                         @foreach ($all_product as $key => $product)
                             <a href="{{ URL::to('chi-tiet-san-pham/' . $product->product_id) }}">
@@ -16,7 +16,7 @@
                                                 <img src="{{ URL::to('public/uploads/product/' . $product->product_image) }}"
                                                     alt="" />
 
-                                                <h2 style="color: rgb(92, 188, 225);">
+                                                <h2>
                                                     {{ number_format($product->product_price) }}
                                                 </h2>
 
@@ -34,9 +34,9 @@
                                         <div class="choose">
                                             <ul class="nav nav-pills"
                                                 style="display: flex; flex-wrap: wrap; justify-content: space-around;">
-                                                <li><a href="#"><i class="fa fa-plus-square"></i>Thêm Yêu
-                                                        Thích</a></li>
-                                                <li><a href="#"><i class="fa fa-plus-square"></i>So Sánh</a></li>
+                                                <li><a href="#"><i class="fa fa-plus-square"></i>Additional
+                                                        favorite</a></li>
+                                                <li><a href="#"><i class="fa fa-plus-square"></i>Comparison</a></li>
                                             </ul>
                                         </div>
                                     </div>

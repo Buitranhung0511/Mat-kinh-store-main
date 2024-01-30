@@ -31,14 +31,7 @@
         <div class="row">
             <div class="row">
                 <div class="col">
-                    <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
-                        <ol class="breadcrumb mb-0">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
 
-                            <li class="breadcrumb-item active" aria-current="page"><a href="{{ URL::to('/profile') }}">User
-                                    Profile</a></li>
-                        </ol>
-                    </nav>
                 </div>
             </div>
 
@@ -63,20 +56,20 @@
                         <div class="card-body p-0">
                             <ul class="list-group list-group-flush rounded-3">
                                 <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                    <i class="fas fa-globe fa-lg text-warning"></i>
-                                    <p class="mb-0"><a href="">Lịch sử mua hàng</a></p>
+
+                                    <p class="mb-0"><a href="">Buy history</a></p>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                    <i class="fab fa-github fa-lg" style="color: #333333;"></i>
-                                    <p class="mb-0"><a href="">Đơn Hàng</a></p>
+
+                                    <p class="mb-0"><a href="">Order</a></p>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                    <i class="fab fa-twitter fa-lg" style="color: #55acee;"></i>
-                                    <p class="mb-0"><a href="">Ưu Đãi Dành Riêng Cho Bạn</a></p>
+
+                                    <p class="mb-0"><a href="">Exclusive discount for you</a></p>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                    <i class="fab fa-instagram fa-lg" style="color: #ac2bac;"></i>
-                                    <p class="mb-0"><a href="">Kho Voucher</a></p>
+
+                                    <p class="mb-0"><a href="">Voucher</a></p>
                                 </li>
 
                             </ul>

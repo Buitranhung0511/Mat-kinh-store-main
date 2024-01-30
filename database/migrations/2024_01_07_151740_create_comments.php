@@ -15,7 +15,7 @@ return new class extends Migration
             $table->increments('comment_id');
             $table->string('comment');
             $table->string('comment_name');
-            $table->string('comment_email')->unique();
+            $table->string('comment_email');
             $table->timestamp('comment_date');
             $table->integer('comment_status');
             $table->unsignedInteger('product_id');

@@ -22,8 +22,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\LoginController;
-
-
+use App\Http\Controllers\ApiController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -212,15 +211,6 @@ Route::middleware(['checkAdmin'])->group(function () {
         OrderController::class, 'view_order'
     ])->name('view-order');
 
-    Route::post('assign-roles', [
-        AuthController::class, 'assign_roles'
-    ])->name('assign-roles');
-
-    // Phân quyền chức năng
-    Route::post('assign-roles', [
-        UserController::class, 'assign_roles'
-    ])->name('assign-roles')->middleware('auth.roles');
-
     // User List
     Route::get('all-user', [
         UserController::class, 'index'
@@ -230,6 +220,15 @@ Route::middleware(['checkAdmin'])->group(function () {
     Route::get('add-user', [
         UserController::class, 'add_users'
     ])->name('add-user');
+
+    Route::post('assign-roles', [
+        AuthController::class, 'assign_roles'
+    ])->name('assign-roles');
+
+    // Phân quyền chức năng
+    Route::post('assign-roles', [
+        UserController::class, 'assign_roles'
+    ])->name('assign-roles')->middleware('auth.roles');
 });
 
 
@@ -237,24 +236,6 @@ Route::middleware(['checkAdmin'])->group(function () {
 // CÁC ROUTE DÀNH CHO AUTHOR
 Route::middleware(['checkAuthor'])->group(function () {
 
-    Route::post('assign-roles', [
-        AuthController::class, 'assign_roles'
-    ])->name('assign-roles');
-
-    // Phân quyền chức năng
-    Route::post('assign-roles', [
-        UserController::class, 'assign_roles'
-    ])->name('assign-roles')->middleware('auth.roles');
-
-    // User List
-    Route::get('all-user', [
-        UserController::class, 'index'
-    ])->name('all-user');
-
-    // Add User
-    Route::get('add-user', [
-        UserController::class, 'add_users'
-    ])->name('add-user');
     // SLIDER MANAGEMENT
     Route::get('add-slider', [
         sliderController::class, 'add_slider'
@@ -466,6 +447,10 @@ Route::middleware(['checkUser'])->group(function () {
         sliderController::class, 'manage_slider'
     ])->name('manage-slider');
 
+    Route::post('assign-roles', [
+        AuthController::class, 'assign_roles'
+    ])->name('assign-roles');
+
     //Search Sliders
     Route::get('/search-slider', [
         sliderController::class, 'search_slider'
@@ -572,6 +557,7 @@ Route::middleware(['checkUser'])->group(function () {
         PostController::class, 'search_post'
     ])->name('search-post');
 
+
     //========================CONTACT=========================================
     // Show Contact Message
     Route::get('/show-contact', [
@@ -582,6 +568,10 @@ Route::middleware(['checkUser'])->group(function () {
         ContactController::class, 'submitForm'
     ])->name('submit-form');
 
+    Route::get('/reply-message/{contact_id}', [
+        ContactController::class, 'replyMessage'
+    ])->name('reply-message');
+
     Route::get('/delete-message/{contact_id}', [
         ContactController::class, 'delete_message'
     ])->name('delete-message');
@@ -589,6 +579,10 @@ Route::middleware(['checkUser'])->group(function () {
     Route::get('/search-message', [
         ContactController::class, 'search_message'
     ])->name('search-message');
+
+    Route::post('/reply/{contact_id}', [
+        ContactController::class, 'showReplyForm'
+    ])->name('reply');
 });
 
 
@@ -660,4 +654,18 @@ Route::post('/reset-new-pass', [
 ])->name('reset-new-pass');
 
 
-//đóng login-logout
+// API Địa chỉ
+Route::get('/provinces', [
+    ApiController::class, 'getProvinces'
+])->name('provinces');
+
+Route::get('/provinces/{provinceId}/districts', [
+    ApiController::class, 'getDistricts'
+])->name('provinces');
+
+Route::get('/districts/{districtId}/wards', [
+    ApiController::class, 'getWards'
+])->name('provinces');
+
+// Route::get('/provinces/{provinceId}/districts', 'ApiController@getDistricts');
+// Route::get('/districts/{districtId}/wards', 'ApiController@getWards');

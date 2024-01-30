@@ -6,7 +6,7 @@
             <div class="col-sm-5">
                 <div class="view-product">
                     <img src="{{ URL::to('/public/uploads/product/' . $value->product_image) }}" alt="" />
-                    <h3>ZOOM</h3>
+
                 </div>
 
                 <div id="similar-product" class="carousel slide" data-ride="carousel">
@@ -60,8 +60,10 @@
                         </a>
                     </div>
 
-                    <h3 class="mt-3"><b style="color: rgb(92, 188, 225);">Status:</b> Con Hang</h3>
-                    <h3><b style="color: rgb(92, 188, 225);">Condition:</b> New</h3>
+                    <h3 class="mt-3"><b style="color: rgb(92, 188, 225);">Status:</b>Still available</h3>
+                    <div class="tab-pane " id="companyprofile">
+                        <h4>{!! $value->product_content !!}</h4>
+                    </div>
                     {{-- <h3><b style="color: rgb(92, 188, 225);">Category:</b> {{ $value->category_id }}</h3> --}}
                     <a href=""><img src="images/product-details/share.png" class="share img-responsive"
                             alt="" /></a>
@@ -74,7 +76,7 @@
             <div class="col-sm-12">
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#details" data-toggle="tab">Product description</a></li>
-                    <li><a href="#companyprofile" data-toggle="tab">Product Details</a></li>
+                    {{-- <li><a href="#companyprofile" data-toggle="tab">Product Details</a></li> --}}
                     <li><a href="#reviews" data-toggle="tab">Star Rating....... (5)</a></li>
                 </ul>
             </div>

@@ -2,8 +2,6 @@
 @section('content')
     <section class="bg-light" style=" font-size: 20px;">
         <div class="container ">
-
-
             <div class="row ">
                 <div class="col-xl-8 col-lg-8 mb-6">
                     <div class="card mb-4 border shadow-0">
@@ -13,8 +11,7 @@
                                 <p class="mb-0 text-wrap ">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
                             </div>
                             <div class="d-flex align-items-center justify-content-center flex-column flex-md-row">
-                                <a href="#"
-                                    class="btn btn-outline-primary me-0 me-md-2 mb-2 mb-md-0 w-100">Register</a>
+                                <a href="#" class="btn btn-primary me-0 me-md-2 mb-2 mb-md-0 w-100">Register</a>
                                 <a href="#" class="btn btn-primary shadow-0 text-nowrap w-100">Sign in</a>
                             </div>
                         </div>
@@ -42,7 +39,7 @@
                                 <h5 class="card-title mb-3">Guest checkout</h5>
                                 <div class="row">
                                     <div class="col-6 mb-3">
-                                        <p class="mb-0">Fullname name</p>
+                                        <p class="mb-0">Fullname </p>
                                         <div class="form-outline">
                                             <input type="text" id="inputFullname" placeholder="Type here"
                                                 class="form-control" />
@@ -117,39 +114,27 @@
                                     </div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-sm-4 mb-3">
-                                        <p class="mb-0">Address</p>
-                                        <input type="text" id="inputAddress" placeholder="Type here"
-                                            class="form-control" />
-                                    </div>
-
-                                    <div class="col-sm-4 mb-3">
-                                        <p class="mb-0">City</p>
-                                        {{-- <select id="province">
-
-                                        </select> --}}
-                                        <input type="text" id="porvince" placeholder="Type here" class="form-control" />
-                                    </div>
-
-                                </div>
-
                                 <div class="col-sm-4 mb-3">
-                                    <p class="mb-0">District</p>
-                                    {{-- <select name="" id="district">
-                                            <option value="">chọn quận</option>
-                                        </select> --}}
-
-                                    <input type="text" id="district" placeholder="Type here" class="form-control" />
+                                    <p class="mb-0">Address</p>
+                                    <input type="text" id="inputAddress" placeholder="Type here" class="form-control" />
                                 </div>
+                                <!-- Province Select -->
+                                <select id="provinceSelect">
+                                    <option value="">Chose Province</option>
+                                    <!-- Các tỉnh sẽ được thêm ở đây -->
+                                </select>
 
-                                <div class="col-sm-4  mb-3">
-                                    <p class="mb-0">Ward</p>
-                                    {{-- <select id="ward">
-                                            <option value="">chọn phường</option>
-                                        </select> --}}
-                                    <input type="text" id="ward" placeholder="Type here" class="form-control" />
-                                </div>
+                                <!-- District Select -->
+                                <select id="districtSelect">
+                                    <option value="">Chose Distric</option>
+                                    <!-- Các quận/huyện sẽ được thêm ở đây -->
+                                </select>
+
+                                <!-- Ward Select -->
+                                <select id="wardSelect">
+                                    <option value="">Chose Ward</option>
+                                    <!-- Các xã/phường sẽ được thêm ở đây -->
+                                </select>
 
 
                             </div>
@@ -167,89 +152,90 @@
                             </div>
 
                             <div class="float-end">
-                                <button type="button" class="btn btn-light border" id="cancelBtn">Cancel</button>
-                                <button type="button" id="showModalButton" class="btn btn-primary contineu"
+                                <button type="button" class="btn btn-primary border" id="cancelBtn">Cancel</button>
+                                <button type="button" id="showModalButton" class="btn btn-primary contine"
                                     data-toggle="modal">
-                                    Contineu
+                                    Contine
                                 </button>
                             </div>
                         </div>
                 </div>
                 </form>
                 <!-- Checkout -->
-            </div>
 
-            @php
-                $subTotal = 0;
-                $netTotal = 0;
-                $allProductNames = [];
-            @endphp
-            @foreach ($carts as $id => $cart)
+
                 @php
-                    $subTotal += $cart['price'] * $cart['quantity'];
-                    $allProductNames[] = $cart['name'];
+                    $subTotal = 0;
+                    $netTotal = 0;
+                    $allProductNames = [];
                 @endphp
-            @endforeach
+                @foreach ($carts as $id => $cart)
+                    @php
+                        $subTotal += $cart['price'] * $cart['quantity'];
+                        $allProductNames[] = $cart['name'];
+                    @endphp
+                @endforeach
 
-            <div class="col-xl-4 col-lg-4 d-flex justify-content-center justify-content-lg-end">
-                <div class="ms-lg-4 mt-4 mt-lg-0" style="max-width: 320px;">
-                    <h4 class="mb-3" style="font-size: 20px; ">Summary</h4>
-                    <div class="d-flex justify-content-between">
-                        <p class="mb-2">nameProduct:</p>
-                        <p class="mb-2">
-                            @foreach ($allProductNames as $productName)
-                                {{ $productName }},
-                            @endforeach
-                        </p>
+                <div class="col-xl-4 col-lg-4 d-flex justify-content-center justify-content-lg-end">
+                    <div class="ms-lg-4 mt-4 mt-lg-0" style="max-width: 320px;">
+                        <h4 class="mb-3" style="font-size: 20px; ">Summary</h4>
+                        <div class="d-flex justify-content-between">
+                            <p class="mb-2">NameProduct: </p>
+                            <p class="mb-2">
+                                @foreach ($allProductNames as $productName)
+                                    {{ $productName }},
+                                @endforeach
+                            </p>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <p class="mb-2">Total price:</p>
+                            <p class="mb-2">{{ $subTotal }}</p>
+                        </div>
+                        <div class="d-flex justify-content-between">
+
+
+                            @php
+                                $discount = Session::get('discount');
+                                $discountPercent = 0;
+                            @endphp
+
+                            @if ($discount)
+                                @foreach ($discount as $key => $cout)
+                                    @if ($cout['counbon_status'] == 0 && is_numeric($cout['counbon_percent']))
+                                        @php
+                                            $discountPercent = $subTotal * ($cout['counbon_percent'] / 100);
+                                        @endphp
+                                        <p class="mb-2">Discount:</p>
+                                        <p class="mb-2 text-danger">- {{ $discountPercent }}</p>
+                                    @endif
+                                @endforeach
+                            @endif
+
+
+
+
+
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <p class="mb-2">Shipping cost:</p>
+                            <p class="mb-2">+ $14.00</p>
+                        </div>
+                        <hr />
+                        <div class="d-flex justify-content-between">
+                            <p class="mb-2">Total price:</p>
+                            <p class="mb-2 fw-bold">{{ $netTotal = $subTotal - $discountPercent }}</p>
+                        </div>
+
+
+                        <form action="{{ route('check-discount') }}" method="POST" id="discountForm">
+                            @csrf
+                            <!-- Trường input chứa giá trị mã giảm giá -->
+                            <input type="text" name="code" id="discountCodeInput" class="form-control border">
+                            <input type="hidden" name="timeNow" value="{{ now() }}">
+                            <!-- Nút submit -->
+                            <button type="submit" class="btn btn-light text-primary border">Discount</button>
+                        </form>
                     </div>
-                    <div class="d-flex justify-content-between">
-                        <p class="mb-2">Total price:</p>
-                        <p class="mb-2">{{ $subTotal }}</p>
-                    </div>
-                    <div class="d-flex justify-content-between">
-
-
-                        @php
-                            $discount = Session::get('discount');
-                            $discountPercent = 0;
-                        @endphp
-
-                        @if ($discount)
-                            @foreach ($discount as $key => $cout)
-                                @if ($cout['counbon_status'] == 0 && is_numeric($cout['counbon_percent']))
-                                    @php
-                                        $discountPercent = $subTotal * ($cout['counbon_percent'] / 100);
-                                    @endphp
-                                    <p class="mb-2">Discount:</p>
-                                    <p class="mb-2 text-danger">- {{ $discountPercent }}</p>
-                                @endif
-                            @endforeach
-                        @endif
-
-
-
-
-
-                    </div>
-                    <div class="d-flex justify-content-between">
-                        <p class="mb-2">Shipping cost:</p>
-                        <p class="mb-2">+ $14.00</p>
-                    </div>
-                    <hr />
-                    <div class="d-flex justify-content-between">
-                        <p class="mb-2">Total price:</p>
-                        <p class="mb-2 fw-bold">{{ $netTotal = $subTotal - $discountPercent }}</p>
-                    </div>
-
-
-                    <form action="{{ route('check-discount') }}" method="POST" id="discountForm">
-                        @csrf
-                        <!-- Trường input chứa giá trị mã giảm giá -->
-                        <input type="text" name="code" id="discountCodeInput" class="form-control border">
-                        <input type="hidden" name="timeNow" value="{{ now() }}">
-                        <!-- Nút submit -->
-                        <button type="submit" class="btn btn-light text-primary border">Discount</button>
-                    </form>
                 </div>
     </section>
     {{-- modal buill --}}
@@ -305,10 +291,13 @@
                         <label for="emailUser">Email User:</label>
                         <input type="text" class="form-control" id="emailUser" readonly>
                     </div>
+
                     <div class="form-group">
-                        <label for="address">Address:</label>
-                        <textarea class="form-control" id="address" rows="3" readonly></textarea>
+                        <p class="mb-0">Address</p>
+                        <input type="text" id="inputAddress" placeholder="Type here" class="form-control" />
                     </div>
+
+
                     <div class="form-group">
                         <label>Payment Method:</label>
                         <div class="form-check">
