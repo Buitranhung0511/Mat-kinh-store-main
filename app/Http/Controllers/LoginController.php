@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
+use DateTime;
 
 session_start();
 class LoginController extends Controller
@@ -35,8 +36,7 @@ class LoginController extends Controller
     }
     public function add_customer(Request $request)
     {
-
-        // Validate dữ liệu
+        $token = Str::random(10);
         // Validate dữ liệu
         $request->validate([
             'customer_name' => 'required',
@@ -68,6 +68,12 @@ class LoginController extends Controller
         if ($existingCustomer) {
             return redirect('/register')->with('error', 'Email already exists. Please use another email.');
         }
+
+        // Kiểm tra độ tuổi
+        $dob = new DateTime($request->customer_dob);
+        $now = new DateTime();
+        $age = $now->diff($dob)->y;
+
         // Kiểm tra xem số điện thoại đã tồn tại trong cơ sở dữ liệu chưa
         $existingCustomerPhone = UserProfile::where('customer_phone', $request->customer_phone)->first();
 
@@ -83,6 +89,7 @@ class LoginController extends Controller
         $data['customer_address'] = $request->customer_address;
         $data['customer_gender'] = $request->customer_gender; // Lấy giá trị giới tính từ yêu cầu
         $data['customer_dob'] = $request->customer_dob;
+        $data['customer_token'] = $token; // Gán giá trị token
         $customer_id = DB::table('customers')->insertGetId($data);
 
         // Lưu thông tin đăng nhập vào session

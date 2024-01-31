@@ -12,7 +12,7 @@ use App\Models\UserProfile;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
-
+use Illuminate\Support\Facades\Hash;
 
 class ContactController extends Controller
 {
@@ -27,38 +27,36 @@ class ContactController extends Controller
     // Hàm xử lý submitForm
     public function submitForm(Request $request)
     {
-        // Kiểm tra dữ liệu từ form
+        // Xác thực dữ liệu
         $validateData = $request->validate([
             'fullname' => 'required|string|max:255',
-            'email' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
             'phone' => 'nullable|string|max:11',
             'message' => 'required|string',
-
         ]);
 
-        // Lấy email tương ứng với bảng member
-        $member = UserProfile::where('customer_email', $request->input('customer_email'))->first();
 
-        if ($member) {
-
-            // Lưu dữ liệu vào database
-            $contact = new Contact();
-            $contact->contact_name = $request->input('fullname');
-            $contact->contact_email = $request->input('email');
-            $contact->contact_phone = $request->input('phone');
-            $contact->contact_message = $request->input('message');
-            $contact->contact_status = 'pending'; // Gán giá trị mặc định cho trường status
-            // $contact->customer_id = $member->customer_id; // Gán ID của thành viên
-            $contact->save();
-
-            // Gửi email với nội dung mặc định từ view default_email.blade.php
+        // Lưu dữ liệu vào databases
+        $contact = new Contact();
+        $contact->contact_name = $request->input('fullname');
+        $contact->contact_email = $request->input('email');
+        $contact->contact_phone = $request->input('phone');
+        $contact->contact_message = $request->input('message');
+        $contact->contact_status = 'pending';
+        $contact->save();
+        // Gửi email
+        try {
             Mail::send('mail', ['name' => $request->input('fullname')], function ($message) use ($request) {
                 $message->to($request->input('email'))->subject('Thank you for contacting us!');
             });
-        } else {
-            return redirect()->back()->with('error', 'Member with the provided email does not exist!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Error sending email: ' . $e->getMessage());
         }
+
+        // Quay về trang trước
+        return redirect()->back()->with('success', 'Your message has been submitted successfully.');
     }
+
 
     public function replyMessage(Request $request, $contact_id)
     {

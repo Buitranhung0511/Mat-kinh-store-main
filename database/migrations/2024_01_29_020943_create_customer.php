@@ -1,3 +1,4 @@
+
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -18,6 +19,7 @@ return new class extends Migration
             $table->string('customer_password');
             $table->string('customer_phone');
             $table->string('customer_address');
+            $table->boolean('customer_ban')->default(false);
             $table->string('customer_gender'); // Thêm cột giới tính
             $table->date('customer_dob'); // Thêm cột ngày sinh
             $table->string('customer_token');

@@ -629,9 +629,6 @@
                     console.log(response);
                     if (response.code === 200) {
                         $('.product_parent').html(response.data);
-
-
-
                     }
                 },
                 error: function() {
@@ -652,7 +649,7 @@
                     var option = new Option(province._name, province.province_id);
                     option.value = province.province_id; // Gán giá trị cho tùy chọn
                     $('#provinceSelect').append(option);
-                    console.log(province);
+                    // console.log(province);
                 });
             }
         });
@@ -697,7 +694,7 @@
                                 .ward_id);
                             option.value = ward.ward_id;
                             $('#wardSelect').append(option);
-                            console.log(wards);
+                            // console.log(wards);
                         });
 
                     },
