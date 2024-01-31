@@ -47,7 +47,7 @@
                             </div>
                             <a href="{{ URL::to('/register') }}">Register</a>
                             <a href="{{ URL::to('/forgot-password') }}">Forgot-Password</a>
-                            <a href="{{ url('/login-auth') }}">Login an Auth</a>
+                            <a href="{{ url('/login-auth') }}">Login Admin</a>
                         </div>
 
                         <!-- Submit button -->

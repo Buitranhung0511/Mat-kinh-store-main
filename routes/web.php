@@ -261,35 +261,6 @@ Route::middleware(['checkAuthor'])->group(function () {
         sliderController::class, 'delete_slide'
     ])->name('delete-slide');
 
-
-    //========================================================
-    // XỬ LÝ Member (DASHBOARD)
-
-    Route::post('/register-member', [
-        MemberController::class, 'store'
-    ])->name('register-member');
-
-    Route::get('register-member', [
-        MemberController::class, 'create'
-    ])->name('register-member');
-
-    Route::get('/all-member', [
-        MemberController::class, 'all_member'
-    ])->name('all-member');
-
-    // Xử lý trang UPDATE member
-    Route::post('/ban-member/{id}', [
-        MemberController::class, 'banMember'
-    ])->name('ban-member');
-
-    Route::post('/unban-member/{id}', [
-        MemberController::class, 'unbanMember'
-    ])->name('unban-member');
-
-    Route::get('/search', [
-        MemberController::class, 'search'
-    ])->name('search');
-
     //============================================================================
     // XỬ LÝ CATEGORY-PRODUCT (DASHBOARD)
     Route::get('/add-category-product', [
@@ -557,7 +528,6 @@ Route::middleware(['checkUser'])->group(function () {
         PostController::class, 'search_post'
     ])->name('search-post');
 
-
     //========================CONTACT=========================================
     // Show Contact Message
     Route::get('/show-contact', [
@@ -583,6 +553,24 @@ Route::middleware(['checkUser'])->group(function () {
     Route::post('/reply/{contact_id}', [
         ContactController::class, 'showReplyForm'
     ])->name('reply');
+
+    //================  Member  ==========================================================
+    Route::get('/showmenber', [
+        LoginController::class, 'showmenber'
+    ])->name('showmenber');
+
+    Route::post('/ban-customer/{customer_id}', [
+        LoginController::class, 'ban_customer'
+    ])->name('ban-customer');
+
+    Route::post('/uban-customer/{customer_id}', [
+        LoginController::class, 'uban_customer'
+    ])->name('uban-customer');
+
+
+    Route::get('/search', [
+        LoginController::class, 'search'
+    ])->name('search');
 });
 
 
@@ -629,7 +617,7 @@ Route::get('/change-password', [
 
 
 Route::post('/change-password1', [
-    AuthController::class, 'changePassword1'
+    AuthController::class, 'change_Password'
 ])->name('change-password1');
 
 Route::post('/update-avatar', [

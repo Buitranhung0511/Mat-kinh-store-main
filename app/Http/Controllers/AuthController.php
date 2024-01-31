@@ -31,7 +31,7 @@ class AuthController extends Controller
         $admin->admin_email = $data['admin_email'];
         $admin->admin_password = md5($data['admin_password']);
         $admin->save();
-        return redirect('/register-auth')->with('message', 'Đăng Ký thành công');
+        return redirect('/register-auth')->with('message', 'Sign Up Success');
     }
 
     public function validation($request)
@@ -62,7 +62,7 @@ class AuthController extends Controller
         if ($request['admin_role']) {
             $user->roles()->attach(Roles::where('name', 'admin')->first());
         }
-        return redirect()->back()->with('messsage', 'Cap Quyen Thanh Cong');
+        return redirect()->back()->with('messsage', 'Authorization Successful');
     }
 
     //=============Dang Nhap Auth=============
@@ -81,7 +81,7 @@ class AuthController extends Controller
         if (Auth::attempt(['admin_email' => $request->admin_email, 'admin_password' => $request->admin_password])) {
             return view('admin.dashboard');
         } else {
-            return redirect('/login-auth')->with('message', 'Lỗi Đăng Nhập');
+            return redirect('/login-auth')->with('message', 'Login error');
         }
     }
 
@@ -89,7 +89,7 @@ class AuthController extends Controller
     public function logout_auth()
     {
         Auth::logout();
-        return redirect('/login-auth')->with('message', 'Đăng Xuất Thành Công');
+        return redirect('/login-auth')->with('message', 'Sign Out Successfully');
     }
 
     /////////////////////// đổi pass user
@@ -98,7 +98,7 @@ class AuthController extends Controller
         return view('pages.login.change-password');
     }
 
-    public function changePassword1(Request $request)
+    public function change_Password(Request $request)
     {
         // Validate input kiểm tra giá trị đầu vào của password
         $request->validate([

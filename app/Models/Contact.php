@@ -13,7 +13,7 @@ class Contact extends Model
         'contact_phone',
         'contact_message',
         'contact_status',
-        'user_id'
+        // 'customer_id'
     ];
 
     protected $primaryKey = 'contact_id';

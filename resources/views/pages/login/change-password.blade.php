@@ -81,7 +81,7 @@
                     <form action="{{ route('change-password1') }}" method="post">
                         {{-- {!! dd(session()->all()) !!} --}}
                         @csrf
-                        <label>email</label>
+                        <label>Email</label>
                         <div>
                             <input type="email" id="customer_email" required name="customer_email" class="form-control"
                                 placeholder="Enter email">
@@ -102,7 +102,7 @@
                             <input type="password" id="confirm_password" name="confirm_password" required
                                 class="form-control" placeholder="Confirm Password">
                         </div>
-                        <button type="submit" class="btn btn-primary">Đổi Mật Khẩu</button>
+                        <button type="submit" class="btn btn-primary">Change Password</button>
                     </form>
                 </div>
             </div>

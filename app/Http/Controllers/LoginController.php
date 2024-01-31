@@ -29,12 +29,10 @@ class LoginController extends Controller
     {
         return view('pages.login.login');
     }
-
     public function register()
     {
         return view('pages.login.register');
     }
-
     public function add_customer(Request $request)
     {
 
@@ -49,18 +47,18 @@ class LoginController extends Controller
             'customer_gender' => 'required',
             'customer_dob' => 'required|date',
         ], [
-            'customer_name.required' => 'Vui lòng nhập tên của bạn.',
-            'customer_email.required' => 'Vui lòng nhập địa chỉ email của bạn.',
-            'customer_email.email' => 'Địa chỉ email không hợp lệ.',
-            'customer_email.unique' => 'Email đã tồn tại. Vui lòng sử dụng email khác.',
-            'customer_password.required' => 'Vui lòng nhập mật khẩu.',
-            'customer_password.min' => 'Mật khẩu phải có ít nhất 6 ký tự.',
-            'customer_password.confirmed' => 'Mật khẩu xác nhận không khớp.',
-            'customer_address.required' => 'Vui lòng nhập địa chỉ của bạn.',
-            'customer_phone.required' => 'Vui lòng nhập số điện thoại của bạn.',
-            'customer_gender.required' => 'Vui lòng chọn giới tính của bạn.',
-            'customer_dob.required' => 'Vui lòng chọn ngày sinh của bạn.',
-            'customer_dob.date' => 'Ngày sinh không hợp lệ.',
+            'customer_name.required' => 'Please enter your name.',
+            'customer_email.required' => 'Please enter your email address.',
+            'customer_email.email' => 'Invalid email address.',
+            'customer_email.unique' => 'Email already exists. Please use another email.',
+            'customer_password.required' => 'Please enter password.',
+            'customer_password.min' => 'Password must have at least 6 characters.',
+            'customer_password.confirmed' => 'Confirmed password does not match.',
+            'customer_address.required' => 'Please enter your address.',
+            'customer_phone.required' => 'Please enter your phone number.',
+            'customer_gender.required' => 'Please select your gender.',
+            'customer_dob.required' => 'Please select your date of birth.',
+            'customer_dob.date' => 'Invalid date of birth.',
         ]);
 
         // Kiểm tra xem email đã tồn tại trong cơ sở dữ liệu chưa
@@ -68,14 +66,14 @@ class LoginController extends Controller
 
         // Nếu email đã tồn tại, trả về thông báo lỗi
         if ($existingCustomer) {
-            return redirect('/register')->with('error', 'Email đã tồn tại. Vui lòng sử dụng email khác.');
+            return redirect('/register')->with('error', 'Email already exists. Please use another email.');
         }
         // Kiểm tra xem số điện thoại đã tồn tại trong cơ sở dữ liệu chưa
         $existingCustomerPhone = UserProfile::where('customer_phone', $request->customer_phone)->first();
 
         // Nếu số điện thoại đã tồn tại, trả về thông báo lỗi
         if ($existingCustomerPhone) {
-            return redirect('/register')->with('error', 'Số điện thoại đã tồn tại. Vui lòng sử dụng số điện thoại khác.');
+            return redirect('/register')->with('error', 'Phone number already exists. Please use another phone number.');
         }
         $data = array();
         $data['customer_name'] = $request->customer_name;
@@ -96,11 +94,42 @@ class LoginController extends Controller
         session::put('customer_gender', $request->customer_gender);
         session::put('customer_dob', $request->customer_dob);
 
-
-        Session::flash('success', 'Xin Chào,Chúc Mừng Bạn Đã Đăng ký thành công!');
+        Session::flash('success', 'Hello, Congratulations on your successful registration!');
         return Redirect('/profile');
     }
+    public function showmenber()
+    {
+        $all_member = Userprofile::all();
+        // $manage_member = view('admin.show_members')->with('show_members', $all_member);
+        $manage_member = view('admin.show_members')->with('all_member', $all_member);
+        return view('admin_layout')->with('admin.all_member', $manage_member);
+    }
+    public function ban_customer($customer_id)
+    {
+        $member = UserProfile::findOrFail($customer_id);
+        $member->customer_ban = true;    // cập nhật trạng thái ban
+        $member->save();
+        Session::put('message2', 'Ban member successfully');
+        return Redirect()->back();
+    }
 
+    public function uban_customer($customer_id)
+    {
+        $member = UserProfile::findOrFail($customer_id);
+        $member->customer_ban = false;    // cập nhật trạng thái ban
+        $member->save();
+        Session::put('message3', 'Unban member successfully');
+        return Redirect()->back();
+    }
+
+    public function search(Request $request)
+    {
+        // Lấy danh sach sản phẩm
+        $all_member = UserProfile::where('customer_name', 'like', '%' . $request->seach . '%')->orWhere('customer_phone', $request->seach)->paginate(10);
+
+        // Trả về view hiển thị sau khi lọc
+        return view('admin.show_members', ['all_member' => $all_member->isEmpty() ? null : $all_member]);
+    }
     public function logout()
     {
         session::flush();
@@ -132,19 +161,17 @@ class LoginController extends Controller
                 return redirect('/');
             } else {
                 // Mật khẩu không đúng
-                return redirect('/login')->with('message', 'Sai mật khẩu');
+                return redirect('/login')->with('message', 'Wrong password');
             }
         } else {
             // Người dùng không tồn tại
-            return redirect('/login')->with('message', 'Không tìm thấy người dùng');
+            return redirect('/login')->with('message', 'User not found');
         }
     }
     public function profile()
     {
         return view('pages.login.profile');
     }
-
-
     public function updateAvatar(Request $request)
     {
         // $request->validate([
@@ -212,9 +239,9 @@ class LoginController extends Controller
             $reset->customer_password = md5($data['password_accout']);
             $reset->customer_token = $token_random;
             $reset->save();
-            return redirect('forgot-password')->with('ok', 'mật khẫu đã cập nhật, quay lại trang đăng nhập');
+            return redirect('forgot-password')->with('ok', 'password updated, return to login page');
         } else {
-            return redirect('forgot-password')->with('fail', 'Vui lòng nhập email vì link quá hạn');
+            return redirect('forgot-password')->with('fail', 'Please enter your email because the link is expired');
         };
     }
 
@@ -243,7 +270,7 @@ class LoginController extends Controller
         if ($customer) {
             $count_customer = $customer->count();
             if ($count_customer == 0) {
-                return redirect()->back()->with('loi', 'Emmail chưa đăng ký ');
+                return redirect()->back()->with('loi', 'Email is not registered');
             }
         } else {
             $token_random = Str::random();
@@ -259,7 +286,7 @@ class LoginController extends Controller
                 $message->to($data['email'])->subject($title_email); // send from this mail vs subject
                 $message->form($data['email'], $title_email);
             });
-            return redirect()->back()->with('win', "Gửi email thành công vào email để reset pass");
+            return redirect()->back()->with('win', "Successfully sent email to email to reset password");
         }
     }
 }

@@ -60,11 +60,11 @@ class UserController extends Controller
                 return view('pages.login.update', compact('user'));
             } else {
                 // Nếu không tìm thấy thông tin người dùng, có thể xử lý thông báo lỗi ở đây
-                return redirect()->back()->with('error', 'Không tìm thấy thông tin người dùng');
+                return redirect()->back()->with('error', 'User information not found');
             }
         } else {
             // Nếu người dùng chưa đăng nhập, chuyển hướng về trang đăng nhập
-            return view('pages.login.update')->with('message', 'Bạn cần đăng nhập để cập nhật thông tin');
+            return view('pages.login.update')->with('message', 'You need to log in to update information');
         }
     }
 
@@ -72,6 +72,24 @@ class UserController extends Controller
     // Xử lý cập nhật thông tin
     public function update(Request $request)
     {
+        // Validate dữ liệu
+        // Validate dữ liệu
+        $request->validate([
+
+            'customer_phone' => 'required',
+
+        ], [
+
+            'customer_phone.required' => 'Please enter your phone number.',
+
+        ]);
+
+        // Kiểm tra xem số điện thoại đã tồn tại trong cơ sở dữ liệu chưa
+        $existingCustomerPhone = UserProfile::where('customer_phone', $request->customer_phone)->first();
+        // Nếu số điện thoại đã tồn tại, trả về thông báo lỗi
+        if ($existingCustomerPhone) {
+            return redirect('/update')->with('error', 'Phone number already exists. Please use another phone number.');
+        }
         // dd(session()->all()); // kiểm tra xem đã lưu vào sesion chưa
         // $user = Auth::user();
         // dd($user);  // Truy vấn người dùng hiện tại
@@ -103,15 +121,15 @@ class UserController extends Controller
                 session(['customer_gender' => $customer->customer_gender]);
                 session(['customer_dob' => $customer->customer_dob]);
                 // Chuyển hướng người dùng đến trang hồ sơ và gửi thông báo thành công
-                return redirect('/profile')->with('success', 'Thông tin của bạn đã được cập nhật thành công.');
+                return redirect('/profile')->with('success', 'Your information has been successfully updated.');
             } else {
                 // Xử lý trường hợp không tìm thấy khách hàng trong cơ sở dữ liệu
-                return redirect('/login')->with('error', 'Không tìm thấy thông tin khách hàng. Vui lòng đăng nhập lại.');
+                return redirect('/login')->with('error', 'No customer information found. Please log in again.');
             }
         } else {
 
             // Xử lý trường hợp session không tồn tại (hết hạn hoặc bị mất)
-            return redirect('/login')->with('error', 'Phiên đăng nhập của bạn đã hết hạn hoặc bị mất. Vui lòng đăng nhập lại.');
+            return redirect('/login')->with('error', 'Your login session has expired or been lost. Please log in again.');
         }
     }
 }

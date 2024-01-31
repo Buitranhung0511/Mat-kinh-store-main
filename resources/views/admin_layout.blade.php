@@ -180,11 +180,10 @@ use Illuminate\Support\Facades\Session;
                         <li class="sub-menu">
                             <a href="javascript:;">
                                 <i class="fa fa-book"></i>
-                                <span>Member</span>
+                                <span>Customer</span>
                             </a>
                             <ul class="sub">
-                                <li><a href="{{ URL::to('/register-member/') }}">Register Member</a></li>
-                                <li><a href="{{ URL::to('/all-member/') }}">Show member list</a></li>
+                                <li><a href="{{ URL::to('/showmenber/') }}">Show Customer</a></li>
                             </ul>
                         </li>
                         {{-- End --}}

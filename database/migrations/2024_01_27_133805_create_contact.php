@@ -19,8 +19,8 @@ return new class extends Migration
             $table->text('contact_message');
             $table->string('contact_status');
 
-            $table->unsignedInteger('id');
-            $table->foreign('id')->references('id')->on('member')->onDelete('cascade');
+            $table->unsignedInteger('customer_id');
+            $table->foreign('customer_id')->references('customer_id')->on('customers');
             $table->timestamps();
         });
     }

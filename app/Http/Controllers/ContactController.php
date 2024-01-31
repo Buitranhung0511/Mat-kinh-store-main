@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Contact;
 use App\Models\ContactReply;
 use App\Models\Member;
+use App\Models\UserProfile;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
@@ -36,7 +37,7 @@ class ContactController extends Controller
         ]);
 
         // Lấy email tương ứng với bảng member
-        $member = Member::where('email', $request->input('email'))->first();
+        $member = UserProfile::where('customer_email', $request->input('customer_email'))->first();
 
         if ($member) {
 
@@ -47,7 +48,7 @@ class ContactController extends Controller
             $contact->contact_phone = $request->input('phone');
             $contact->contact_message = $request->input('message');
             $contact->contact_status = 'pending'; // Gán giá trị mặc định cho trường status
-            $contact->id = $member->id; // Gán ID của thành viên
+            // $contact->customer_id = $member->customer_id; // Gán ID của thành viên
             $contact->save();
 
             // Gửi email với nội dung mặc định từ view default_email.blade.php

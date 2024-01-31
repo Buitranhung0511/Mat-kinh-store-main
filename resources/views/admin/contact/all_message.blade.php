@@ -51,7 +51,7 @@ use Illuminate\Support\Facades\Session;
                 <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Member_id</th>
+                        {{-- <th>Customer_id</th> --}}
                         <th>Email</th>
                         <th>Phone</th>
                         <th>Message</th>
@@ -65,7 +65,7 @@ use Illuminate\Support\Facades\Session;
                         @foreach ($all_message as $mess)
                             <tr>
                                 <td>{{ $mess->contact_name }}</td>
-                                <td>{{ $mess->id }}</td>
+                                {{-- <td>{{ $mess->customer_id }}</td> --}}
                                 <td>{{ $mess->contact_email }}</td>
                                 <td>{{ $mess->contact_phone }}</td>
                                 <td>{{ $mess->contact_message }}</td>
