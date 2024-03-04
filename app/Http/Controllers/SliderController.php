@@ -65,13 +65,6 @@ class SliderController extends Controller
             Session::put('message', 'Please add image');
             return Redirect::to('add-slider');
         }
-
-
-        // echo '<pre>';
-        // print_r($data);
-        // echo '</pre>';
-
-
     }
 
     // Hàm xử lý Show/Hiden

@@ -45,33 +45,31 @@ class CategoryProductController extends Controller
 
     public function save_category_product(Request $request)
     {
-        $this->AuthLogin();           // Nếu login thì trả về trang save_category_product
-        // Lấy CSDL
-        $data = array();
+        $this->AuthLogin(); // Assuming this handles authentication
 
-        // Kiểm tra đầu vào có trùng tên hay không
+        // Get data from the request
+        $data = [
+            'category_name' => $request->category_product_name,
+            'category_desc' => $request->category_product_desc,
+            'category_status' => $request->category_product_status,
+        ];
+
+        // Check for name uniqueness, excluding the current category if editing
         $checkCategory = DB::table('category_product')
-            ->where('category_name', $request->category_product_name)
-            ->where('category_id', $request->category_product_id)
-            ->exists();
+            ->where('category_name', $data['category_name']);
 
-        if ($checkCategory) {
-            $data['category_name'] = $request->category_product_name;
-        } else {
-            Session::put('message', '<h4 style="color:red;">Category_name already exits ? Please input again!</h4>');
-            return Redirect()->back();
+        if ($request->has('category_product_id')) {
+            $checkCategory->where('category_id', '<>', $request->category_product_id);
         }
 
-        $data['category_desc'] = $request->category_product_desc;
-        $data['category_status'] = $request->category_product_status;
-        // $data['product_quantity'] = $request->category_product_quantity;
+        if ($checkCategory->exists()) {
+            Session::put('message', '<h4 style="color:red;">Category name already exists. Please choose a different name.</h4>');
+            return Redirect::back()->withInput($data); // Retain form data
+        }
 
-        // echo '<pre>';
-        // print_r($data);
-        // echo '</pre>';
-
+        // Insert the new category
         DB::table('category_product')->insert($data);
-        Session::put('message', 'Add category successfully');
+        Session::put('message', 'Category added successfully.');
         return Redirect::to('add-category-product');
     }
 
@@ -116,7 +114,7 @@ class CategoryProductController extends Controller
             ->where("category_id", "!=", $category_product_id)
             ->exists();
 
-        if ($checkCategory == true) {
+        if ($checkCategory) {
             Session::put('message', '<h4 style="color:red;">Product_name already exits ? Please input again!</h4>');
             return Redirect()->back();
         } else {

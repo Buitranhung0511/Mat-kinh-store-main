@@ -73,7 +73,9 @@ class LoginController extends Controller
         $dob = new DateTime($request->customer_dob);
         $now = new DateTime();
         $age = $now->diff($dob)->y;
-
+        if ($age < 18) {
+            return redirect('/register')->with('error', 'Invalid age error! You must be 18 years or older.');
+        }
         // Kiểm tra xem số điện thoại đã tồn tại trong cơ sở dữ liệu chưa
         $existingCustomerPhone = UserProfile::where('customer_phone', $request->customer_phone)->first();
 

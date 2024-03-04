@@ -53,18 +53,6 @@ class ProductController extends Controller
     public function save_product(Request $request)
     {
         $this->AuthLogin();
-        // phương thức sử lý xác thực các trường đăng ký có hợp lệ hay không..
-        // $request->validate([
-        //     'product_name' => 'required',
-        //     'product_quantity' => 'required',
-        //     'category_id' => 'required',
-        //     'product_desc' => 'required',
-        //     'product_content' => 'required',
-        //     'product_price' => 'required',
-        //     'product_image' => 'required',
-
-
-        // ]);
 
         // Lấy CSDL
         $data = array();

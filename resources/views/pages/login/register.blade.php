@@ -33,7 +33,7 @@
                     @if ($errors->has('customer_hpone'))
                         <div class="alert alert-danger">{{ $errors->first('customer_phone') }}</div>
                     @endif
-                    <input type="text" name="customer_address" placeholder="Địa chỉ" />
+                    <input type="text" name="customer_address" placeholder="Address" />
                     @if ($errors->has('customer_address'))
                         <div class="alert alert-danger">{{ $errors->first('customer_address') }}</div>
                     @endif
@@ -47,7 +47,7 @@
                     @if ($errors->has('customer_gender'))
                         <div class="alert alert-danger">{{ $errors->first('customer_gender') }}</div>
                     @endif
-                    <input type="date" name="customer_dob" placeholder="Ngày sinh" />
+                    <input type="date" name="customer_dob" placeholder="Birth-day" />
                     @if ($errors->has('customer_dob'))
                         <div class="alert alert-danger">{{ $errors->first('customer_dob') }}</div>
                     @endif

@@ -64,6 +64,6 @@ class HomeController extends Controller
 
         return view('pages.product.search_home')
             ->with('all_product', $all_product)
-            ->with('search_product',   $search_product);
+            ->with('search_product', $search_product);
     }
 }

@@ -12,7 +12,7 @@ class OrderController extends Controller
 {
     public function view_order()
     {
-        $all_order = Order::paginate(5);    // lấy tất cả đơn hàng từ DB..
+        $all_order = Order::orderByDesc('id')->paginate(5);    // lấy tất cả đơn hàng từ DB..
         return view("admin.view_order", ['all_order' => $all_order]);
     }
 }

@@ -132,22 +132,11 @@
                                 {{-- Menu News --}}
                                 <li class="dropdown">
                                     <a href="{{ URL::to('/category-post') }}">News</a>
-                                    {{-- <ul role="menu" class="sub-menu">
-                                        @foreach ($category_post as $key => $catepost)
-                                            <li>
-                                                <a href="">
-                                                    {{ $catepost->category_posts_name }}
-                                                </a>
-                                            </li>
-                                        @endforeach
-                                    </ul> --}}
                                 </li>
                                 @php
 
                                     $cart = session()->get('cart', []);
-                                    // if ($cart) {
-                                    //     // session_start();
-                                    // }
+
                                     $totalQuantity = 0;
 
                                     if (!empty($cart)) {
@@ -172,17 +161,17 @@
                             </ul>
                         </div>
                     </div>
+
                     <div class="col-sm-4">
                         <form action="{{ URL::to('/tim-kiem') }}" method="get">
                             @csrf
                             <div class="search_box pull-right">
                                 <input type="text" name="keywords_submit" placeholder="Search" />
-                                <input type="submit" style="margin-top:0; width: 70px; border-radius: 5px"
-                                    name="search_item" class="btn btn-primary" placeholder="Search" />
-                                {{-- <button type="submit" class="btn btn-primary btn-sm">Search</button> --}}
+                                <input type="submit" value="Search"
+                                    style="margin-top:0; width: 70px; border-radius: 5px" name="search_item"
+                                    class="btn btn-primary" placeholder="Search" />
                             </div>
                         </form>
-
                     </div>
                 </div>
             </div>

@@ -10,13 +10,7 @@ use Illuminate\Support\Facades\Session;
             </div>
             <div class="row w3-res-tb">
                 <div class="col-sm-5 m-b-xs">
-                    <select class="input-sm form-control w-sm inline v-middle">
-                        <option value="0">Bulk action</option>
-                        <option value="1">Delete selected</option>
-                        <option value="2">Bulk edit</option>
-                        <option value="3">Export</option>
-                    </select>
-                    <button class="btn btn-sm btn-default">Apply</button>
+
                 </div>
                 <div class="col-sm-4">
                 </div>
@@ -24,7 +18,7 @@ use Illuminate\Support\Facades\Session;
                     <div class="input-group">
                         <input type="text" class="input-sm form-control" placeholder="Search">
                         <span class="input-group-btn">
-                            <button class="btn btn-sm btn-default" type="button">Go!</button>
+                            <button class="btn btn-sm btn-default" type="button">Search</button>
                         </span>
                     </div>
                 </div>
@@ -40,12 +34,6 @@ use Illuminate\Support\Facades\Session;
                 <table class="table table-striped b-t b-light">
                     <thead>
                         <tr>
-                            <th style="width:20px;">
-                                <label class="i-checks m-b-none">
-                                    <input type="checkbox"><i></i>
-                                </label>
-                            </th>
-
                             <th>Tên user</th>
                             <th>Email</th>
                             <th>Phone</th>
@@ -62,9 +50,6 @@ use Illuminate\Support\Facades\Session;
                             <form action="{{ url('/assign-roles') }}" method="POST">
                                 @csrf
                                 <tr>
-
-                                    <td><label class="i-checks m-b-none"><input type="checkbox"
-                                                name="post[]"><i></i></label></td>
                                     <td>{{ $user->admin_name }}</td>
                                     <td>{{ $user->admin_email }} <input type="hidden" name="admin_email"
                                             value="{{ $user->admin_email }}"></td>

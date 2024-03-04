@@ -11,6 +11,7 @@ use App\Models\Slider;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Log;
+use DateTime;
 
 class UserController extends Controller
 {
@@ -84,16 +85,23 @@ class UserController extends Controller
 
         ]);
 
-        // Kiểm tra xem số điện thoại đã tồn tại trong cơ sở dữ liệu chưa
-        $existingCustomerPhone = UserProfile::where('customer_phone', $request->customer_phone)->first();
-        // Nếu số điện thoại đã tồn tại, trả về thông báo lỗi
-        if ($existingCustomerPhone) {
-            return redirect('/update')->with('error', 'Phone number already exists. Please use another phone number.');
-        }
+        // // Kiểm tra xem số điện thoại đã tồn tại trong cơ sở dữ liệu chưa
+        // $existingCustomerPhone = UserProfile::where('customer_phone', $request->customer_phone)->first();
+        // // Nếu số điện thoại đã tồn tại, trả về thông báo lỗi
+        // if ($existingCustomerPhone) {
+        //     return redirect('/update')->with('error', 'Phone number already exists. Please use another phone number.');
+        // }
         // dd(session()->all()); // kiểm tra xem đã lưu vào sesion chưa
         // $user = Auth::user();
         // dd($user);  // Truy vấn người dùng hiện tại
         // // Kiểm tra xem session của người dùng có tồn tại không
+        // Kiểm tra độ tuổi
+        $dob = new DateTime($request->customer_dob);
+        $now = new DateTime();
+        $age = $now->diff($dob)->y;
+        if ($age < 18) {
+            return redirect('/update')->with('error', 'Invalid age error! You must be 18 years or older.');
+        }
         if (session()->has('customer_id')) {
             // Lấy ID của khách hàng từ session
             $customer_id = session('customer_id');
